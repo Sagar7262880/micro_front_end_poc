@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(onPressed: (){
                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ApplyOutDuty() ),);
-            }, child: Text('Apply Outduty'),),ElevatedButton(onPressed: (){
+            }, child: Text('Apply Outduty ok'),),ElevatedButton(onPressed: (){
               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Applyleave() ),);
             }, child: Text('Apply Leave'),),
           ],
