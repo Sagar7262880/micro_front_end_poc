@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:get/get.dart';
 import 'package:out_duty/Apply/ApplyOutDuty.dart';
 import 'package:leave/apply/ApplyLeave.dart';
