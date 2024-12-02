@@ -1,7 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:get/get.dart'; // For Get.toNamed()
 import 'package:micro_front_end_poc/screens/home.dart';
+import 'package:leave/apply/ApplyLeave.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -12,56 +14,43 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _bottomNavIndex = 0; // Current active index
+  bool isFloating = false;
 
   // List of icons for the navigation bar
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
-    HugeIcons.strokeRoundedDashboardSquare01,
+    HugeIcons.strokeRoundedAbacus,
     HugeIcons.strokeRoundedUserStatus,
     HugeIcons.strokeRoundedSearchList01,
   ];
 
   // List of navigation labels
-  final List<String> labels = ["Home", "Menu", "Favorites", "Profile"];
+  final List<String> labels = ["Home", "Something", "Favorites", "Profile"];
 
   // List of pages for navigation
   final List<Widget> pages = [
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
-    const FavoritesPage(),
+    // const FavoritesPage(),
+    const Applyleave(),
     const ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_bottomNavIndex], // Display the selected page
+      body: isFloating
+          ? Applyleave()
+          : pages[_bottomNavIndex], // Display the selected page
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Perform action based on the selected tab
-          if (_bottomNavIndex == 0) {
-            // Action for "Home"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Home FAB Action")),
-            );
-          } else if (_bottomNavIndex == 1) {
-            // Action for "Search"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Menu")),
-            );
-          } else if (_bottomNavIndex == 2) {
-            // Action for "Favorites"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Favorites FAB Action")),
-            );
-          } else if (_bottomNavIndex == 3) {
-            // Action for "Profile"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Profile FAB Action")),
-            );
-          }
+          // Navigate to "/"
+          // Get.toNamed("/applyLeave");
+          Get.to(() => Applyleave());
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          HugeIcons.strokeRoundedDashboardSquare01,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
@@ -84,13 +73,32 @@ class _BottomNavBarState extends State<BottomNavBar> {
         activeIndex: _bottomNavIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.softEdge,
-        onTap: (index) => setState(() => _bottomNavIndex = index),
-        // activeColor: Colors.blue,
-        // inactiveColor: Colors.black54,
+        onTap: (index) {
+          setState(
+            () => _bottomNavIndex = index,
+          );
+          if (index == 0) {
+            // Handle specific navigation logic for index 0
+            // Get.toNamed("/");
+            // Get.toNamed("/applyLeave");
+            setState(() {
+              isFloating = true;
+            });
+            // Get.to(() => Applyleave());
+          }
+        },
         leftCornerRadius: 32,
         rightCornerRadius: 32,
         backgroundColor: Colors.white,
       ),
+      // bottomNavigationBar: AnimatedBottomNavigationBar(
+      //   icons: iconList,
+      //   activeIndex: _bottomNavIndex,
+      //   leftCornerRadius: 32,
+      //   rightCornerRadius: 32,
+      //   onTap: (index) => setState(() => _bottomNavIndex = index),
+      //   //other params
+      // ),
     );
   }
 }
