@@ -14,7 +14,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _bottomNavIndex = 0; // Current active index
-  bool isFloating = false;
+  // bool isFloating = false;
 
   // List of icons for the navigation bar
   final List<IconData> iconList = [
@@ -39,9 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isFloating
-          ? Applyleave()
-          : pages[_bottomNavIndex], // Display the selected page
+      body: pages[_bottomNavIndex], // Display the selected page
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Navigate to "/"
@@ -77,15 +75,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
           setState(
             () => _bottomNavIndex = index,
           );
-          if (index == 0) {
-            // Handle specific navigation logic for index 0
-            // Get.toNamed("/");
-            // Get.toNamed("/applyLeave");
-            setState(() {
-              isFloating = true;
-            });
-            // Get.to(() => Applyleave());
-          }
+          // if (index == 0) {
+          //   // Handle specific navigation logic for index 0
+          //   // Get.toNamed("/");
+          //   // Get.toNamed("/applyLeave");
+          //   setState(() {
+          //     isFloating = true;
+          //   });
+          //   // Get.to(() => Applyleave());
+          // }
         },
         leftCornerRadius: 32,
         rightCornerRadius: 32,
