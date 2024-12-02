@@ -16,37 +16,37 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
 #=================== Local Packages======================
-#  out_duty:
-#    path: D:/projects/micro_apps/out_duty
-#  leave:
-#    path: D:/projects/micro_apps/leave
-#  profile:
-#    path: D:/projects/micro_apps/profile
-#  utility:
-#    path: D:/projects/micro_apps/utility
-#  exp_claim:
-#    path: D:/projects/micro_apps/exp_claim
+  out_duty:
+    path: D:/projects/micro_apps/out_duty
+  leave:
+    path: D:/projects/micro_apps/leave
+  profile:
+    path: D:/projects/micro_apps/profile
+  utility:
+    path: D:/projects/micro_apps/utility
+  exp_claim:
+    path: D:/projects/micro_apps/exp_claim
 
 
 #=================== Remote Packages======================
 
-  out_duty:
-    git:
-      url: "https://github.com/Sagar7262880/out_duty.git"
-      ref: main
-
-  leave:
-    git:
-      url: "https://github.com/Sagar7262880/leave.git"
-      ref: main
-  utility:
-    git:
-      url: "https://github.com/Sagar7262880/utility.git"
-      ref: main
-  exp_claim:
-    git:
-      url: "https://github.com/Sagar7262880/exp_claim.git"
-      ref: main
+#  out_duty:
+#    git:
+#      url: "https://github.com/Sagar7262880/out_duty.git"
+#      ref: main
+#
+#  leave:
+#    git:
+#      url: "https://github.com/Sagar7262880/leave.git"
+#      ref: main
+#  utility:
+#    git:
+#      url: "https://github.com/Sagar7262880/utility.git"
+#      ref: main
+#  exp_claim:
+#    git:
+#      url: "https://github.com/Sagar7262880/exp_claim.git"
+#      ref: main
 
 
 flutter:
