@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:second_page/second_page.dart';
-
+import 'package:out_duty/Apply/ApplyOutDuty.dart';
+import 'package:leave/apply/ApplyLeave.dart';
 import '../main.dart';
 
 class AppRoutes {
-  //Initial Route
+  //=========================Initial Route=========================
   static const String home = '/';
   //================================================================
   static const Transition defaultTransition = Transition.fadeIn;
@@ -15,19 +14,19 @@ class AppRoutes {
   static List<GetPage> routes = [
     GetPage(
       name: home,
-      page: () => const MyHomePage(title: 'POC Demo'),
+      page: () => const MyHomePage(title: "Micro front-end Demo"),
       transition: defaultTransition,
       transitionDuration: defaultDuration,
     ),
     GetPage(
-      name: '/SecondScreen',
-      page: () => const SecondPage(),
+      name: '/applyOutDuty',
+      page: () => const ApplyOutDuty(),
       transition: defaultTransition,
       transitionDuration: defaultDuration,
     ),
     GetPage(
-      name: '/ThirdScreen',
-      page: () => const SecondPage(),
+      name: '/applyLeave',
+      page: () => const Applyleave(),
       transition: defaultTransition,
       transitionDuration: defaultDuration,
     ),
