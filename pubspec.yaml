@@ -9,6 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  animated_bottom_navigation_bar: ^1.3.3
+  hugeicons: ^0.0.7
 
 dev_dependencies:
   flutter_test:
@@ -48,12 +50,12 @@ dev_dependencies:
       url: "https://github.com/Sagar7262880/exp_claim.git"
       ref: main
 
-
 flutter:
-
-
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/success.json
+
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
 
