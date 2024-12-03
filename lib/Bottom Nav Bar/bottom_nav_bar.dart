@@ -48,15 +48,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return WillPopScope(
-      onWillPop: ()async {
-        if(_bottomNavIndex==0){
+      onWillPop: () async {
+        if (_bottomNavIndex == 0) {
           return true;
-        }
-        else{
-         // setState(() {
-         //   _bottomNavIndex=0;
-         // });
+        } else {
+          // setState(() {
+          //   _bottomNavIndex=0;
+          // });
           Get.offAllNamed("/");
         }
         return false;
@@ -66,7 +67,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
           itemCount: iconList.length,
           tabBuilder: (int index, bool isActive) {
-            final color = isActive ? Theme.of(context).dividerColor : Colors.grey;
+            final color =
+                isActive ? Theme.of(context).dividerColor : Colors.grey;
             return Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -91,6 +93,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           },
           leftCornerRadius: 32,
           rightCornerRadius: 32,
+          height: height / 9.99 - 10,
           backgroundColor: Colors.white,
         ),
       ),

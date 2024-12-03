@@ -14,25 +14,28 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: CustomScrollView(
         slivers: [
           // SliverAppBar for a collapsible header
-          SliverAppBar(
-            pinned: false, // Keeps the app bar visible when scrolled
-            floating: true,
-            expandedHeight: 50.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.title,
-                style: const TextStyle(color: Colors.black),
-              ),
-              // background: Container(
-              //   color: Theme.of(context)
-              //       .primaryColor, // Match the background color
-              // ),
-              collapseMode: CollapseMode.none,
-            ),
-          ),
+          // SliverAppBar(
+          //   pinned: false, // Keeps the app bar visible when scrolled
+          //   floating: true,
+          //   expandedHeight: 50.0,
+          //   flexibleSpace: FlexibleSpaceBar(
+          //     title: Text(
+          //       widget.title,
+          //       style: const TextStyle(color: Colors.black),
+          //     ),
+          //     // background: Container(
+          //     //   color: Theme.of(context)
+          //     //       .primaryColor, // Match the background color
+          //     // ),
+          //     collapseMode: CollapseMode.none,
+          //   ),
+          // ),
 
           // SliverPadding for consistent padding around the content
           SliverPadding(
