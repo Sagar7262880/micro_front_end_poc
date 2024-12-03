@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:get/get.dart'; // For Get.toNamed()
 import 'package:micro_front_end_poc/screens/home.dart';
 import 'package:leave/apply/ApplyLeave.dart';
+import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -21,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HugeIcons.strokeRoundedAbacus,
     HugeIcons
         .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
-    HugeIcons.strokeRoundedUserStatus,
+    HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
 
@@ -30,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     "Home",
     "Something",
     "Apply Leave",
-    "Favorites",
+    "Geo Fencing",
     "Profile"
   ];
 
@@ -39,7 +40,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
     const Applyleave(),
-    const FavoritesPage(),
+    const Backgroundgeoserviceview(),
     const ProfilePage(),
   ];
 
