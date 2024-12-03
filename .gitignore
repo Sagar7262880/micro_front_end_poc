@@ -59,3 +59,7 @@ x86/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+/macos/Flutter/ephemeral/flutter_export_environment.sh
+/linux/flutter/generated_plugins.cmake
+/macos/Flutter/GeneratedPluginRegistrant.swift
