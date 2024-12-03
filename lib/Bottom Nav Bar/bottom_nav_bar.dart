@@ -67,8 +67,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
           itemCount: iconList.length,
           tabBuilder: (int index, bool isActive) {
-            final color =
-                isActive ? Theme.of(context).dividerColor : Colors.grey;
+            final color = isActive ? Theme.of(context).dividerColor : Colors.grey;
             return Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
