@@ -24,7 +24,15 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.orangeAccent,
         ),
         useMaterial3: true,
-        primaryColor: Colors.indigoAccent,
+        primaryColor: Colors.orangeAccent,
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(
+              // Theme.of(context).cardColor,
+              Colors.orangeAccent,
+            ),
+          ),
+        ),
       ),
       home: const BottomNavBar(),
     );

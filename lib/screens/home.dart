@@ -15,121 +15,147 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+      body: CustomScrollView(
+        slivers: [
+          // SliverAppBar for a collapsible header
+          SliverAppBar(
+            pinned: false, // Keeps the app bar visible when scrolled
+            floating: true,
+            expandedHeight: 50.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                widget.title,
+                style: const TextStyle(color: Colors.black),
+              ),
+              // background: Container(
+              //   color: Theme.of(context)
+              //       .primaryColor, // Match the background color
+              // ),
+              collapseMode: CollapseMode.none,
+            ),
+          ),
+
+          // SliverPadding for consistent padding around the content
+          SliverPadding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyLeave");
+                        },
+                        child: buildCard(
+                          title: "Apply Leave",
+                          imagePath: "assets/house.png",
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10), // Add spacing between cards
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyOutDuty");
+                        },
+                        child: buildCard(
+                          title: "Apply Out Duty",
+                          imagePath: "assets/calendar.png",
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyLeave");
+                        },
+                        child: buildCard(
+                          title: "Reports",
+                          imagePath: "assets/report.png",
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10), // Add spacing between cards
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyOutDuty");
+                        },
+                        child: buildCard(
+                          title: "Profile",
+                          imagePath: "assets/working.png",
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        showSuccessBottomSheet(
+                          context,
+                          "Successfully",
+                          "Great It's working..!",
+                        );
+                      },
+                      child: const Text("Apply"),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        showErrorBottomSheet(
+                          context,
+                          "Oopsss...!",
+                          "Please enter date..!",
+                        );
+                      },
+                      child: const Text("Error"),
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+          ),
+        ],
       ),
-      body: Center(
+    );
+  }
+
+  // Helper function to build a card
+  Widget buildCard({required String title, required String imagePath}) {
+    return Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: SizedBox(
+        height: 120, // Fixed height for all cards
         child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8, top: 36),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed("/applyOutDuty");
-                          // Get.to(() => const ApplyOutDuty());
-                        },
-                        child: const Text('Apply Out Duty'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 24,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: const Text('Apply Leave'),
-                      ),
-                    ),
-                  ),
-                ],
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                imagePath,
+                width: 50,
+                height: 50, // Fixed size for images
               ),
-              const SizedBox(
-                height: 24,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed("/applyOutDuty");
-                        },
-                        child: const Text('Apply Expanse Claim'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 24,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 100,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: const Text('Profile'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      showSuccessBottomSheet(
-                        context,
-                        "Successfully",
-                        "Great It's working..!",
-                      );
-                    },
-                    child: RichText(
-                      text: const TextSpan(
-                        text: 'Apply ',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      showErrorBottomSheet(
-                        context,
-                        "Oopsss...!",
-                        "Please enter date..!",
-                      );
-                    },
-                    child: RichText(
-                      text: const TextSpan(
-                        text: 'Error ',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              const SizedBox(width: 20),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 16), // Consistent font size
+                ),
               ),
             ],
           ),

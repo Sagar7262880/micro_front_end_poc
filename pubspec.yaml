@@ -40,7 +40,7 @@ dev_dependencies:
   leave:
     git:
       url: "https://github.com/Sagar7262880/leave.git"
-      ref: main
+      ref: master
   utility:
     git:
       url: "https://github.com/Sagar7262880/utility.git"
