@@ -1,4 +1,6 @@
 package com.example.micro_front_end_poc
+
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -138,4 +140,5 @@ class MainActivity : FlutterActivity() {
         }
     }
 }
+
 
