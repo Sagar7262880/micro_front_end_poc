@@ -1,7 +1,9 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:get/get.dart'; // For Get.toNamed()
 import 'package:micro_front_end_poc/screens/home.dart';
+import 'package:leave/apply/ApplyLeave.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -16,18 +18,27 @@ class _BottomNavBarState extends State<BottomNavBar> {
   // List of icons for the navigation bar
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
-    HugeIcons.strokeRoundedDashboardSquare01,
+    HugeIcons.strokeRoundedAbacus,
+    HugeIcons
+        .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedUserStatus,
     HugeIcons.strokeRoundedSearchList01,
   ];
 
   // List of navigation labels
-  final List<String> labels = ["Home", "Menu", "Favorites", "Profile"];
+  final List<String> labels = [
+    "Home",
+    "Something",
+    "Apply Leave",
+    "Favorites",
+    "Profile"
+  ];
 
   // List of pages for navigation
   final List<Widget> pages = [
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
+    const Applyleave(),
     const FavoritesPage(),
     const ProfilePage(),
   ];
@@ -36,34 +47,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_bottomNavIndex], // Display the selected page
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Perform action based on the selected tab
-          if (_bottomNavIndex == 0) {
-            // Action for "Home"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Home FAB Action")),
-            );
-          } else if (_bottomNavIndex == 1) {
-            // Action for "Search"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Menu")),
-            );
-          } else if (_bottomNavIndex == 2) {
-            // Action for "Favorites"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Favorites FAB Action")),
-            );
-          } else if (_bottomNavIndex == 3) {
-            // Action for "Profile"
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Profile FAB Action")),
-            );
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: iconList.length,
         tabBuilder: (int index, bool isActive) {
@@ -82,11 +65,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
           );
         },
         activeIndex: _bottomNavIndex,
-        gapLocation: GapLocation.center,
+        gapLocation: GapLocation
+            .none, // Remove the center gap for floating action button
         notchSmoothness: NotchSmoothness.softEdge,
-        onTap: (index) => setState(() => _bottomNavIndex = index),
-        // activeColor: Colors.blue,
-        // inactiveColor: Colors.black54,
+        onTap: (index) {
+          setState(() {
+            _bottomNavIndex = index;
+          });
+        },
         leftCornerRadius: 32,
         rightCornerRadius: 32,
         backgroundColor: Colors.white,
