@@ -6,6 +6,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:micro_front_end_poc/screens/home.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
+import 'package:utility/utility.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -47,37 +48,51 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[_bottomNavIndex], // Display the selected page
-      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-        itemCount: iconList.length,
-        tabBuilder: (int index, bool isActive) {
-          final color = isActive ? Theme.of(context).dividerColor : Colors.grey;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(iconList[index], size: 18.0, color: color),
-              const SizedBox(height: 4.0),
-              Text(
-                labels[index],
-                style: TextStyle(color: color, fontSize: 12.0),
-              ),
-            ],
-          );
-        },
-        activeIndex: _bottomNavIndex,
-        gapLocation: GapLocation
-            .none, // Remove the center gap for floating action button
-        notchSmoothness: NotchSmoothness.softEdge,
-        onTap: (index) {
-          setState(() {
-            _bottomNavIndex = index;
-          });
-        },
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
-        backgroundColor: Colors.white,
+    return WillPopScope(
+      onWillPop: ()async {
+        if(_bottomNavIndex==0){
+          return true;
+        }
+        else{
+         // setState(() {
+         //   _bottomNavIndex=0;
+         // });
+          Get.offAllNamed("/");
+        }
+        return false;
+      },
+      child: Scaffold(
+        body: pages[_bottomNavIndex], // Display the selected page
+        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+          itemCount: iconList.length,
+          tabBuilder: (int index, bool isActive) {
+            final color = isActive ? Theme.of(context).dividerColor : Colors.grey;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(iconList[index], size: 18.0, color: color),
+                const SizedBox(height: 4.0),
+                Text(
+                  labels[index],
+                  style: TextStyle(color: color, fontSize: 12.0),
+                ),
+              ],
+            );
+          },
+          activeIndex: _bottomNavIndex,
+          gapLocation: GapLocation
+              .none, // Remove the center gap for floating action button
+          notchSmoothness: NotchSmoothness.softEdge,
+          onTap: (index) {
+            setState(() {
+              _bottomNavIndex = index;
+            });
+          },
+          leftCornerRadius: 32,
+          rightCornerRadius: 32,
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }
