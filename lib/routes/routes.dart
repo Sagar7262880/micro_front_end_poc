@@ -2,7 +2,8 @@
 
 import 'package:get/get.dart';
 import 'package:out_duty/Apply/ApplyOutDuty.dart';
-import 'package:leave/apply/ApplyLeave.dart';
+// import 'package:leave/apply/ApplyLeave.dart';
+import 'package:leave/apply/view/ApplyLeave.dart';
 import '../screens/home.dart';
 
 class AppRoutes {

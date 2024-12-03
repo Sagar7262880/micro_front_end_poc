@@ -20,8 +20,8 @@ dev_dependencies:
 #=================== Local Packages======================
 #  out_duty:
 #    path: D:/projects/micro_apps/out_duty
-#  leave:
-#    path: D:/projects/micro_apps/leave
+  leave:
+    path: D:\micros\leave
 #  profile:
 #    path: D:/projects/micro_apps/profile
 #  utility:
@@ -37,10 +37,10 @@ dev_dependencies:
       url: "https://github.com/Sagar7262880/out_duty.git"
       ref: main
 
-  leave:
-    git:
-      url: "https://github.com/Sagar7262880/leave.git"
-      ref: master
+#  leave:
+#    git:
+#      url: "https://github.com/Sagar7262880/leave.git"
+#      ref: master
   utility:
     git:
       url: "https://github.com/Sagar7262880/utility.git"
