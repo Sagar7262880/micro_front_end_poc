@@ -4,7 +4,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:micro_front_end_poc/screens/home.dart';
-import 'package:leave/apply/ApplyLeave.dart';
+import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
 
 class BottomNavBar extends StatefulWidget {
