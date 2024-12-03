@@ -56,3 +56,6 @@ x86/
 # Visual Studio cache files
 *.[Cc]ache
 !*.[Cc]ache/
+
+.flutter-plugins
+.flutter-plugins-dependencies
