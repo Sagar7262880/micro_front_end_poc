@@ -6,6 +6,7 @@ import 'package:utility/utility.dart';
 import 'Bottom Nav Bar/bottom_nav_bar.dart';
 
 void main() {
+  SharedService();
   runApp(const MyApp());
 }
 

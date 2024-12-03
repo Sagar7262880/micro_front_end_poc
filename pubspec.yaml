@@ -45,10 +45,15 @@ dev_dependencies:
     git:
       url: "https://github.com/Sagar7262880/utility.git"
       ref: main
+  geo_fencing:
+      git:
+        url: "https://github.com/Sagar7262880/geo_fencing.git"
+        ref: main
   exp_claim:
     git:
       url: "https://github.com/Sagar7262880/exp_claim.git"
       ref: main
+
 
 flutter:
   uses-material-design: true
