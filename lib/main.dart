@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Infogird Demo',
+      title: 'Infogird Demo Mac',
       initialRoute: AppRoutes.home,
       getPages: AppRoutes.routes,
       theme: ThemeData(

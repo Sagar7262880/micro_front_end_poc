@@ -2,7 +2,7 @@ name: micro_front_end_poc
 description: "A new Flutter project."
 version: 1.0.0+1
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 
 dependencies:
@@ -17,7 +17,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
 
-#=================== Local Packages======================
+#=================== Local Packages For Android======================
 #  out_duty:
 #    path: D:/projects/micro_apps/out_duty
 #  leave:
@@ -29,6 +29,16 @@ dev_dependencies:
 #  exp_claim:
 #    path: D:/projects/micro_apps/exp_claim
 
+  #=================== Local Packages For IOS ======================
+
+#  out_duty:
+#      path: /Users/vikrantghan/Documents/Projects/MicrofrontEnd/out_duty
+#  leave:
+#      path: /Users/vikrantghan/Documents/Projects/MicrofrontEnd/leave
+#  profile:
+#      path: /Users/vikrantghan/Documents/Projects/MicrofrontEnd/profile
+#  utility:
+#      path: /Users/vikrantghan/Documents/Projects/MicrofrontEnd/utility
 
 #=================== Remote Packages======================
 
@@ -49,10 +59,10 @@ dev_dependencies:
       git:
         url: "https://github.com/Sagar7262880/geo_fencing.git"
         ref: main
-  exp_claim:
-    git:
-      url: "https://github.com/Sagar7262880/exp_claim.git"
-      ref: main
+#  exp_claim:
+#    git:
+#      url: "https://github.com/Sagar7262880/exp_claim.git"
+#      ref: main
 
 
 flutter:
