@@ -209,15 +209,6 @@ packages:
       url: "https://github.com/Sagar7262880/geo_fencing.git"
     source: git
     version: "0.0.1"
-  geo_fencing:
-    dependency: "direct dev"
-    description:
-      path: "."
-      ref: main
-      resolved-ref: cc56751adac0777f2be220cef817e4b7cdd653d8
-      url: "https://github.com/Sagar7262880/geo_fencing.git"
-    source: git
-    version: "0.0.1"
   geocoding:
     dependency: transitive
     description:
@@ -373,11 +364,6 @@ packages:
   leave:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: master
-      resolved-ref: a5f8f88c55b0ea9e72353b855112e8b0f6187d93
-      url: "https://github.com/Sagar7262880/leave.git"
-    source: git
       path: "."
       ref: master
       resolved-ref: a5f8f88c55b0ea9e72353b855112e8b0f6187d93
