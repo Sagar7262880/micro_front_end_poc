@@ -193,6 +193,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  geo_fencing:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: cc56751adac0777f2be220cef817e4b7cdd653d8
+      url: "https://github.com/Sagar7262880/geo_fencing.git"
+    source: git
+    version: "0.0.1"
   geocoding:
     dependency: transitive
     description:
@@ -281,6 +290,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
+  haptic_feedback:
+    dependency: "direct main"
+    description:
+      name: haptic_feedback
+      sha256: d3b5ad41858d18a35d317636c9cdc1cb8aef23c7b861ca5896273acc68e1a98a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1+1"
   http:
     dependency: transitive
     description:
@@ -340,9 +357,11 @@ packages:
   leave:
     dependency: "direct dev"
     description:
-      path: "D:\\micros\\leave"
-      relative: false
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: a5f8f88c55b0ea9e72353b855112e8b0f6187d93
+      url: "https://github.com/Sagar7262880/leave.git"
+    source: git
     version: "0.0.1"
   lints:
     dependency: transitive
@@ -603,7 +622,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: e439ce643cbaa60b4a2b49aef74f2f544373fbe4
+      resolved-ref: e9bd4a01d92e37fb0a1bf68e3f6c8e78758164fa
       url: "https://github.com/Sagar7262880/utility.git"
     source: git
     version: "0.0.1"

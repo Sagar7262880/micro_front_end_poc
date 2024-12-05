@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haptic_feedback/haptic_feedback.dart';
 import 'package:utility/utility.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -111,14 +112,56 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        // Show error bottom sheet
                         showErrorBottomSheet(
                           context,
                           "Oopsss...!",
                           "Please enter date..!",
                         );
+
+                        // Check if the device can vibrate
+                        final canVibrate = await Haptics.canVibrate();
+
+                        // Show snackbar message based on vibration capability
+                        if (!context.mounted) return;
+                        final snackbarMessage = canVibrate
+                            ? 'Haptic feedback enabled!'
+                            : 'This device does not support haptic feedback.';
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(snackbarMessage,
+                                textAlign: TextAlign.center),
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+
+                        // Trigger haptic feedback if the device supports it
+                        if (canVibrate) {
+                          await Haptics.vibrate(HapticsType.warning);
+                        }
                       },
                       child: const Text("Error"),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: 'Hello',
+                          cancel: Text(
+                            'Cancel',
+                          ),
+                          onCancel: () {
+                            Get.offNamed('/');
+                          },
+                        );
+                      },
+                      child: Text(
+                        'Dialog Box',
+                      ),
                     ),
                   ],
                 ),
