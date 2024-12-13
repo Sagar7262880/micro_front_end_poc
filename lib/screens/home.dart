@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:micro_front_end_poc/screens/test.dart';
 import 'package:utility/utility.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,6 +13,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var obj = SharedService();
+  var dio = DioService();
+  var controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: CustomScrollView(
+        shrinkWrap: true,
+        scrollBehavior: ScrollBehavior(),
         slivers: [
           // SliverAppBar for a collapsible header
           // SliverAppBar(
@@ -123,8 +137,91 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: const Text("Error"),
                     ),
+                    const SizedBox(width: 10), //
+
+                    ElevatedButton(
+                      onPressed: () async {
+                        var b =
+                            await obj.setString("username", "Sagar Salunke");
+
+                        print(b);
+                        var res = await dio
+                            .get("https://jsonplaceholder.typicode.com/posts");
+                        log(res.toString());
+                      },
+                      child: const Text("Shared"),
+                    ),
                   ],
                 ),
+                const SizedBox(
+                  height: 100,
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                DynamicDropDown(
+                  // context: context,
+                  controller: controller,
+                  labelText: "Select Item",
+                  isSearchable: false,
+                  onChanged: (value) {
+                    print("Input changed: $value");
+                  },
+                  onSuggestionCallBack: (pattern) async {
+                    return Future.delayed(Duration(milliseconds: 500), () {
+                      return [
+                        'Apple',
+                        'Banana',
+                        'Cherry',
+                        'Date',
+                        'Elderberry',
+                        'Fig',
+                        'Grape',
+                        'Honeydew',
+                        'Indian Fig',
+                        'Jackfruit',
+                        'Kiwi',
+                        'Lemon',
+                        'Mango',
+                        'Nectarine',
+                        'Orange',
+                        'Papaya',
+                        'Quince',
+                        'Raspberry',
+                        'Strawberry',
+                        'Tangerine',
+                        'Ugli Fruit',
+                        'Vanilla Bean',
+                        'Watermelon',
+                        'Xigua',
+                        'Yellow Passion Fruit'
+                      ]
+                          .where((item) => item
+                              .toLowerCase()
+                              .contains(pattern.toLowerCase()))
+                          .toList();
+                    });
+                  },
+                  // isSearchable: true,
+                  onSuggestionSelected: (value) {
+                    controller.text = value;
+                    print("Selected: $value");
+                  },
+                  suggestionBuilder: (context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion),
+                    );
+                  },
+                ),
+                TextFormField(),
+                ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => Test());
+                    },
+                    child: Text("Test"))
               ]),
             ),
           ),
