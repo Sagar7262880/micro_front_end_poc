@@ -12,6 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final simpleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,155 +21,148 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: CustomScrollView(
         slivers: [
-          // SliverAppBar for a collapsible header
-          // SliverAppBar(
-          //   pinned: false, // Keeps the app bar visible when scrolled
-          //   floating: true,
-          //   expandedHeight: 50.0,
-          //   flexibleSpace: FlexibleSpaceBar(
-          //     title: Text(
-          //       widget.title,
-          //       style: const TextStyle(color: Colors.black),
-          //     ),
-          //     // background: Container(
-          //     //   color: Theme.of(context)
-          //     //       .primaryColor, // Match the background color
-          //     // ),
-          //     collapseMode: CollapseMode.none,
-          //   ),
-          // ),
-
-          // SliverPadding for consistent padding around the content
           SliverPadding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
             sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: buildCard(
-                          title: "Apply Leave",
-                          imagePath: "assets/house.png",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10), // Add spacing between cards
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyOutDuty");
-                        },
-                        child: buildCard(
-                          title: "Apply Out Duty",
-                          imagePath: "assets/calendar.png",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: buildCard(
-                          title: "Reports",
-                          imagePath: "assets/report.png",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10), // Add spacing between cards
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyOutDuty");
-                        },
-                        child: buildCard(
-                          title: "Profile",
-                          imagePath: "assets/working.png",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        showSuccessBottomSheet(
-                          context,
-                          "Successfully",
-                          "Great It's working..!",
-                        );
-                      },
-                      child: const Text("Apply"),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Show error bottom sheet
-                        showErrorBottomSheet(
-                          context,
-                          "Oopsss...!",
-                          "Please enter date..!",
-                        );
-
-                        // Check if the device can vibrate
-                        final canVibrate = await Haptics.canVibrate();
-
-                        // Show snackbar message based on vibration capability
-                        if (!context.mounted) return;
-                        final snackbarMessage = canVibrate
-                            ? 'Haptic feedback enabled!'
-                            : 'This device does not support haptic feedback.';
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(snackbarMessage,
-                                textAlign: TextAlign.center),
-                            duration: const Duration(seconds: 1),
-                          ),
-                        );
-
-                        // Trigger haptic feedback if the device supports it
-                        if (canVibrate) {
-                          await Haptics.vibrate(HapticsType.warning);
-                        }
-                      },
-                      child: const Text("Error"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                          title: 'Hello',
-                          cancel: Text(
-                            'Cancel',
-                          ),
-                          onCancel: () {
-                            Get.offNamed('/');
+              delegate: SliverChildListDelegate(
+                [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyLeave");
                           },
-                        );
-                      },
-                      child: Text(
-                        'Dialog Box',
+                          child: buildCard(
+                            title: "Apply Leave",
+                            imagePath: "assets/house.png",
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ]),
+                      const SizedBox(width: 10), // Add spacing between cards
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyOutDuty");
+                          },
+                          child: buildCard(
+                            title: "Apply Out Duty",
+                            imagePath: "assets/calendar.png",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyLeave");
+                          },
+                          child: buildCard(
+                            title: "Reports",
+                            imagePath: "assets/report.png",
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Add spacing between cards
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyOutDuty");
+                          },
+                          child: buildCard(
+                            title: "Profile",
+                            imagePath: "assets/working.png",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          showSuccessBottomSheet(
+                            context,
+                            "Yippee...!",
+                            "Leave Applied Successfully.",
+                          );
+                        },
+                        child: const Text("Apply"),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Show error bottom sheet
+                          showErrorBottomSheet(
+                            context,
+                            "Oopsss...!",
+                            "Please enter date..!",
+                          );
+
+                          // Check if the device can vibrate
+                          final canVibrate = await Haptics.canVibrate();
+
+                          // Show snackbar message based on vibration capability
+                          if (!context.mounted) return;
+                          final snackbarMessage = canVibrate
+                              ? 'Haptic feedback enabled!'
+                              : 'This device does not support haptic feedback.';
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(snackbarMessage,
+                                  textAlign: TextAlign.center),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+
+                          // Trigger haptic feedback if the device supports it
+                          if (canVibrate) {
+                            await Haptics.vibrate(HapticsType.warning);
+                          }
+                        },
+                        child: const Text("Error"),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                            title: 'Hello',
+                            cancel: Text(
+                              'Cancel',
+                            ),
+                            onCancel: () {
+                              Get.offNamed('/');
+                            },
+                          );
+                        },
+                        child: Text(
+                          'Dialog Box',
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextField(
+                      isDisabled: false,
+                      controller: simpleController,
+                      labelText: 'Name',
+                      hintText: 'Ashutosh',
+                      fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.person_2_outlined)
+                      // suffixIcon: const Icon(Icons.arrow_drop_down),
+                      ),
+                ],
+              ),
             ),
           ),
         ],

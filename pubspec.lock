@@ -322,7 +322,7 @@ packages:
     source: hosted
     version: "4.0.2"
   hugeicons:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: hugeicons
       sha256: b5cf08183a75b7774ca6d601a2ef025ed26550e4fca9d956673ffda91e132411
@@ -406,10 +406,10 @@ packages:
     dependency: transitive
     description:
       name: lottie
-      sha256: "7afc60865a2429d994144f7d66ced2ae4305fe35d82890b8766e3359872d872c"
+      sha256: fa39707f36786707b01eca7626d2c16c32aa603b3f3a146518518458847dc127
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "3.2.0"
   matcher:
     dependency: transitive
     description:
@@ -627,11 +627,9 @@ packages:
   utility:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: main
-      resolved-ref: fba02503d1c4293e1981fbb50e5b5d53d8e8ffec
-      url: "https://github.com/Sagar7262880/utility.git"
-    source: git
+      path: "D:\\micros\\utility"
+      relative: false
+    source: path
     version: "0.0.1"
   uuid:
     dependency: transitive
