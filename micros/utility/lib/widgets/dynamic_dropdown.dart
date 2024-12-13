@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:utility/constant/constant_string.dart';
 
 class DynamicDropDown extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
-  final bool isSearchable;
+  final bool isSearchable, isValidate;
   final void Function(dynamic) onChanged;
   final void Function(dynamic) onSuggestionSelected;
   final FutureOr<Iterable<dynamic>> Function(dynamic) onSuggestionCallBack;
@@ -22,6 +23,7 @@ class DynamicDropDown extends StatefulWidget {
     required this.onSuggestionCallBack,
     required this.suggestionBuilder,
     this.validator,
+    this.isValidate = true,
     this.axisDirection = AxisDirection.down,
     this.isSearchable = false,
   });
@@ -38,6 +40,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
   void initState() {
     super.initState();
     _focusNode.addListener(_onFocusChange);
+    if (widget.validator == null) {}
   }
 
   @override
@@ -98,7 +101,16 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               ),
             ),
 
-            validator: widget.validator,
+            validator: widget.validator ??
+                (widget.isValidate
+                    ? (value) {
+                        if (value == null || value.toString().isEmpty) {
+                          return strPlzFill;
+                        }
+                        return null;
+                      }
+                    : null),
+
             suggestionsCallback: widget.onSuggestionCallBack,
             itemBuilder: widget.suggestionBuilder,
             onSuggestionSelected: widget.onSuggestionSelected,

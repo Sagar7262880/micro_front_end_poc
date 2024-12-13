@@ -1,17 +1,17 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Style {
-  getInputDecoration(String )
-  {
-   return  InputDecoration(
+  InputDecoration getInputDecoration(
+      String label, Icon? suffixIcon, Icon? prefixIcon) {
+    const Color grey = Colors.grey;
+    return InputDecoration(
       contentPadding: const EdgeInsets.all(10),
       fillColor: Colors.white,
       filled: true,
-      labelText: widget.label,
-      prefixIcon: widget.prefixIcon,
-      suffixIcon: widget.suffixIcon,
+      labelText: label,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
       labelStyle: const TextStyle(color: Colors.black54, fontSize: 16),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -30,6 +30,6 @@ class Style {
         borderSide: BorderSide(width: 0, color: grey),
       ),
       counter: const Offstage(),
-    )
+    );
   }
 }

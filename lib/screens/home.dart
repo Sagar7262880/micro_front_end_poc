@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
 
@@ -55,312 +57,166 @@ class _MyHomePageState extends State<MyHomePage> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
             sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: buildCard(
-                          title: "Apply Leave",
-                          imagePath: "assets/house.png",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10), // Add spacing between cards
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyOutDuty");
-                        },
-                        child: buildCard(
-                          title: "Apply Out Duty",
-                          imagePath: "assets/calendar.png",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyLeave");
-                        },
-                        child: buildCard(
-                          title: "Reports",
-                          imagePath: "assets/report.png",
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10), // Add spacing between cards
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed("/applyOutDuty");
-                        },
-                        child: buildCard(
-                          title: "Profile",
-                          imagePath: "assets/working.png",
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        showSuccessBottomSheet(
-                          context,
-                          "Successfully",
-                          "Great It's working..!",
-                        );
+                delegate: SliverChildListDelegate([
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed("/applyLeave");
                       },
-                      child: const Text("Apply"),
+                      child: buildCard(
+                        title: "Apply Leave",
+                        imagePath: "assets/house.png",
+                      ),
                     ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        showErrorBottomSheet(
-                          context,
-                          "Oopsss...!",
-                          "Please enter date..!",
-                        );
+                  ),
+                  const SizedBox(width: 10), // Add spacing between cards
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed("/applyOutDuty");
                       },
-                      child: const Text("Error"),
+                      child: buildCard(
+                        title: "Apply Out Duty",
+                        imagePath: "assets/calendar.png",
+                      ),
                     ),
-                    const SizedBox(width: 10), //
-
-                    ElevatedButton(
-                      onPressed: () async {
-                        var b =
-                            await obj.setString("username", "Sagar Salunke");
-
-                        print(b);
-                        var res = await dio
-                            .get("https://jsonplaceholder.typicode.com/posts");
-                        log(res.toString());
-                      },
-                      child: const Text("Shared"),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                DynamicDropDown(
-                  // context: context,
-                  controller: controller,
-                  labelText: "Select Item",
-                  isSearchable: false,
-                  onChanged: (value) {
-                    print("Input changed: $value");
-                  },
-                  onSuggestionCallBack: (pattern) async {
-                    return Future.delayed(Duration(milliseconds: 500), () {
-                      return [
-                        'Apple',
-                        'Banana',
-                        'Cherry',
-                        'Date',
-                        'Elderberry',
-                        'Fig',
-                        'Grape',
-                        'Honeydew',
-                        'Indian Fig',
-                        'Jackfruit',
-                        'Kiwi',
-                        'Lemon',
-                        'Mango',
-                        'Nectarine',
-                        'Orange',
-                        'Papaya',
-                        'Quince',
-                        'Raspberry',
-                        'Strawberry',
-                        'Tangerine',
-                        'Ugli Fruit',
-                        'Vanilla Bean',
-                        'Watermelon',
-                        'Xigua',
-                        'Yellow Passion Fruit'
-                      ]
-                          .where((item) => item
-                              .toLowerCase()
-                              .contains(pattern.toLowerCase()))
-                          .toList();
-                    });
-                  },
-                  // isSearchable: true,
-                  onSuggestionSelected: (value) {
-                    controller.text = value;
-                    print("Selected: $value");
-                  },
-                  suggestionBuilder: (context, suggestion) {
-                    return ListTile(
-                      title: Text(suggestion),
-                    );
-                  },
-                ),
-                TextFormField(),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => Test());
-                    },
-                    child: Text("Test"))
-              ]),
-              delegate: SliverChildListDelegate(
-                [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed("/applyLeave");
-                          },
-                          child: buildCard(
-                            title: "Apply Leave",
-                            imagePath: "assets/house.png",
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10), // Add spacing between cards
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed("/applyOutDuty");
-                          },
-                          child: buildCard(
-                            title: "Apply Out Duty",
-                            imagePath: "assets/calendar.png",
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed("/applyLeave");
-                          },
-                          child: buildCard(
-                            title: "Reports",
-                            imagePath: "assets/report.png",
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10), // Add spacing between cards
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed("/applyOutDuty");
-                          },
-                          child: buildCard(
-                            title: "Profile",
-                            imagePath: "assets/working.png",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          showSuccessBottomSheet(
-                            context,
-                            "Yippee...!",
-                            "Leave Applied Successfully.",
-                          );
-                        },
-                        child: const Text("Apply"),
-                      ),
-                      const SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () async {
-                          // Show error bottom sheet
-                          showErrorBottomSheet(
-                            context,
-                            "Oopsss...!",
-                            "Please enter date..!",
-                          );
-
-                          // Check if the device can vibrate
-                          final canVibrate = await Haptics.canVibrate();
-
-                          // Show snackbar message based on vibration capability
-                          if (!context.mounted) return;
-                          final snackbarMessage = canVibrate
-                              ? 'Haptic feedback enabled!'
-                              : 'This device does not support haptic feedback.';
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(snackbarMessage,
-                                  textAlign: TextAlign.center),
-                              duration: const Duration(seconds: 1),
-                            ),
-                          );
-
-                          // Trigger haptic feedback if the device supports it
-                          if (canVibrate) {
-                            await Haptics.vibrate(HapticsType.warning);
-                          }
-                        },
-                        child: const Text("Error"),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.defaultDialog(
-                            title: 'Hello',
-                            cancel: Text(
-                              'Cancel',
-                            ),
-                            onCancel: () {
-                              Get.offNamed('/');
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Dialog Box',
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  CustomTextField(
-                      isDisabled: false,
-                      controller: simpleController,
-                      labelText: 'Name',
-                      hintText: 'Ashutosh',
-                      fillColor: Colors.white,
-                      prefixIcon: const Icon(Icons.person_2_outlined)
-                      // suffixIcon: const Icon(Icons.arrow_drop_down),
-                      ),
                 ],
               ),
-            ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed("/applyLeave");
+                      },
+                      child: buildCard(
+                        title: "Reports",
+                        imagePath: "assets/report.png",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10), // Add spacing between cards
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed("/applyOutDuty");
+                      },
+                      child: buildCard(
+                        title: "Profile",
+                        imagePath: "assets/working.png",
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      showSuccessBottomSheet(
+                        context,
+                        "Successfully",
+                        "Great It's working..!",
+                      );
+                    },
+                    child: const Text("Apply"),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      showErrorBottomSheet(
+                        context,
+                        "Oopsss...!",
+                        "Please enter date..!",
+                      );
+                    },
+                    child: const Text("Error"),
+                  ),
+                  const SizedBox(width: 10), //
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      var b = await obj.setString("username", "Sagar Salunke");
+
+                      print(b);
+                      var res = await dio
+                          .get("https://jsonplaceholder.typicode.com/posts");
+                      log(res.toString());
+                    },
+                    child: const Text("Shared"),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+              DynamicDropDown(
+                // context: context,
+                controller: controller,
+                labelText: "Select Item",
+                isSearchable: false,
+                onChanged: (value) {
+                  print("Input changed: $value");
+                },
+                onSuggestionCallBack: (pattern) async {
+                  return Future.delayed(Duration(milliseconds: 500), () {
+                    return [
+                      'Apple',
+                      'Banana',
+                      'Cherry',
+                      'Date',
+                      'Elderberry',
+                      'Fig',
+                      'Grape',
+                      'Honeydew',
+                      'Indian Fig',
+                      'Jackfruit',
+                      'Kiwi',
+                      'Lemon',
+                      'Mango',
+                      'Nectarine',
+                      'Orange',
+                      'Papaya',
+                      'Quince',
+                      'Raspberry',
+                      'Strawberry',
+                      'Tangerine',
+                      'Ugli Fruit',
+                      'Vanilla Bean',
+                      'Watermelon',
+                      'Xigua',
+                      'Yellow Passion Fruit'
+                    ]
+                        .where((item) =>
+                            item.toLowerCase().contains(pattern.toLowerCase()))
+                        .toList();
+                  });
+                },
+                // isSearchable: true,
+                onSuggestionSelected: (value) {
+                  controller.text = value;
+                  print("Selected: $value");
+                },
+                suggestionBuilder: (context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+              ),
+              TextFormField(),
+            ])),
           ),
         ],
       ),
