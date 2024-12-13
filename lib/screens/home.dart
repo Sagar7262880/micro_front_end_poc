@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:micro_front_end_poc/screens/test.dart';
 import 'package:utility/utility.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -23,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  final simpleController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,6 +222,144 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: Text("Test"))
               ]),
+              delegate: SliverChildListDelegate(
+                [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyLeave");
+                          },
+                          child: buildCard(
+                            title: "Apply Leave",
+                            imagePath: "assets/house.png",
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Add spacing between cards
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyOutDuty");
+                          },
+                          child: buildCard(
+                            title: "Apply Out Duty",
+                            imagePath: "assets/calendar.png",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyLeave");
+                          },
+                          child: buildCard(
+                            title: "Reports",
+                            imagePath: "assets/report.png",
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Add spacing between cards
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed("/applyOutDuty");
+                          },
+                          child: buildCard(
+                            title: "Profile",
+                            imagePath: "assets/working.png",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          showSuccessBottomSheet(
+                            context,
+                            "Yippee...!",
+                            "Leave Applied Successfully.",
+                          );
+                        },
+                        child: const Text("Apply"),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // Show error bottom sheet
+                          showErrorBottomSheet(
+                            context,
+                            "Oopsss...!",
+                            "Please enter date..!",
+                          );
+
+                          // Check if the device can vibrate
+                          final canVibrate = await Haptics.canVibrate();
+
+                          // Show snackbar message based on vibration capability
+                          if (!context.mounted) return;
+                          final snackbarMessage = canVibrate
+                              ? 'Haptic feedback enabled!'
+                              : 'This device does not support haptic feedback.';
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(snackbarMessage,
+                                  textAlign: TextAlign.center),
+                              duration: const Duration(seconds: 1),
+                            ),
+                          );
+
+                          // Trigger haptic feedback if the device supports it
+                          if (canVibrate) {
+                            await Haptics.vibrate(HapticsType.warning);
+                          }
+                        },
+                        child: const Text("Error"),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                            title: 'Hello',
+                            cancel: Text(
+                              'Cancel',
+                            ),
+                            onCancel: () {
+                              Get.offNamed('/');
+                            },
+                          );
+                        },
+                        child: Text(
+                          'Dialog Box',
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  CustomTextField(
+                      isDisabled: false,
+                      controller: simpleController,
+                      labelText: 'Name',
+                      hintText: 'Ashutosh',
+                      fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.person_2_outlined)
+                      // suffixIcon: const Icon(Icons.arrow_drop_down),
+                      ),
+                ],
+              ),
             ),
           ),
         ],

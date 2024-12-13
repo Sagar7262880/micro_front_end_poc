@@ -619,9 +619,11 @@ packages:
   utility:
     dependency: "direct dev"
     description:
-      path: "micros/utility"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: fba02503d1c4293e1981fbb50e5b5d53d8e8ffec
+      url: "https://github.com/Sagar7262880/utility.git"
+    source: git
     version: "0.0.1"
   uuid:
     dependency: transitive
