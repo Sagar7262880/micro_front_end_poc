@@ -2,16 +2,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:utility/constant/constant_string.dart';
+import 'package:utility/utility.dart';
 
 class DynamicDropDown extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
-  final bool isSearchable, isValidate;
-  final void Function(dynamic) onChanged;
-  final void Function(dynamic) onSuggestionSelected;
+  final bool isSearchable;
+  final void Function(dynamic value) onChanged;
+  final void Function(dynamic value) onSuggestionSelected;
   final FutureOr<Iterable<dynamic>> Function(dynamic) onSuggestionCallBack;
   final Widget Function(BuildContext context, dynamic) suggestionBuilder;
-  final String? Function(dynamic)? validator;
+  final String? Function(dynamic value)? validator;
+  final String? validatorText;
+  final bool isValidate;
   final AxisDirection axisDirection;
 
   const DynamicDropDown({
@@ -24,6 +27,7 @@ class DynamicDropDown extends StatefulWidget {
     required this.suggestionBuilder,
     this.validator,
     this.isValidate = true,
+    this.validatorText,
     this.axisDirection = AxisDirection.down,
     this.isSearchable = false,
   });
@@ -58,92 +62,76 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              _isKeyboardVisible = true;
+            },
+            child: TypeAheadFormField(
+              direction: widget.axisDirection,
+              textFieldConfiguration: TextFieldConfiguration(
+                  controller: widget.controller,
+                  focusNode: _focusNode,
+                  onChanged: widget.onChanged,
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
+                  decoration: customInputDecoration(
+                    labelText: widget.labelText,
+                    hintText: widget.labelText,
+                    suffixIcon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Get.theme.primaryColor,
+                      size: 30,
+                    ),
+                  )),
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GestureDetector(
-          onTap: () {
-            _isKeyboardVisible = true;
-          },
-          child: TypeAheadFormField(
-            direction: widget.axisDirection,
-            textFieldConfiguration: TextFieldConfiguration(
-              controller: widget.controller,
-              focusNode: _focusNode,
-              onChanged: widget.onChanged,
-              style: const TextStyle(color: Colors.black, fontSize: 16),
-              decoration: InputDecoration(
-                labelStyle:
-                    const TextStyle(color: Colors.black54, fontSize: 16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.grey, width: 0.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: Colors.grey, width: 0.0),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                  borderSide: BorderSide(width: 0, color: Colors.grey),
-                ),
-                contentPadding: const EdgeInsets.all(10),
-                fillColor: Colors.white,
-                filled: true,
-                labelText: widget.labelText,
-                suffixIcon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.grey,
-                  size: 30,
-                ),
-              ),
-            ),
-
-            validator: widget.validator ??
-                (widget.isValidate
-                    ? (value) {
-                        if (value == null || value.toString().isEmpty) {
-                          return strPlzFill;
+              validator: widget.validator ??
+                  (widget.isValidate
+                      ? (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return widget.validatorText ?? strPlzFill;
+                          }
+                          return null;
                         }
-                        return null;
-                      }
-                    : null),
+                      : null),
 
-            suggestionsCallback: widget.onSuggestionCallBack,
-            itemBuilder: widget.suggestionBuilder,
-            onSuggestionSelected: widget.onSuggestionSelected,
-            hideKeyboard: !widget.isSearchable,
-            getImmediateSuggestions: true,
-            noItemsFoundBuilder: (context) => const Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                'No items found',
-                style: TextStyle(fontSize: 16),
+              suggestionsCallback: widget.onSuggestionCallBack,
+              itemBuilder: widget.suggestionBuilder,
+              onSuggestionSelected: widget.onSuggestionSelected,
+              hideKeyboard: !widget.isSearchable,
+              getImmediateSuggestions: true,
+              noItemsFoundBuilder: (context) => const Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
+                  'No items found',
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
-            ),
-            suggestionsBoxDecoration: SuggestionsBoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              elevation: 8.0,
-              shadowColor: Colors.black45,
-              scrollbarThumbAlwaysVisible: true,
-              color: Colors.white,
-              constraints: const BoxConstraints(
-                maxHeight: 230.0,
+              suggestionsBoxDecoration: SuggestionsBoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                elevation: 8.0,
+                shadowColor: Colors.black45,
+                scrollbarThumbAlwaysVisible: true,
+                color: Colors.white,
+                constraints: const BoxConstraints(
+                  maxHeight: 230.0,
+                ),
               ),
+              hideSuggestionsOnKeyboardHide: false,
+              // Keep the suggestions visible even when the keyboard is up
+              // hideKeyboardOnDrag: true,
             ),
-            hideSuggestionsOnKeyboardHide: false,
-            // Keep the suggestions visible even when the keyboard is up
-            // hideKeyboardOnDrag: true,
           ),
-        ),
-        _focusNode.hasFocus
-            ? const SizedBox(
-                height: 200,
-              )
-            : const SizedBox()
-      ],
+          _focusNode.hasFocus
+              ? const SizedBox(
+                  height: 200,
+                )
+              : const SizedBox()
+        ],
+      ),
     );
   }
 }

@@ -27,8 +27,8 @@ dev_dependencies:
 #  profile:
 #    path: D:/projects/micro_apps/profile
 
-#  utility:
-#    path:  micros/utility
+  utility:
+    path:  micros/utility
 #  exp_claim:
 #    path: D:/projects/micro_apps/exp_claim
 
@@ -54,10 +54,10 @@ dev_dependencies:
     git:
       url: "https://github.com/Sagar7262880/leave.git"
       ref: master
-  utility:
-    git:
-      url: "https://github.com/Sagar7262880/utility.git"
-      ref: main
+#  utility:
+#    git:
+#      url: "https://github.com/Sagar7262880/utility.git"
+#      ref: main
   geo_fencing:
       git:
         url: "https://github.com/Sagar7262880/geo_fencing.git"

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
 
@@ -24,6 +25,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final simpleController = TextEditingController();
+
+  final dateCtr = TextEditingController();
+  final timeCtr = TextEditingController();
+  final monthCtr = TextEditingController();
+  final nameCtr = TextEditingController();
+  final sdCtr = TextEditingController();
+  final globalKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: CustomScrollView(
         shrinkWrap: true,
-        scrollBehavior: ScrollBehavior(),
+        scrollBehavior: const ScrollBehavior(),
         slivers: [
           // SliverAppBar for a collapsible header
           // SliverAppBar(
@@ -53,170 +62,237 @@ class _MyHomePageState extends State<MyHomePage> {
           // ),
 
           // SliverPadding for consistent padding around the content
-          SliverPadding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-            sliver: SliverList(
-                delegate: SliverChildListDelegate([
-              Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed("/applyLeave");
-                      },
-                      child: buildCard(
-                        title: "Apply Leave",
-                        imagePath: "assets/house.png",
+          Form(
+            key: globalKey,
+            child: SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+              sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyLeave");
+                        },
+                        child: buildCard(
+                          title: "Apply Leave",
+                          imagePath: "assets/house.png",
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10), // Add spacing between cards
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed("/applyOutDuty");
-                      },
-                      child: buildCard(
-                        title: "Apply Out Duty",
-                        imagePath: "assets/calendar.png",
+                    const SizedBox(width: 10), // Add spacing between cards
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyOutDuty");
+                        },
+                        child: buildCard(
+                          title: "Apply Out Duty",
+                          imagePath: "assets/calendar.png",
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed("/applyLeave");
-                      },
-                      child: buildCard(
-                        title: "Reports",
-                        imagePath: "assets/report.png",
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyLeave");
+                        },
+                        child: buildCard(
+                          title: "Reports",
+                          imagePath: "assets/report.png",
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10), // Add spacing between cards
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed("/applyOutDuty");
-                      },
-                      child: buildCard(
-                        title: "Profile",
-                        imagePath: "assets/working.png",
+                    const SizedBox(width: 10), // Add spacing between cards
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed("/applyOutDuty");
+                        },
+                        child: buildCard(
+                          title: "Profile",
+                          imagePath: "assets/working.png",
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      showSuccessBottomSheet(
-                        context,
-                        "Successfully",
-                        "Great It's working..!",
-                      );
-                    },
-                    child: const Text("Apply"),
-                  ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      showErrorBottomSheet(
-                        context,
-                        "Oopsss...!",
-                        "Please enter date..!",
-                      );
-                    },
-                    child: const Text("Error"),
-                  ),
-                  const SizedBox(width: 10), //
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        showSuccessBottomSheet(
+                          context,
+                          "Successfully",
+                          "Great It's working..!",
+                        );
+                      },
+                      child: const Text("Apply"),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        showErrorBottomSheet(
+                          context,
+                          "Oopsss...!",
+                          "Please enter date..!",
+                        );
+                      },
+                      child: const Text("Error"),
+                    ),
+                    const SizedBox(width: 10), //
 
-                  ElevatedButton(
-                    onPressed: () async {
-                      var b = await obj.setString("username", "Sagar Salunke");
+                    ElevatedButton(
+                      onPressed: () async {
+                        var b =
+                            await obj.setString("username", "Sagar Salunke");
 
-                      print(b);
-                      var res = await dio
-                          .get("https://jsonplaceholder.typicode.com/posts");
-                      log(res.toString());
+                        print(b);
+                        var res = await dio
+                            .get("https://jsonplaceholder.typicode.com/posts");
+                        log(res.toString());
+                      },
+                      child: const Text("Shared"),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                // const SizedBox(
+                //   height: 100,
+                // ),
+                // const SizedBox(
+                //   height: 100,
+                // ),
+                DynamicDropDown(
+                  // context: context,
+                  controller: controller,
+                  isSearchable: true,
+                  labelText: "Select Item",
+                  onChanged: (value) {
+                    print("Input changed: $value");
+                  },
+                  onSuggestionCallBack: (pattern) async {
+                    return Future.delayed(const Duration(milliseconds: 500),
+                        () {
+                      return [
+                        'Apple',
+                        'Banana',
+                        'Cherry',
+                        'Date',
+                        'Elderberry',
+                        'Fig',
+                        'Grape',
+                        'Honeydew',
+                        'Indian Fig',
+                        'Jackfruit',
+                        'Kiwi',
+                        'Lemon',
+                        'Mango',
+                        'Nectarine',
+                        'Orange',
+                        'Papaya',
+                        'Quince',
+                        'Raspberry',
+                        'Strawberry',
+                        'Tangerine',
+                        'Ugli Fruit',
+                        'Vanilla Bean',
+                        'Watermelon',
+                        'Xigua',
+                        'Yellow Passion Fruit'
+                      ]
+                          .where((item) => item
+                              .toLowerCase()
+                              .contains(pattern.toLowerCase()))
+                          .toList();
+                    });
+                  },
+                  // isSearchable: true,
+                  onSuggestionSelected: (value) {
+                    controller.text = value;
+                    if (kDebugMode) {
+                      print("Selected: $value");
+                    }
+                  },
+                  suggestionBuilder: (context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion),
+                    );
+                  },
+                ),
+                DatePickerField(
+                  controller: dateCtr,
+                  label: "Select Date",
+                  // isEnabled: false,
+                  // validatorText: "kar na bho date select",
+                ),
+                TimePickerField(
+                  controller: timeCtr,
+                  label: "Select Time",
+                  isValidate: true,
+                ),
+                MonthPickerField(
+                  controller: monthCtr,
+                  label: "Select Month",
+                  isValidate: true,
+                ),
+                TxtField(label: "Full Name", controller: nameCtr),
+                SimpleDropdown(
+                  labelText: "Select ",
+                  onChanged: (value) {},
+                  items: const [
+                    'Apple',
+                    'Banana',
+                    'Cherry',
+                    'Date',
+                    'Elderberry',
+                    'Fig',
+                    'Grape',
+                    'Honeydew',
+                    'Indian Fig',
+                    'Jackfruit',
+                    'Kiwi',
+                    'Lemon',
+                    'Mango',
+                    'Nectarine',
+                    'Orange',
+                    'Papaya',
+                    'Quince',
+                    'Raspberry',
+                    'Strawberry',
+                    'Tangerine',
+                    'Ugli Fruit',
+                    'Vanilla Bean',
+                    'Watermelon',
+                    'Xigua',
+                    'Yellow Passion Fruit'
+                  ],
+                ),
+                // TextFormField(),
+                ElevatedButton(
+                    onPressed: () {
+                      if (globalKey.currentState!.validate()) {
+                        print("trueeee");
+                        var d = DateTime.parse(dateCtr.text);
+                        print(d.toString());
+                      } else {
+                        print("false");
+                      }
                     },
-                    child: const Text("Shared"),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              DynamicDropDown(
-                // context: context,
-                controller: controller,
-                labelText: "Select Item",
-                isSearchable: false,
-                onChanged: (value) {
-                  print("Input changed: $value");
-                },
-                onSuggestionCallBack: (pattern) async {
-                  return Future.delayed(Duration(milliseconds: 500), () {
-                    return [
-                      'Apple',
-                      'Banana',
-                      'Cherry',
-                      'Date',
-                      'Elderberry',
-                      'Fig',
-                      'Grape',
-                      'Honeydew',
-                      'Indian Fig',
-                      'Jackfruit',
-                      'Kiwi',
-                      'Lemon',
-                      'Mango',
-                      'Nectarine',
-                      'Orange',
-                      'Papaya',
-                      'Quince',
-                      'Raspberry',
-                      'Strawberry',
-                      'Tangerine',
-                      'Ugli Fruit',
-                      'Vanilla Bean',
-                      'Watermelon',
-                      'Xigua',
-                      'Yellow Passion Fruit'
-                    ]
-                        .where((item) =>
-                            item.toLowerCase().contains(pattern.toLowerCase()))
-                        .toList();
-                  });
-                },
-                // isSearchable: true,
-                onSuggestionSelected: (value) {
-                  controller.text = value;
-                  print("Selected: $value");
-                },
-                suggestionBuilder: (context, suggestion) {
-                  return ListTile(
-                    title: Text(suggestion),
-                  );
-                },
-              ),
-              TextFormField(),
-            ])),
+                    child: const Text("Submit"))
+              ])),
+            ),
           ),
         ],
       ),
