@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioService {
-  //klklkkl
   static Dio? _dio;
   static SharedPreferences? prefs;
   static final DioService _singleton = DioService._internal();
