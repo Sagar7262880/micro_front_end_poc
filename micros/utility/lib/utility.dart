@@ -16,3 +16,4 @@ export 'package:hugeicons/hugeicons.dart';
 export 'package:utility/widgets/date_picker_field.dart';
 export 'package:utility/widgets/time_picker_field.dart';
 export 'package:utility/widgets/month_picker_field.dart';
+export 'package:utility/widgets/Image_picker.dart';

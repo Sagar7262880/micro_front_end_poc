@@ -248,6 +248,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   isValidate: true,
                 ),
                 TxtField(label: "Full Name", controller: nameCtr),
+                TxtField(
+                  label: "Attachment",
+                  controller: nameCtr,
+                  isReadOnly: true,
+                  onTap: () async {
+                    await ImagePicker.pickImage(
+                      isFromFile: true,
+                      isOnlyImage: false,
+                      isMultipleFile: false,
+                      isImgCropeble: true,
+                    );
+                  },
+                ),
                 SimpleDropdown(
                   labelText: "Select ",
                   onChanged: (value) {},
