@@ -87,14 +87,19 @@ class _StatefulDropdownState extends State<SimpleDropdown> {
                 controller: _controller,
                 focusNode: _focusNode,
                 enableSuggestions: true,
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+                decoration: InputDecoration(// isEnabled: widget.isEnabled,
+                  // prefixIcon: Ic,
+                  labelText: widget.labelText,
+                  // hintText: widget.hintText ?? "",
+                  suffixIcon: suffixIcon, hintText: '')
+                /*style: const TextStyle(color: Colors.black, fontSize: 16),
                 decoration: customInputDecoration(
                   // isEnabled: widget.isEnabled,
                   // prefixIcon: Ic,
                   labelText: widget.labelText,
                   // hintText: widget.hintText ?? "",
                   suffixIcon: suffixIcon, hintText: '',
-                ),
+                ),*/
               ),
               suggestionsCallback: (pattern) {
                 if (widget.isSearchable) {
@@ -137,7 +142,7 @@ class _StatefulDropdownState extends State<SimpleDropdown> {
                 elevation: 8.0,
                 shadowColor: Colors.black45,
                 scrollbarThumbAlwaysVisible: true,
-                color: Colors.white,
+                //color: Colors.white,
                 constraints: const BoxConstraints(
                   maxHeight: 230.0,
                 ),

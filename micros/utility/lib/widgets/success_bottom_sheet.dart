@@ -12,12 +12,12 @@ void showSuccessBottomSheet(BuildContext context, successMessage, description) {
         width: double.infinity,
         height: 600,
         padding: const EdgeInsets.all(16.0),
-        decoration: const BoxDecoration(
+        /*decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(16.0),
           ),
-        ),
+        ),*/
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -29,19 +29,19 @@ void showSuccessBottomSheet(BuildContext context, successMessage, description) {
             ),
             Text(
               successMessage,
-              style: const TextStyle(
+              /*style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w800,
                 color: Colors.black,
-              ),
+              ),*/
             ),
             const SizedBox(height: 8.0),
             Text(
               description,
-              style: const TextStyle(
+              /*style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.black54,
-              ),
+              ),*/
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),

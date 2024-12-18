@@ -77,7 +77,15 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   controller: widget.controller,
                   focusNode: _focusNode,
                   onChanged: widget.onChanged,
-                  style: const TextStyle(color: Colors.black, fontSize: 16),
+                  decoration: InputDecoration(labelText: widget.labelText,
+                    hintText: widget.labelText,
+                    suffixIcon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Get.theme.primaryColor,
+                      size: 30
+                    ),
+                  )
+                  /*style: const TextStyle(color: Colors.black, fontSize: 16),
                   decoration: customInputDecoration(
                     labelText: widget.labelText,
                     hintText: widget.labelText,
@@ -86,7 +94,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       color: Get.theme.primaryColor,
                       size: 30,
                     ),
-                  )),
+                  )*/),
 
               validator: widget.validator ??
                   (widget.isValidate
@@ -115,7 +123,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                 elevation: 8.0,
                 shadowColor: Colors.black45,
                 scrollbarThumbAlwaysVisible: true,
-                color: Colors.white,
+                //color: Colors.white,
                 constraints: const BoxConstraints(
                   maxHeight: 230.0,
                 ),

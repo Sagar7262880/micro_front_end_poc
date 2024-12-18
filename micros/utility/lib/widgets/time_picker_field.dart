@@ -55,7 +55,7 @@ class _TimePickerFieldState extends State<TimePickerField> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         textAlign: TextAlign.left,
-        style: const TextStyle(color: Colors.black, fontSize: 16),
+        //style: const TextStyle(color: Colors.black, fontSize: 16),
         controller: widget.controller,
         onTap: () async {
           if (widget.isEnabled) {
@@ -73,7 +73,16 @@ class _TimePickerFieldState extends State<TimePickerField> {
                     return null;
                   }
                 : null),
-        decoration: customInputDecoration(
+        decoration: InputDecoration(labelText: widget.label,
+            hintText: widget.hintText ?? "",
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon ??
+                Icon(
+                  Icons.access_time,
+                  size: 30,
+                  color: Get.theme.primaryColor,
+                )),
+        /*decoration: customInputDecoration(
           isEnabled: widget.isEnabled,
           labelText: widget.label,
           hintText: widget.hintText ?? "",
@@ -83,7 +92,7 @@ class _TimePickerFieldState extends State<TimePickerField> {
                 size: 30,
                 color: Get.theme.primaryColor,
               ),
-        ),
+        ),*/
       ),
     );
   }

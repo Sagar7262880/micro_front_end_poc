@@ -71,7 +71,7 @@ class _MonthPickerFieldState extends State<MonthPickerField> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         textAlign: TextAlign.left,
-        style: const TextStyle(color: Colors.black, fontSize: 16),
+        //style: const TextStyle(color: Colors.black, fontSize: 16),
         controller: widget.controller,
         onTap: () async {
           if (widget.isEnabled) {
@@ -89,7 +89,16 @@ class _MonthPickerFieldState extends State<MonthPickerField> {
                     return null;
                   }
                 : null),
-        decoration: customInputDecoration(
+        decoration: InputDecoration(labelText: widget.label,
+            hintText: widget.hintText ?? "",
+            // prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon ??
+                Icon(
+                  Icons.calendar_month,
+                  size: 30,
+                  color: Get.theme.primaryColor,
+                )),
+       /* decoration: customInputDecoration(
           labelText: widget.label,
           hintText: widget.hintText ?? "",
           // prefixIcon: widget.prefixIcon,
@@ -99,7 +108,7 @@ class _MonthPickerFieldState extends State<MonthPickerField> {
                 size: 30,
                 color: Get.theme.primaryColor,
               ),
-        ),
+        ),*/
       ),
     );
   }

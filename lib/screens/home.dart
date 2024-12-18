@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             key: globalKey,
             child: SliverPadding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
               sliver: SliverList(
                   delegate: SliverChildListDelegate([
                 Row(
@@ -302,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Helper function to build a card
   Widget buildCard({required String title, required String imagePath}) {
     return Card(
-      color: Colors.white,
+      //color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),

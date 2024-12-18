@@ -67,7 +67,7 @@ class _DatePickerFieldState extends State<DatePickerField> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         textAlign: TextAlign.left,
-        style: const TextStyle(color: Colors.black, fontSize: 16),
+        //style: const TextStyle(color: Colors.black, fontSize: 16),
         controller: widget.controller,
         onTap: () async {
           if (widget.isEnabled) {
@@ -92,8 +92,7 @@ class _DatePickerFieldState extends State<DatePickerField> {
                     return null;
                   }
                 : null),
-        decoration: customInputDecoration(
-            isEnabled: widget.isEnabled,
+        decoration: InputDecoration(
             labelText: widget.label,
             hintText: widget.hintText ?? "",
             suffixIcon: widget.suffixIcon ??
@@ -102,6 +101,16 @@ class _DatePickerFieldState extends State<DatePickerField> {
                   size: 30,
                   color: Get.theme.primaryColor,
                 )),
+        /*decoration: customInputDecoration(
+            isEnabled: widget.isEnabled,
+            labelText: widget.label,
+            hintText: widget.hintText ?? "",
+            suffixIcon: widget.suffixIcon ??
+                Icon(
+                  Icons.calendar_month,
+                  size: 30,
+                  color: Get.theme.primaryColor,
+                )),*/
       ),
     );
   }

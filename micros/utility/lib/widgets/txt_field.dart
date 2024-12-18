@@ -55,10 +55,11 @@ class _TxtFieldState extends State<TxtField> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         textAlign: TextAlign.left,
-        style: const TextStyle(color: Colors.black, fontSize: 16),
+        //style: const TextStyle(color: Colors.black, fontSize: 16),
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         onTap: widget.onTap,
+
         maxLines: widget.maxLines,
         enabled: widget.isEnabled,
         // validator: widget.validator,
@@ -75,11 +76,15 @@ class _TxtFieldState extends State<TxtField> {
                     return null;
                   }
                 : null),
-        decoration: customInputDecoration(
+        decoration: InputDecoration(
+            labelText: widget.label,
+            hintText: widget.hintText ?? ""),
+
+       /* decoration: customInputDecoration(
             labelText: widget.label,
             hintText: widget.hintText ?? "",
             prefixIcon: widget.prefixIcon,
-            suffixIcon: widget.suffixIcon),
+            suffixIcon: widget.suffixIcon),*/
       ),
     );
   }

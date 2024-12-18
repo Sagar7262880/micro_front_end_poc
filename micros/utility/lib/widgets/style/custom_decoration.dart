@@ -14,8 +14,8 @@ InputDecoration customInputDecoration(
 
     suffixIcon: suffixIcon,
     contentPadding: const EdgeInsets.all(10),
-    fillColor:
-        isEnabled ?? true ? Colors.white : Colors.white38.withOpacity(0.2),
+    // fillColor:
+    //     isEnabled ?? true ? Colors.white : Colors.white38.withOpacity(0.2),
     filled: true,
     labelText: labelText,
     prefixIcon: prefixIcon,

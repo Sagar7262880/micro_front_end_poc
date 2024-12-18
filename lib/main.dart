@@ -4,21 +4,33 @@ import 'package:get/get.dart';
 import 'package:utility/utility.dart';
 
 import 'Bottom Nav Bar/bottom_nav_bar.dart';
+import 'Controller/theme_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedService.initialize();
   DioService.initializeDio();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ThemeController themeController = Get.put(ThemeController());
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return Obx(
+          () {
+        return GetMaterialApp(
+            title: 'Infogird Demo Mac',
+            initialRoute: AppRoutes.home,
+            getPages: AppRoutes.routes,
+            theme: themeController.themeData, // Reactively set theme
+            home: BottomNavBar());
+      },
+    );
+   /* return GetMaterialApp(
       title: 'Infogird Demo Mac',
       initialRoute: AppRoutes.home,
       getPages: AppRoutes.routes,
@@ -38,6 +50,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const BottomNavBar(),
-    );
+    );*/
   }
 }
