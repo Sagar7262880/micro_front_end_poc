@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart' as imgpicker;
 import 'package:path_provider/path_provider.dart';
@@ -53,21 +52,23 @@ class ImagePicker {
                     () async {
                   var image = await _pickImage(imgpicker.ImageSource.camera,
                       isMultipleFile, isImgCropeble);
-                  Navigator.pop(context);
+                  Get.back();
                   onImagePicked(image);
                 }),
               if (!isOnlyCamera)
                 _buildOption(context, Icons.image, "Gallery", () async {
                   var image = await _pickImage(imgpicker.ImageSource.gallery,
                       isMultipleFile, isImgCropeble);
-                  Navigator.pop(context);
+                  Get.back();
+
                   onImagePicked(image);
                 }),
               if (isFromFile && !isOnlyCamera)
                 _buildOption(context, Icons.drive_file_move_rounded, "Browse",
                     () async {
                   var image = await _pickFile(isMultipleFile, isOnlyImage);
-                  Navigator.pop(context);
+                  Get.back();
+
                   onImagePicked(image);
                 }),
             ],
@@ -107,10 +108,8 @@ class ImagePicker {
 
     if (isMultipleFile && source != imgpicker.ImageSource.camera) {
       var images = await picker.pickMultiImage();
-      if (images != null) {
-        selectedImage = await Future.wait(
-            images.map((img) => _compressFile(File(img.path))));
-      }
+      selectedImage =
+          await Future.wait(images.map((img) => _compressFile(File(img.path))));
     } else {
       var pickedFile = await picker.pickImage(source: source);
       if (pickedFile != null) {
