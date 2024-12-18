@@ -16,6 +16,12 @@
         android:label="micro_front_end_poc"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -44,7 +50,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-         Location Service (if needed)
+<!--         Location Service (if needed)-->
         <service
             android:name=".LocationService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"

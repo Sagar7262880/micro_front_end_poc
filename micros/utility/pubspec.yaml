@@ -19,6 +19,11 @@ dependencies:
   hugeicons: ^0.0.7
 #  month_picker_dialog: any
   month_picker_dialog: ^4.0.0
+  file_picker: any # ^8.0.3
+  image_picker: ^1.1.1
+  flutter_image_compress: ^2.3.0
+  path_provider: ^2.1.3
+  image_cropper: ^7.0.5
 
 
 
