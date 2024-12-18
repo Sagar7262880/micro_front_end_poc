@@ -25,8 +25,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
-    HugeIcons.strokeRoundedDashboardSquare01,
-    // Icon for the Apply Leave functionality
+    HugeIcons
+        .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
@@ -54,10 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    final height = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: () async {
         if (_bottomNavIndex == 0) {
@@ -72,13 +69,46 @@ class _BottomNavBarState extends State<BottomNavBar> {
       },
       child: Scaffold(
         body: pages[_bottomNavIndex], // Display the selected page
-        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
+
+          currentIndex: _bottomNavIndex,
+          onTap: (index) {
+            setState(() {
+              _bottomNavIndex = index; // Update the selected index
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.blue,
+          showUnselectedLabels: true,
+          mouseCursor: SystemMouseCursors.none,
+
+          items: List.generate(5, (index) {
+            final bool isSelected = _bottomNavIndex == index;
+            return BottomNavigationBarItem(
+              icon: isSelected
+                  ? Container(
+                width: 60,
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: const EdgeInsets.all(4),
+                child: Icon(
+                  _getIconForIndex(index, true),
+                ),
+              )
+                  : Icon(
+                _getIconForIndex(index, false),
+              ),
+              label: _getLabelForIndex(index),
+            );
+          }),
+        ),/*AnimatedBottomNavigationBar.builder(
           itemCount: iconList.length,
           tabBuilder: (int index, bool isActive) {
             final color =
-            isActive ? Theme
-                .of(context)
-                .dividerColor : Colors.grey;
+                isActive ? Theme.of(context).dividerColor : Colors.grey;
             return Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -93,8 +123,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             );
           },
           activeIndex: _bottomNavIndex,
-          gapLocation: GapLocation.none,
-          // Remove the center gap for floating action button
+          gapLocation: GapLocation
+              .none, // Remove the center gap for floating action button
           notchSmoothness: NotchSmoothness.softEdge,
           onTap: (index) {
             setState(() {
@@ -104,12 +134,46 @@ class _BottomNavBarState extends State<BottomNavBar> {
           leftCornerRadius: 32,
           rightCornerRadius: 32,
           height: height / 9.99 - 10,
-          backgroundColor: themeController.currentColor.value == "dr"
-              ? Colors.black26
-              : Colors.white,
-        ),
+          backgroundColor: themeController.currentColor.value=="dr"?Colors.black26: Colors.white,
+        ),*/
       ),
     );
+  }
+}
+
+IconData _getIconForIndex(int index, bool isSelected) {
+  switch (index) {
+    case 0:
+      return isSelected ? Icons.home : Icons.home_outlined;
+    case 1:
+      return isSelected
+          ? Icons.event_available
+          : Icons.event_available_outlined;
+    case 2:
+      return isSelected ? Icons.menu : Icons.menu_outlined;
+    case 3:
+      return isSelected ? Icons.person : Icons.person_outline;
+    case 4:
+      return isSelected ? Icons.settings : Icons.settings_outlined;
+    default:
+      return isSelected ? Icons.home : Icons.home_outlined;
+  }
+}
+
+String _getLabelForIndex(int index) {
+  switch (index) {
+    case 0:
+      return "Home";
+    case 1:
+      return "Event";
+    case 2:
+      return "Menu";
+    case 3:
+      return "Profile";
+    case 4:
+      return "Setting";
+    default:
+      return "";
   }
 }
 
@@ -142,9 +206,8 @@ class FavoritesPage extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-
-  final ThemeController themeController = Get.find();
+   ProfilePage({super.key});
+   final ThemeController themeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -168,13 +231,12 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Obx(() =>
-                Text(
-                  themeController.currentColor.value == "dr"
-                      ? 'Dark Mode is ON'
-                      : 'Light Mode is ON',
-                  style: const TextStyle(fontSize: 24),
-                )),
+            Obx(() => Text(
+              themeController.currentColor.value == "dr"
+                  ? 'Dark Mode is ON'
+                  : 'Light Mode is ON',
+              style: const TextStyle(fontSize: 24),
+            )),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(10),
@@ -189,10 +251,7 @@ class ProfilePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Text("Choose any one of following color theme",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyMedium),
+                          style: Theme.of(context).textTheme.bodyMedium),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -242,25 +301,27 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+            const Icon(Icons.ac_unit),
+            const SizedBox(height: 10),
             /* Obx(() =>  */ ElevatedButton(
-              /*style: themeController.isDarkMode.value != "d" ||
-                      themeController.isDarkMode.value != "l"
+              style: themeController.isDarkMode.value != "d" ||
+                  themeController.isDarkMode.value != "l"
                   ? null
                   : ElevatedButton.styleFrom(
-                      backgroundColor: themeController.isDarkMode.value == "d"
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.secondary,
-                      foregroundColor: themeController.isDarkMode.value == "d"
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onSecondary,
-                      elevation:
-                          themeController.isDarkMode.value == "d" ? 5 : 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),*/
+                backgroundColor: themeController.isDarkMode.value == "d"
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.secondary,
+                foregroundColor: themeController.isDarkMode.value == "d"
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary,
+                elevation:
+                themeController.isDarkMode.value == "d" ? 5 : 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               onPressed: () {
-                debugPrint('Button!');
+                debugPrint('Button Pressed!');
               },
               child: Text(
                 'Submit'.toUpperCase(),
@@ -269,43 +330,64 @@ class ProfilePage extends StatelessWidget {
                     ? null
                     : TextStyle(
                   color: themeController.isDarkMode.value == "d"
-                      ? Theme
-                      .of(context)
-                      .colorScheme
-                      .onPrimary
-                      : Theme
-                      .of(context)
-                      .colorScheme
-                      .onSecondary,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
             ),
             const SizedBox(height: 5),
-            TextButton(
-              child: Text("Visit GeeksforGeeks"),
-              onPressed: () async {},
-            ),
-            const SizedBox(height: 5),
-            OutlinedButton(
-              child: Text('Outlined Button'),
-              onPressed: (){},
-            ),
-            const SizedBox(height: 5),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.thumb_up)),
-            SizedBox(height: 5),
+            Obx(() => TextField(
+                style: TextStyle(
+                  color: themeController.isDarkMode.value == "d"
+                      ? white
+                      : black, // Text color
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: themeController.isDarkMode.value == "d"
+                      ? white // Dark mode background color for text field
+                      : white, // Light mode background color for text field
+                  hintText: 'Enter text',
+                  hintStyle: TextStyle(
+                    color: themeController.isDarkMode.value == "d"
+                        ? grey[400]
+                        : grey[700], // Hint text color
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: themeController.isDarkMode.value == "d"
+                          ? white.withOpacity(0.6) // Dark mode border color
+                          : black.withOpacity(0.6),
+                      // Light mode border color
+                      width: 1.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: themeController.isDarkMode.value == "d"
+                          ? white.withOpacity(0.6)
+                          : black.withOpacity(0.6),
+                      width: 1.5,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: themeController.isDarkMode.value == "d"
+                          ? white
+                          : blue,
+                      width: 2.0,
+                    ),
+                  ),
+                ))),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {},
       ),
     );
   }
 }
-
 class ColorOptionButton extends StatelessWidget {
   final Color color;
   final bool isSelected;
@@ -337,3 +419,4 @@ class ColorOptionButton extends StatelessWidget {
     );
   }
 }
+
