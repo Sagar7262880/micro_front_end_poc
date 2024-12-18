@@ -86,7 +86,10 @@ class ImagePicker {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 60, color: Theme.of(context).primaryColor),
+            Icon(
+              icon,
+              size: 60,
+            ),
             Text(label, style: const TextStyle(fontSize: 16)),
           ],
         ),
@@ -118,7 +121,6 @@ class ImagePicker {
         selectedImage = await _compressFile(selectedImage);
       }
     }
-
     return selectedImage;
   }
 
@@ -128,8 +130,8 @@ class ImagePicker {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Cropper',
-          toolbarColor: Colors.blue,
-          toolbarWidgetColor: Colors.white,
+          toolbarColor: Get.theme.secondaryHeaderColor,
+          // toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
