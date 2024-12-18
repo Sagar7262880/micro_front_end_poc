@@ -7,6 +7,7 @@ const black = Colors.black;
 const green = Colors.green;
 const red = Colors.red;
 const grey = Colors.grey;
+const grey500 = Color(0XFF4E4949);
 const blueGrey = Colors.blueGrey;
 const teal = Colors.teal;
 const blue = Colors.blue;

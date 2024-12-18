@@ -8,7 +8,7 @@ import '../Constant/constant_color.dart';
 class ThemeController extends GetxController {
   var isDarkMode = 'l'.obs; // 'l' = Light mode, 'd' = Dark mode
   var currentColor =
-      ''.obs; // Will store the current color theme ('r', 'b', etc.)
+      'lt'.obs; // Will store the current color theme ('r', 'b', etc.)
 
   @override
   void onInit() {
@@ -26,7 +26,7 @@ class ThemeController extends GetxController {
     isDarkMode.value =
         prefs.getString('isDarkMode') ?? 'l'; // Default is light mode
     currentColor.value =
-        prefs.getString('currentColor') ?? ''; // Default is no color
+        prefs.getString('currentColor') ?? 'lt'; // Default is no color
   }
 
   // Save theme and color to SharedPreferences
