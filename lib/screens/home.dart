@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final timeCtr = TextEditingController();
   final monthCtr = TextEditingController();
   final nameCtr = TextEditingController();
+  final passCtr = TextEditingController();
   final sdCtr = TextEditingController();
   final globalKey = GlobalKey<FormState>();
 
@@ -260,6 +261,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       isImgCropeble: true,
                     );
                   },
+                ),
+                TxtPassword(
+                  label: "Password",
+                  controller: passCtr,
                 ),
                 SimpleDropdown(
                   labelText: "Select ",
