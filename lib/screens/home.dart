@@ -316,9 +316,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget buildCard({required String title, required String imagePath}) {
     return Card(
       //color: Colors.white,
-      shape: RoundedRectangleBorder(
+      /*shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-      ),
+      ),*/
       child: SizedBox(
         height: 120, // Fixed height for all cards
         child: Padding(

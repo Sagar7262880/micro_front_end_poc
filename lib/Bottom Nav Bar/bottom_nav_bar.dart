@@ -25,8 +25,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
-    HugeIcons
-        .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
+    HugeIcons.strokeRoundedDashboardSquare01,
+    // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
@@ -71,7 +71,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         body: pages[_bottomNavIndex], // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
-
           currentIndex: _bottomNavIndex,
           onTap: (index) {
             setState(() {
@@ -79,32 +78,31 @@ class _BottomNavBarState extends State<BottomNavBar> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Theme.of(context).primaryColor,
           showUnselectedLabels: true,
           mouseCursor: SystemMouseCursors.none,
-
           items: List.generate(5, (index) {
             final bool isSelected = _bottomNavIndex == index;
             return BottomNavigationBarItem(
               icon: isSelected
                   ? Container(
-                width: 60,
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.all(4),
-                child: Icon(
-                  _getIconForIndex(index, true),
-                ),
-              )
+                      width: 60,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: const EdgeInsets.all(4),
+                      child: Icon(
+                        _getIconForIndex(index, true),
+                      ),
+                    )
                   : Icon(
-                _getIconForIndex(index, false),
-              ),
+                      _getIconForIndex(index, false),
+                    ),
               label: _getLabelForIndex(index),
             );
           }),
-        ),/*AnimatedBottomNavigationBar.builder(
+        ), /*AnimatedBottomNavigationBar.builder(
           itemCount: iconList.length,
           tabBuilder: (int index, bool isActive) {
             final color =
@@ -206,8 +204,12 @@ class FavoritesPage extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
-   ProfilePage({super.key});
-   final ThemeController themeController = Get.find();
+  ProfilePage({super.key});
+
+  final ThemeController themeController = Get.find();
+  var selectedValue = 1.obs;
+  bool _isChecked = false;
+  final RadioController controller = Get.put(RadioController());
 
   @override
   Widget build(BuildContext context) {
@@ -232,11 +234,11 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             Obx(() => Text(
-              themeController.currentColor.value == "dr"
-                  ? 'Dark Mode is ON'
-                  : 'Light Mode is ON',
-              style: const TextStyle(fontSize: 24),
-            )),
+                  themeController.currentColor.value == "dr"
+                      ? 'Dark Mode is ON'
+                      : 'Light Mode is ON' ,
+                  style: const TextStyle(fontSize: 24),
+                )),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(10),
@@ -261,7 +263,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: red,
                             isSelected:
-                            themeController.currentColor.value == 'r',
+                                themeController.currentColor.value == 'r',
                             onTap: () {
                               themeController.toggleTheme("r");
                             },
@@ -270,7 +272,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: blue,
                             isSelected:
-                            themeController.currentColor.value == 'b',
+                                themeController.currentColor.value == 'b',
                             onTap: () {
                               themeController.toggleTheme("b");
                             },
@@ -279,7 +281,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: orange,
                             isSelected:
-                            themeController.currentColor.value == 'o',
+                                themeController.currentColor.value == 'o',
                             onTap: () {
                               themeController.toggleTheme("o");
                             },
@@ -288,7 +290,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: green,
                             isSelected:
-                            themeController.currentColor.value == 'g',
+                                themeController.currentColor.value == 'g',
                             onTap: () {
                               themeController.toggleTheme("g");
                             },
@@ -302,37 +304,70 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Icon(Icons.ac_unit),
+            Text('Select an Option:'),
+            SizedBox(height: 20),
+            Obx(() {
+              return Column(
+                children: [
+                  RadioListTile<int>(
+                    value: 1,
+                    groupValue: controller.selectedValue.value,
+                    onChanged: (int? newValue) {
+                      controller.selectedValue.value =
+                          newValue!; // Update the value
+                    },
+                    title: Text('Option 1', style: Theme.of(context).textTheme.titleSmall),
+                  ),
+                  RadioListTile<int>(
+                    value: 2,
+                    groupValue: controller.selectedValue.value,
+                    onChanged: (int? newValue) {
+                      controller.selectedValue.value =
+                          newValue!; // Update the value
+                    },
+                    title: Text('Option 2'),
+                  ),
+                ],
+              );
+            }),
             const SizedBox(height: 10),
+            Obx(() => CheckboxListTile(
+                  title: Text("Accept Terms and Conditions"),
+                  value: controller.isChecked.value,
+                  onChanged: (bool? newValue) {
+                    controller.toggleCheckbox();
+                  },
+                )),
             /* Obx(() =>  */ ElevatedButton(
               style: themeController.isDarkMode.value != "d" ||
-                  themeController.isDarkMode.value != "l"
+                      themeController.isDarkMode.value != "l"
                   ? null
                   : ElevatedButton.styleFrom(
-                backgroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.secondary,
-                foregroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary,
-                elevation:
-                themeController.isDarkMode.value == "d" ? 5 : 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+                      backgroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
+                      foregroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onSecondary,
+                      elevation:
+                          themeController.isDarkMode.value == "d" ? 5 : 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
               onPressed: () {
                 debugPrint('Button Pressed!');
               },
               child: Text(
                 'Submit'.toUpperCase(),
                 style: themeController.isDarkMode.value != "d" ||
-                    themeController.isDarkMode.value != "l"
+                        themeController.isDarkMode.value != "l"
                     ? null
                     : TextStyle(
-                  color: themeController.isDarkMode.value == "d"
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onSecondary,
-                ),
+                        color: themeController.isDarkMode.value == "d"
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondary,
+                      ),
               ),
             ),
             const SizedBox(height: 5),
@@ -346,7 +381,8 @@ class ProfilePage extends StatelessWidget {
                   filled: true,
                   fillColor: themeController.isDarkMode.value == "d"
                       ? white // Dark mode background color for text field
-                      : white, // Light mode background color for text field
+                      : white,
+                  // Light mode background color for text field
                   hintText: 'Enter text',
                   hintStyle: TextStyle(
                     color: themeController.isDarkMode.value == "d"
@@ -388,6 +424,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
 class ColorOptionButton extends StatelessWidget {
   final Color color;
   final bool isSelected;
@@ -413,10 +450,19 @@ class ColorOptionButton extends StatelessWidget {
           child: isSelected
               ? const Icon(Icons.check, size: 30.0, color: white)
               : const Icon(Icons.arrow_drop_down,
-              color: transparent, size: 30.0),
+                  color: transparent, size: 30.0),
         ),
       ),
     );
   }
 }
 
+class RadioController extends GetxController {
+  var selectedValue = 1.obs; // The value starts as 1, and it's an observable
+  var isChecked = false.obs;
+
+  // Method to toggle the checkbox
+  void toggleCheckbox() {
+    isChecked.value = !isChecked.value;
+  }
+}
