@@ -3,7 +3,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:micro_front_end_poc/google_maps.dart';
 import 'package:micro_front_end_poc/screens/home.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
@@ -11,6 +10,7 @@ import 'package:utility/utility.dart';
 
 import '../Constant/constant_color.dart';
 import '../Controller/theme_controller.dart';
+import '../google_maps/view/google_map.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -26,8 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
-    HugeIcons
-        .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
+    HugeIcons.strokeRoundedRoadLocation02,
     HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
@@ -46,7 +45,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
     // const Applyleave(),
-    const GoogleMps(),
+    const GglMaps(),
     const Backgroundgeoserviceview(),
     ProfilePage(),
   ];
@@ -150,7 +149,9 @@ IconData _getIconForIndex(int index, bool isSelected) {
           ? Icons.event_available
           : Icons.event_available_outlined;
     case 2:
-      return isSelected ? Icons.menu : Icons.menu_outlined;
+      return isSelected
+          ? HugeIcons.strokeRoundedRoadLocation02
+          : HugeIcons.strokeRoundedRoadLocation02;
     case 3:
       return isSelected ? Icons.person : Icons.person_outline;
     case 4:
