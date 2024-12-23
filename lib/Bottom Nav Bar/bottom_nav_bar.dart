@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:micro_front_end_poc/screens/home.dart';
@@ -185,12 +184,53 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  String searchText = ""; // Example state variable for search text
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Search Page"));
+    return Scaffold(
+      backgroundColor: Get.theme.primaryColor,
+      appBar: AppBar(
+        title: const Text("Custom TabBar Demo"),
+        backgroundColor: Get.theme.primaryColor,
+      ),
+      body: const CustomTabBar(
+        tabs: [
+          Tab(text: "Home"),
+          Tab(
+            text: "Profile",
+          ),
+        ],
+        // indicatorColor: Colors.white,
+        // labelColor: Colors.white,
+        // labelStyle: TextStyle(
+        //     fontSize: 18.0,
+        //     color: Color(0xFFc9c9c9),
+        //     fontWeight: FontWeight.w700),
+        //
+        // unselectedLabelColor: Colors.grey,
+        // unselectedLabelStyle: TextStyle(
+        //     fontSize: 15.0,
+        //     color: Color(0xFFc9c9c9),
+        //     fontWeight: FontWeight.w700),
+        // indicatorColor: Colors.white,
+        // labelColor: Colors.white,
+        // unselectedLabelColor: Colors.white60,
+        // labelStyle: TextStyle(fontWeight: FontWeight.bold),
+        // unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
+        tabViews: [
+          Tab(text: "Home"),
+          Tab(text: "Profile"),
+        ],
+      ),
+    );
   }
 }
 
@@ -236,7 +276,7 @@ class ProfilePage extends StatelessWidget {
             Obx(() => Text(
                   themeController.currentColor.value == "dr"
                       ? 'Dark Mode is ON'
-                      : 'Light Mode is ON' ,
+                      : 'Light Mode is ON',
                   style: const TextStyle(fontSize: 24),
                 )),
             const SizedBox(height: 10),
@@ -316,7 +356,8 @@ class ProfilePage extends StatelessWidget {
                       controller.selectedValue.value =
                           newValue!; // Update the value
                     },
-                    title: Text('Option 1', style: Theme.of(context).textTheme.titleSmall),
+                    title: Text('Option 1',
+                        style: Theme.of(context).textTheme.titleSmall),
                   ),
                   RadioListTile<int>(
                     value: 2,

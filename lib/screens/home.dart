@@ -176,6 +176,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: const Text("Get Location Permission"),
                 ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomCardView(
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      child: Icon(Icons.person, color: Colors.white),
+                    ),
+                    title: const Text("John Doe"),
+                    subtitle: const Text("Tap to view profile"),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      print("Profile tapped!");
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const CustomCardView(
+                  leading: Icon(Icons.info, color: Colors.blue),
+                  title: Text("Information"),
+                  subtitle: Text("This card shows an info message."),
+                  // backgroundColor: Colors.blue[50],
+                  trailing: Icon(Icons.more_vert),
+                ),
+                const SizedBox(height: 16),
+                const CustomCardView(
+                  leading: Icon(Icons.settings, color: Colors.grey),
+                  title: Text("Settings"),
+                  subtitle: Text("Manage your app settings."),
+                  trailing: Switch(value: true, onChanged: null),
+                  elevation: 6.0,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
                 const CustomExpansionTile(
                   title: Row(
                     children: [
