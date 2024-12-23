@@ -51,6 +51,7 @@ class _TxtPasswordState extends State<TxtPassword> {
   @override
   Widget build(BuildContext context) {
     const Color grey = Colors.grey; // Replace with your desired color if needed
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
