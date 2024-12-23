@@ -199,7 +199,7 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: Get.theme.primaryColor,
       appBar: AppBar(
         title: const Text("Custom TabBar Demo"),
-        backgroundColor: Get.theme.primaryColor,
+        // backgroundColor: Get.theme.primaryColor,
       ),
       body: const CustomTabBar(
         tabs: [

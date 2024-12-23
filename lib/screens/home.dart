@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
@@ -25,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final simpleController = TextEditingController();
-
   final dateCtr = TextEditingController();
   final timeCtr = TextEditingController();
   final monthCtr = TextEditingController();
@@ -154,13 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                     ElevatedButton(
                       onPressed: () async {
-                        var b =
-                            await obj.setString("username", "Sagar Salunke");
+                        var s = SharedService();
 
-                        print(b);
-                        var res = await dio
-                            .get("https://jsonplaceholder.typicode.com/posts");
-                        log(res.toString());
+                        print(s.getUserid());
                       },
                       child: const Text("Shared"),
                     ),
@@ -172,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () async {
                     var b = await PermissionHandler.requestLocationPermission();
-                    print("======== " + b.toString());
+                    print("======== $b");
                   },
                   child: const Text("Get Location Permission"),
                 ),

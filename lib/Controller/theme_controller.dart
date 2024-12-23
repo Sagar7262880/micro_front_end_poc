@@ -15,9 +15,7 @@ class ThemeController extends GetxController {
     super.onInit();
     _loadTheme();
 
-    darkTheme.copyWith(inputDecorationTheme: InputDecorationTheme(
-
-    ));
+    darkTheme.copyWith(inputDecorationTheme: InputDecorationTheme());
   }
 
   // Load the saved theme preference (if any)
@@ -49,7 +47,6 @@ class ThemeController extends GetxController {
 
   // Get the current theme data based on isDarkMode and selected color
   ThemeData get themeData {
-
     print("isDarkMode.value");
     print(isDarkMode.value);
     print(currentColor.value);
