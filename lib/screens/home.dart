@@ -169,9 +169,76 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 100,
                 ),
-                // const SizedBox(
-                //   height: 100,
-                // ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestLocationPermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get Location Permission"),
+                ),
+                const CustomExpansionTile(
+                  title: Row(
+                    children: [
+                      Icon(Icons.folder, color: Colors.blue),
+                      SizedBox(width: 8),
+                      Text("Section 1",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  subtitle: Text("Tap to expand"),
+                  leading: Icon(
+                    Icons.info,
+                    color: Colors.blue,
+                  ),
+                  // backgroundColor: Colors.grey[200],
+                  // expandedBackgroundColor: Colors.grey[300],
+                  childrenPadding: EdgeInsets.all(16.0),
+                  children: [
+                    ListTile(title: Text("Item 1")),
+                    ListTile(title: Text("Item 2")),
+                  ],
+                ),
+                const CustomExpansionTile(
+                  title: Text(
+                    "Section 2",
+                  ),
+                  leading: Icon(
+                    Icons.settings,
+                  ),
+                  children: [
+                    ListTile(title: Text("Setting 1")),
+                    ListTile(title: Text("Setting 2")),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestCameraPermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get camera Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestContactsPermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get contact Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestStoragePermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get storage Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b =
+                        await PermissionHandler.requestMicrophonePermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get microphone Permission"),
+                ),
                 // const SizedBox(
                 //   height: 100,
                 // ),
