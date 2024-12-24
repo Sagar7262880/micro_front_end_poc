@@ -72,7 +72,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         body: pages[_bottomNavIndex], // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
-
           currentIndex: _bottomNavIndex,
           onTap: (index) {
             setState(() {
@@ -386,21 +385,21 @@ class ProfilePage extends StatelessWidget {
                 )),
             /* Obx(() =>  */ ElevatedButton(
               style: themeController.isDarkMode.value != "d" ||
-                  themeController.isDarkMode.value != "l"
+                      themeController.isDarkMode.value != "l"
                   ? null
                   : ElevatedButton.styleFrom(
-                backgroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.secondary,
-                foregroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary,
-                elevation:
-                themeController.isDarkMode.value == "d" ? 5 : 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+                      backgroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
+                      foregroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onSecondary,
+                      elevation:
+                          themeController.isDarkMode.value == "d" ? 5 : 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
               onPressed: () {
                 debugPrint('Button Pressed!');
               },
