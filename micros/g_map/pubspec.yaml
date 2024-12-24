@@ -1,0 +1,27 @@
+name: g_map
+description: "A new Flutter package project."
+version: 0.0.1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_maps_flutter: any
+
+  #=================== Local Packages ======================
+  utility:
+    path: ../utility
+
+  #=================== Remote Packages ======================
+  # utility:
+  #   git:
+  #     url: "remote_path/utility.git"
+  #     ref: main
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0

@@ -6,10 +6,10 @@ import 'package:micro_front_end_poc/screens/home.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
 import 'package:utility/utility.dart';
+import 'package:g_map/g_map.dart';
 
 import '../Constant/constant_color.dart';
 import '../Controller/theme_controller.dart';
-import '../google_maps/view/google_map.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -45,7 +45,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> pages = [
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
-    const Applyleave(),
+    // const Applyleave(),
+    const GglMaps(),
     const Backgroundgeoserviceview(),
     ProfilePage(),
   ];

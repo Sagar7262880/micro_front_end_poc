@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gmap;
-import 'package:get/get.dart';
 import 'package:utility/utility.dart';
 
-import '../viewModel/mapsViewModel.dart';
+import '../viewModel/maps_view_model.dart';
 
 class GglMaps extends StatefulWidget {
   const GglMaps({super.key});
@@ -14,6 +13,7 @@ class GglMaps extends StatefulWidget {
 
 class _GglMapsState extends State<GglMaps> {
   final mapsController = Get.put(MapsViewModel());
+  Color bgColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,20 @@ class _GglMapsState extends State<GglMaps> {
               style: const TextStyle(fontSize: 12),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CustomSwitchButton(
+                initialValue: true,
+                label: 'Change Color',
+                onChanged: (value) {
+                  setState(() {
+                    bgColor = value ? Colors.green : Colors.red;
+                  });
+                },
+              ),
+            ],
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -66,6 +80,7 @@ class _GglMapsState extends State<GglMaps> {
             onPressed: () {},
             label: 'Custom Icon Button',
             hugeIcon: HugeIcons.strokeRoundedAbacus,
+            backgroundColor: bgColor,
           ),
           const SizedBox(
             height: 20,
@@ -75,6 +90,7 @@ class _GglMapsState extends State<GglMaps> {
             label: 'Custom Elevated Button',
             // backgroundColor: Colors.red,
             color: Colors.greenAccent,
+            backgroundColor: bgColor,
           ),
           const SizedBox(
             height: 20,
@@ -84,13 +100,6 @@ class _GglMapsState extends State<GglMaps> {
               Get.toNamed('/applyOutDuty');
             },
             label: 'Punch Out',
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Elevated'),
           ),
         ]),
       ),
