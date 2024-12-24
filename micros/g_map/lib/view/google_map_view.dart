@@ -13,7 +13,7 @@ class GglMaps extends StatefulWidget {
 
 class _GglMapsState extends State<GglMaps> {
   final mapsController = Get.put(MapsViewModel());
-  Color bgColor = Colors.white;
+  Color bgColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
