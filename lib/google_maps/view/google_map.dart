@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as gmap;
 import 'package:get/get.dart';
+import 'package:utility/utility.dart';
 
 import '../viewModel/mapsViewModel.dart';
 
@@ -17,8 +18,8 @@ class _GglMapsState extends State<GglMaps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(children: [
           const SizedBox(
             height: 20,
           ),
@@ -28,13 +29,13 @@ class _GglMapsState extends State<GglMaps> {
               height: 300,
               width: double.infinity,
               child: Card(
-                child: GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: CameraPosition(
+                child: gmap.GoogleMap(
+                  mapType: gmap.MapType.normal,
+                  initialCameraPosition: gmap.CameraPosition(
                     target: mapsController.myLocation,
                     zoom: 14.0,
                   ),
-                  onMapCreated: (GoogleMapController controller) {
+                  onMapCreated: (gmap.GoogleMapController controller) {
                     mapsController.googleMapController = controller;
                     mapsController
                         .getCurrentLocation(); // Ensure location is updated when map is created
@@ -42,7 +43,7 @@ class _GglMapsState extends State<GglMaps> {
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   markers: mapsController.markers,
-                  onCameraMove: (CameraPosition position) {
+                  onCameraMove: (gmap.CameraPosition position) {
                     setState(() {
                       mapsController.myLocation = position.target;
                     });
@@ -58,7 +59,40 @@ class _GglMapsState extends State<GglMaps> {
               style: const TextStyle(fontSize: 12),
             ),
           ),
-        ],
+          const SizedBox(
+            height: 20,
+          ),
+          CustomIconButton(
+            onPressed: () {},
+            label: 'Custom Icon Button',
+            hugeIcon: HugeIcons.strokeRoundedAbacus,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomElevatedButton(
+            onPressed: () {},
+            label: 'Custom Elevated Button',
+            // backgroundColor: Colors.red,
+            color: Colors.greenAccent,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomOutlinedButton(
+            onPressed: () {
+              Get.toNamed('/applyOutDuty');
+            },
+            label: 'Punch Out',
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Elevated'),
+          ),
+        ]),
       ),
     );
   }
