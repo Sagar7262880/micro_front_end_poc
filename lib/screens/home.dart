@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var obj = SharedService();
+  // var obj = SharedService();
   var dio = DioService();
   var controller = TextEditingController();
 
@@ -149,12 +149,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: const Text("Error"),
                     ),
                     const SizedBox(width: 10), //
-
                     ElevatedButton(
                       onPressed: () async {
                         var s = SharedService();
-
-                        print(s.getUserid());
+                        print(s.getString("isDark"));
                       },
                       child: const Text("Shared"),
                     ),
