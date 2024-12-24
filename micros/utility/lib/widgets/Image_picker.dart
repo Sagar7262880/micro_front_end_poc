@@ -49,7 +49,7 @@ class ImagePicker {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               if (!isMultipleFile)
-                _buildOption(context, Icons.camera_alt_sharp, "Camera",
+                _buildOption(context, Icons.camera_alt_outlined, "Camera",
                     () async {
                   var image = await _pickImage(imgpicker.ImageSource.camera,
                       isMultipleFile, isImgCropeble);
@@ -57,14 +57,14 @@ class ImagePicker {
                   onImagePicked(image);
                 }),
               if (!isOnlyCamera)
-                _buildOption(context, Icons.image, "Gallery", () async {
+                _buildOption(context, Icons.image_outlined, "Gallery", () async {
                   var image = await _pickImage(imgpicker.ImageSource.gallery,
                       isMultipleFile, isImgCropeble);
                   Navigator.pop(context);
                   onImagePicked(image);
                 }),
               if (isFromFile && !isOnlyCamera)
-                _buildOption(context, Icons.drive_file_move_rounded, "Browse",
+                _buildOption(context, Icons.drive_file_move_outline, "Browse",
                     () async {
                   var image = await _pickFile(isMultipleFile, isOnlyImage);
                   Navigator.pop(context);

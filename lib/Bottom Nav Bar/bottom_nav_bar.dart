@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:micro_front_end_poc/screens/home.dart';
@@ -27,6 +26,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
     HugeIcons.strokeRoundedRoadLocation02,
+    HugeIcons.strokeRoundedDashboardSquare01,
+    // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
@@ -44,8 +45,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> pages = [
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
-    // const Applyleave(),
-    const GglMaps(),
+    const Applyleave(),
     const Backgroundgeoserviceview(),
     ProfilePage(),
   ];
@@ -72,6 +72,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         body: pages[_bottomNavIndex], // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
+
           currentIndex: _bottomNavIndex,
           onTap: (index) {
             setState(() {
@@ -79,7 +80,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Theme.of(context).primaryColor,
           showUnselectedLabels: true,
           mouseCursor: SystemMouseCursors.none,
           items: List.generate(5, (index) {
@@ -89,7 +90,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   ? Container(
                       width: 60,
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.3),
+                        color: Theme.of(context).primaryColor.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       padding: const EdgeInsets.all(4),
@@ -188,12 +189,53 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  String searchText = ""; // Example state variable for search text
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Search Page"));
+    return Scaffold(
+      backgroundColor: Get.theme.primaryColor,
+      appBar: AppBar(
+        title: const Text("Custom TabBar Demo"),
+        // backgroundColor: Get.theme.primaryColor,
+      ),
+      body: const CustomTabBar(
+        tabs: [
+          Tab(text: "Home"),
+          Tab(
+            text: "Profile",
+          ),
+        ],
+        // indicatorColor: Colors.white,
+        // labelColor: Colors.white,
+        // labelStyle: TextStyle(
+        //     fontSize: 18.0,
+        //     color: Color(0xFFc9c9c9),
+        //     fontWeight: FontWeight.w700),
+        //
+        // unselectedLabelColor: Colors.grey,
+        // unselectedLabelStyle: TextStyle(
+        //     fontSize: 15.0,
+        //     color: Color(0xFFc9c9c9),
+        //     fontWeight: FontWeight.w700),
+        // indicatorColor: Colors.white,
+        // labelColor: Colors.white,
+        // unselectedLabelColor: Colors.white60,
+        // labelStyle: TextStyle(fontWeight: FontWeight.bold),
+        // unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
+        tabViews: [
+          Tab(text: "Home"),
+          Tab(text: "Profile"),
+        ],
+      ),
+    );
   }
 }
 
@@ -208,7 +250,11 @@ class FavoritesPage extends StatelessWidget {
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
+
   final ThemeController themeController = Get.find();
+  var selectedValue = 1.obs;
+  bool _isChecked = false;
+  final RadioController controller = Get.put(RadioController());
 
   @override
   Widget build(BuildContext context) {
@@ -303,24 +349,58 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Icon(Icons.ac_unit),
+            Text('Select an Option:'),
+            SizedBox(height: 20),
+            Obx(() {
+              return Column(
+                children: [
+                  RadioListTile<int>(
+                    value: 1,
+                    groupValue: controller.selectedValue.value,
+                    onChanged: (int? newValue) {
+                      controller.selectedValue.value =
+                          newValue!; // Update the value
+                    },
+                    title: Text('Option 1',
+                        style: Theme.of(context).textTheme.titleSmall),
+                  ),
+                  RadioListTile<int>(
+                    value: 2,
+                    groupValue: controller.selectedValue.value,
+                    onChanged: (int? newValue) {
+                      controller.selectedValue.value =
+                          newValue!; // Update the value
+                    },
+                    title: Text('Option 2'),
+                  ),
+                ],
+              );
+            }),
             const SizedBox(height: 10),
+            Obx(() => CheckboxListTile(
+                  title: Text("Accept Terms and Conditions"),
+                  value: controller.isChecked.value,
+                  onChanged: (bool? newValue) {
+                    controller.toggleCheckbox();
+                  },
+                )),
             /* Obx(() =>  */ ElevatedButton(
               style: themeController.isDarkMode.value != "d" ||
-                      themeController.isDarkMode.value != "l"
+                  themeController.isDarkMode.value != "l"
                   ? null
                   : ElevatedButton.styleFrom(
-                      backgroundColor: themeController.isDarkMode.value == "d"
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.secondary,
-                      foregroundColor: themeController.isDarkMode.value == "d"
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onSecondary,
-                      elevation:
-                          themeController.isDarkMode.value == "d" ? 5 : 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                backgroundColor: themeController.isDarkMode.value == "d"
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.secondary,
+                foregroundColor: themeController.isDarkMode.value == "d"
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary,
+                elevation:
+                themeController.isDarkMode.value == "d" ? 5 : 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               onPressed: () {
                 debugPrint('Button Pressed!');
               },
@@ -347,7 +427,8 @@ class ProfilePage extends StatelessWidget {
                   filled: true,
                   fillColor: themeController.isDarkMode.value == "d"
                       ? white // Dark mode background color for text field
-                      : white, // Light mode background color for text field
+                      : white,
+                  // Light mode background color for text field
                   hintText: 'Enter text',
                   hintStyle: TextStyle(
                     color: themeController.isDarkMode.value == "d"
@@ -419,5 +500,15 @@ class ColorOptionButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class RadioController extends GetxController {
+  var selectedValue = 1.obs; // The value starts as 1, and it's an observable
+  var isChecked = false.obs;
+
+  // Method to toggle the checkbox
+  void toggleCheckbox() {
+    isChecked.value = !isChecked.value;
   }
 }

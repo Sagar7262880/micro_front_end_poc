@@ -8,7 +8,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
     return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
   }
@@ -24,28 +23,24 @@ class _DashboardState extends State<Dashboard> {
         title: Text("Dashboard"),
         centerTitle: true,
       ),
-      body: Column(
-          children: [
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 20,vertical: 40),
-              child: Container(
-                width: double.infinity,
-                height: 600,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow:  [
-                      BoxShadow(
-                        color: hexToColor("#0052CC").withOpacity(0.1),
-                        blurRadius: 30.0,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(15)
-                ),
-              ),
-            ),]
-      ),
-
+      body: Column(children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          child: Container(
+            width: double.infinity,
+            height: 600,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: hexToColor("#0052CC").withOpacity(0.1),
+                      blurRadius: 30.0,
+                      spreadRadius: 2),
+                ],
+                borderRadius: BorderRadius.circular(15)),
+          ),
+        ),
+      ]),
     );
   }
 }
