@@ -4,14 +4,14 @@ import 'package:utility/utility.dart';
 class CustomIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String label;
-  final IconData hugeIcon;
+  final IconData icon;
   final Color? color;
   final Color? backgroundColor;
   const CustomIconButton(
       {super.key,
       required this.onPressed,
       required this.label,
-      required this.hugeIcon,
+      required this.icon,
       this.color,
       this.backgroundColor});
 
@@ -28,7 +28,7 @@ class _CustomIconButtonState extends State<CustomIconButton> {
         widget.label,
       ),
       icon: HugeIcon(
-        icon: widget.hugeIcon,
+        icon: widget.icon,
         color: widget.color ?? Colors.white,
       ),
       style: ButtonStyle(

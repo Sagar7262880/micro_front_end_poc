@@ -11,14 +11,17 @@ class MapsViewModel extends GetxController {
   final Set<Marker> markers = {};
   final Set<Polyline> polylines = {};
   List<LatLng> points = [];
+
   LatLng myLocation = const LatLng(18.534456, 73.883042);
   LatLng destinationLocation = const LatLng(19.874990, 75.367443);
+  LatLng newLocation = const LatLng(19.879293, 75.366074);
 
   Future<void> getPolylinePoints() async {
     try {
       points.clear();
       points.add(myLocation); // Adding starting point
       points.add(destinationLocation); // Adding destination point
+      points.add(newLocation);
 
       // Create polyline using the fetched points
       Polyline polyline = Polyline(
@@ -59,6 +62,34 @@ class MapsViewModel extends GetxController {
         markerId: const MarkerId('destinationLocation'),
         position: destinationLocation,
         infoWindow: const InfoWindow(title: 'Destination Location'),
+      ),
+    );
+    markers.add(
+      Marker(
+        markerId: const MarkerId('newlocation'),
+        position: newLocation,
+        infoWindow: const InfoWindow(title: 'New Location'),
+        // onTap: () async {
+        //   log('New Location tapped');
+        //   // Fetch new location details or perform some action
+        //   Position position = await Geolocator.getCurrentPosition(
+        //     desiredAccuracy: LocationAccuracy.high,
+        //   );
+
+        //   newLocation = LatLng(position.latitude, position.longitude);
+
+        //   // Update markers with new location
+        //   updateMarkers();
+
+        //   // Get new polyline points
+        //   await getPolylinePoints();
+
+        //   // Move camera to new location
+        //   googleMapController
+        //       .animateCamera(CameraUpdate.newLatLng(newLocation));
+
+        //   update();
+        // },
       ),
     );
   }
