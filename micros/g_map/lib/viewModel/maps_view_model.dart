@@ -1,50 +1,52 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:utility/utility.dart';
 
 class MapsViewModel extends GetxController {
-  LatLng myLocation = const LatLng(18.520430, 73.856743);
   late GoogleMapController googleMapController;
-  Set<Marker> markers = {};
+  final Set<Marker> markers = {};
+  final Set<Polyline> polylines = {};
+  List<LatLng> points = [];
+  LatLng myLocation = const LatLng(18.534456, 73.883042);
+  LatLng destinationLocation = const LatLng(19.874990, 75.367443);
 
-  Future<void> getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  Future<void> getPolylinePoints() async {
+    try {
+      points.clear();
+      points.add(myLocation); // Adding starting point
+      points.add(destinationLocation); // Adding destination point
 
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled, don't continue
-      return Future.error('Location services are disabled.');
+      // Create polyline using the fetched points
+      Polyline polyline = Polyline(
+        polylineId: const PolylineId('route'),
+        consumeTapEvents: true,
+        color: Colors.blue,
+        width: 3,
+        points: points,
+      );
+
+      // Clear existing polylines
+      polylines.clear();
+
+      // Add new polyline
+      polylines.add(polyline);
+
+      // Update the markers (if required)
+      updateMarkers();
+
+      // Notify listeners
+      update();
+    } catch (e) {
+      log('Error getting polyline points: $e');
     }
+  }
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, don't continue
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, don't continue
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    myLocation = LatLng(position.latitude, position.longitude);
-    if (kDebugMode) {
-      print("MyLocation : $myLocation");
-      print("latitude: ${myLocation.latitude}");
-      print("Longitude: ${myLocation.longitude}");
-    }
-
+  void updateMarkers() {
+    markers.clear();
     markers.add(
       Marker(
         markerId: const MarkerId('currentLocation'),
@@ -52,6 +54,35 @@ class MapsViewModel extends GetxController {
         infoWindow: const InfoWindow(title: 'My Location'),
       ),
     );
-    googleMapController.animateCamera(CameraUpdate.newLatLng(myLocation));
+    markers.add(
+      Marker(
+        markerId: const MarkerId('destinationLocation'),
+        position: destinationLocation,
+        infoWindow: const InfoWindow(title: 'Destination Location'),
+      ),
+    );
+  }
+
+  Future<void> getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      myLocation = LatLng(position.latitude, position.longitude);
+
+      // Update markers with new location
+      updateMarkers();
+
+      // Get new polyline points
+      await getPolylinePoints();
+
+      // Move camera to current location
+      googleMapController.animateCamera(CameraUpdate.newLatLng(myLocation));
+
+      update();
+    } catch (e) {
+      print('Error getting current location: $e');
+    }
   }
 }

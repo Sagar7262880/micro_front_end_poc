@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart' as gmap;
-import 'package:utility/utility.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../viewModel/maps_view_model.dart';
 
@@ -13,95 +13,53 @@ class GglMaps extends StatefulWidget {
 
 class _GglMapsState extends State<GglMaps> {
   final mapsController = Get.put(MapsViewModel());
-  Color bgColor = Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize polylines when widget is created
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      mapsController.getPolylinePoints();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 300,
-              width: double.infinity,
-              child: Card(
-                child: gmap.GoogleMap(
-                  mapType: gmap.MapType.normal,
-                  initialCameraPosition: gmap.CameraPosition(
+      body: GetBuilder<MapsViewModel>(
+        builder: (controller) {
+          return Column(
+            children: [
+              Expanded(
+                child: GoogleMap(
+                  polylines: mapsController.polylines,
+                  mapType: MapType.normal,
+                  initialCameraPosition: CameraPosition(
                     target: mapsController.myLocation,
-                    zoom: 14.0,
+                    zoom: 15.0,
                   ),
-                  onMapCreated: (gmap.GoogleMapController controller) {
+                  onMapCreated: (GoogleMapController controller) {
                     mapsController.googleMapController = controller;
-                    mapsController
-                        .getCurrentLocation(); // Ensure location is updated when map is created
+                    mapsController.getCurrentLocation();
                   },
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   markers: mapsController.markers,
-                  onCameraMove: (gmap.CameraPosition position) {
-                    setState(() {
-                      mapsController.myLocation = position.target;
-                    });
-                  },
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Current Location: (${mapsController.myLocation.latitude}, ${mapsController.myLocation.longitude})',
-              style: const TextStyle(fontSize: 12),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomSwitchButton(
-                initialValue: true,
-                label: 'Change Color',
-                onChanged: (value) {
-                  setState(() {
-                    bgColor = value ? Colors.green : Colors.red;
-                  });
-                },
+              // Add a button to refresh polylines if needed
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    mapsController.getPolylinePoints();
+                  },
+                  child: const Text('Refresh Route'),
+                ),
               ),
             ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomIconButton(
-            onPressed: () {},
-            label: 'Custom Icon Button',
-            hugeIcon: HugeIcons.strokeRoundedAbacus,
-            backgroundColor: bgColor,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomElevatedButton(
-            onPressed: () {},
-            label: 'Custom Elevated Button',
-            // backgroundColor: Colors.red,
-            color: Colors.greenAccent,
-            backgroundColor: bgColor,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomOutlinedButton(
-            onPressed: () {
-              Get.toNamed('/applyOutDuty');
-            },
-            label: 'Punch Out',
-          ),
-        ]),
+          );
+        },
       ),
     );
   }
