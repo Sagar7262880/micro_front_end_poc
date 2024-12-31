@@ -155,8 +155,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () async {
                         var s = SharedService();
                         print(s.getString("isDark"));
+                        Get.toNamed("/themeseting");
                       },
-                      child: const Text("Shared"),
+                      child: const Text("Theme Setting"),
                     ),
                   ],
                 ),

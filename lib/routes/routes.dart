@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:get/get.dart';
+import 'package:micro_front_end_poc/Bottom%20Nav%20Bar/bottom_nav_bar.dart';
 import 'package:out_duty/Apply/ApplyOutDuty.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 // import 'package:leave/apply/view/ApplyLeave.dart';
@@ -30,6 +31,12 @@ class AppRoutes {
     GetPage(
       name: '/applyLeave',
       page: () => const Applyleave(),
+      transition: defaultTransition,
+      transitionDuration: defaultDuration,
+    ),
+    GetPage(
+      name: '/themeseting',
+      page: () => ProfilePage(),
       transition: defaultTransition,
       transitionDuration: defaultDuration,
     ),
