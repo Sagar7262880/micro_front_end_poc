@@ -5,18 +5,38 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../viewModel/maps_view_model.dart';
 
 class GglMaps extends StatefulWidget {
-  const GglMaps({super.key});
+  final double sourceLat;
+  final double sourceLong;
+  final double? destLat;
+  final double? destLong;
+  const GglMaps({
+    super.key,
+    required this.sourceLat,
+    required this.sourceLong,
+    this.destLat,
+    this.destLong,
+  });
 
   @override
   State<GglMaps> createState() => _GglMapsState();
 }
 
 class _GglMapsState extends State<GglMaps> {
-  final mapsController = Get.put(MapsViewModel());
+  late MapsViewModel mapsController;
 
   @override
   void initState() {
     super.initState();
+    mapsController = Get.put(
+      MapsViewModel(
+        myLocation: LatLng(widget.sourceLat, widget.sourceLong),
+        destinationLocation: widget.destLat != null && widget.destLong != null
+            ? LatLng(widget.destLat!, widget.destLong!)
+            : null,
+        // destinationLocation:
+        //     LatLng(widget.destLat ?? 0.0, widget.destLong ?? 0.0),
+      ),
+    );
     // Initialize polylines when widget is created
     WidgetsBinding.instance.addPostFrameCallback((_) {
       mapsController.getPolylinePoints();

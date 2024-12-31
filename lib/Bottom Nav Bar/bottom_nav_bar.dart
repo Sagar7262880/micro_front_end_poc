@@ -41,18 +41,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
     "Profile"
   ];
 
+  // LatLng myLocation = const LatLng(19.874990, 75.367443);
+  // LatLng destinationLocation = const LatLng(19.914407, 75.352179);
+
   // List of pages for navigation
   final List<Widget> pages = [
     const MyHomePage(title: "Infogird POC"),
     const SearchPage(),
     // const Applyleave(),
-    const GglMaps(),
+    const GglMaps(
+      sourceLat: 19.887183,
+      sourceLong: 75.365559,
+      destLat: 19.891828,
+      destLong: 75.380073,
+    ),
     const Backgroundgeoserviceview(),
     ProfilePage(),
   ];
 
   final ThemeController themeController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;

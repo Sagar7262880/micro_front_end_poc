@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_maps_flutter: any
-  flutter_polyline_points: ^2.1.0
+#  google_maps_flutter: any
+#  flutter_polyline_points: ^2.1.0
 
   #=================== Local Packages ======================
   utility:

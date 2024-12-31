@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 // import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
@@ -7,21 +6,67 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
 class MapsViewModel extends GetxController {
+  late LatLng myLocation;
+  late LatLng? destinationLocation;
   late GoogleMapController googleMapController;
   final Set<Marker> markers = {};
   final Set<Polyline> polylines = {};
   List<LatLng> points = [];
 
-  LatLng myLocation = const LatLng(18.534456, 73.883042);
-  LatLng destinationLocation = const LatLng(19.874990, 75.367443);
-  LatLng newLocation = const LatLng(19.879293, 75.366074);
+  MapsViewModel({required this.myLocation, this.destinationLocation});
+
+  Future<void> getCurrentLocation() async {
+    try {
+      // Check if location services are enabled
+      bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!isServiceEnabled) {
+        await Geolocator.openLocationSettings();
+        log('Location services are disabled.');
+        return;
+      }
+
+      // Check location permissions
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          log('Location permission denied.');
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        log('Location permission permanently denied.');
+        return;
+      }
+
+      // Fetch current position
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      myLocation = LatLng(position.latitude, position.longitude);
+      log('Current location: $myLocation');
+
+      // Update markers and polyline
+      updateMarkers();
+      await getPolylinePoints();
+
+      // Move map camera to the new location
+      googleMapController.animateCamera(CameraUpdate.newLatLng(myLocation));
+      log('Camera moved to current location');
+
+      update();
+    } catch (e) {
+      log('Error getting current location: $e');
+    }
+  }
 
   Future<void> getPolylinePoints() async {
     try {
       points.clear();
-      points.add(myLocation); // Adding starting point
-      points.add(destinationLocation); // Adding destination point
-      points.add(newLocation);
+      points.add(myLocation); // Source point
+      points.add(destinationLocation!); // Destination point
 
       // Create polyline using the fetched points
       Polyline polyline = Polyline(
@@ -48,72 +93,29 @@ class MapsViewModel extends GetxController {
     }
   }
 
-  void updateMarkers() {
+  Future<void> updateMarkers() async {
+    BitmapDescriptor customIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(
+        size: Size(24, 24),
+      ),
+      'assets/pin.png',
+    );
     markers.clear();
     markers.add(
       Marker(
         markerId: const MarkerId('currentLocation'),
         position: myLocation,
         infoWindow: const InfoWindow(title: 'My Location'),
+        icon: customIcon,
       ),
     );
     markers.add(
       Marker(
         markerId: const MarkerId('destinationLocation'),
-        position: destinationLocation,
+        position: destinationLocation!,
         infoWindow: const InfoWindow(title: 'Destination Location'),
+        icon: customIcon,
       ),
     );
-    markers.add(
-      Marker(
-        markerId: const MarkerId('newlocation'),
-        position: newLocation,
-        infoWindow: const InfoWindow(title: 'New Location'),
-        // onTap: () async {
-        //   log('New Location tapped');
-        //   // Fetch new location details or perform some action
-        //   Position position = await Geolocator.getCurrentPosition(
-        //     desiredAccuracy: LocationAccuracy.high,
-        //   );
-
-        //   newLocation = LatLng(position.latitude, position.longitude);
-
-        //   // Update markers with new location
-        //   updateMarkers();
-
-        //   // Get new polyline points
-        //   await getPolylinePoints();
-
-        //   // Move camera to new location
-        //   googleMapController
-        //       .animateCamera(CameraUpdate.newLatLng(newLocation));
-
-        //   update();
-        // },
-      ),
-    );
-  }
-
-  Future<void> getCurrentLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-
-      myLocation = LatLng(position.latitude, position.longitude);
-
-      // Update markers with new location
-      updateMarkers();
-
-      // Get new polyline points
-      await getPolylinePoints();
-
-      // Move camera to current location
-      googleMapController.animateCamera(CameraUpdate.newLatLng(myLocation));
-
-      update();
-    } catch (e) {
-      print('Error getting current location: $e');
-    }
   }
 }
