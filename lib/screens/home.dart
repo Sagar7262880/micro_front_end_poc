@@ -1,8 +1,9 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
+
+import '../Constant/constant_color.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var obj = SharedService();
+  // var obj = SharedService();
   var dio = DioService();
   var controller = TextEditingController();
 
@@ -25,11 +26,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final simpleController = TextEditingController();
-
   final dateCtr = TextEditingController();
   final timeCtr = TextEditingController();
   final monthCtr = TextEditingController();
   final nameCtr = TextEditingController();
+  final passCtr = TextEditingController();
   final sdCtr = TextEditingController();
   final globalKey = GlobalKey<FormState>();
 
@@ -150,16 +151,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: const Text("Error"),
                     ),
                     const SizedBox(width: 10), //
-
                     ElevatedButton(
                       onPressed: () async {
-                        var b =
-                            await obj.setString("username", "Sagar Salunke");
-
-                        print(b);
-                        var res = await dio
-                            .get("https://jsonplaceholder.typicode.com/posts");
-                        log(res.toString());
+                        var s = SharedService();
+                        print(s.getString("isDark"));
                       },
                       child: const Text("Shared"),
                     ),
@@ -168,9 +163,107 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 100,
                 ),
-                // const SizedBox(
-                //   height: 100,
-                // ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestLocationPermission();
+                    print("======== $b");
+                  },
+                  child: const Text("Get Location Permission"),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomCardView(
+                    leading: CircleAvatar(
+                      child: Icon(Icons.person,
+                          color: Theme.of(context).primaryColor),
+                    ),
+                    title: const Text("John Doe"),
+                    subtitle: const Text("Tap to view profile"),
+                    trailing: Icon(Icons.arrow_forward_ios,
+                        size: 16, color: Theme.of(context).primaryColor),
+                    onTap: () {
+                      print("Profile tapped!");
+                    },
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const CustomCardView(
+                  leading: Icon(Icons.info),
+                  title: Text("Information"),
+                  subtitle: Text("This card shows an info message."),
+                  // backgroundColor: Colors.blue[50],
+                  trailing: Icon(Icons.more_vert),
+                ),
+                const SizedBox(height: 16),
+                const CustomCardView(
+                  leading: Icon(Icons.settings),
+                  title: Text("Settings"),
+                  subtitle: Text("Manage your app settings."),
+                  trailing: Switch(value: true, onChanged: null),
+                  elevation: 6.0,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
+                const CustomExpansionTile(
+                  title: Row(
+                    children: [
+                      Icon(Icons.folder),
+                      SizedBox(width: 8),
+                      Text("Section 1",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  subtitle: Text("Tap to expand"),
+                  leading: Icon(Icons.info),
+                  // backgroundColor: Colors.grey[200],
+                  // expandedBackgroundColor: Colors.grey[300],
+                  childrenPadding: EdgeInsets.all(16.0),
+                  children: [
+                    ListTile(title: Text("Item 1")),
+                    ListTile(title: Text("Item 2")),
+                  ],
+                ),
+                const CustomExpansionTile(
+                  title: Text(
+                    "Section 2",
+                  ),
+                  leading: Icon(
+                    Icons.settings,
+                  ),
+                  children: [
+                    ListTile(title: Text("Setting 1")),
+                    ListTile(title: Text("Setting 2")),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestCameraPermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get camera Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestContactsPermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get contact Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b = await PermissionHandler.requestStoragePermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get storage Permission"),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    var b =
+                        await PermissionHandler.requestMicrophonePermission();
+                    print("======== " + b.toString());
+                  },
+                  child: const Text("Get microphone Permission"),
+                ),
                 // const SizedBox(
                 //   height: 100,
                 // ),
@@ -261,6 +354,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                 ),
+                TxtPassword(
+                  label: "Password",
+                  controller: passCtr,
+                ),
                 SimpleDropdown(
                   labelText: "Select ",
                   onChanged: (value) {},
@@ -316,9 +413,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget buildCard({required String title, required String imagePath}) {
     return Card(
       //color: Colors.white,
-      shape: RoundedRectangleBorder(
+      /*shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
-      ),
+      ),*/
       child: SizedBox(
         height: 120, // Fixed height for all cards
         child: Padding(

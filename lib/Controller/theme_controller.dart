@@ -15,9 +15,7 @@ class ThemeController extends GetxController {
     super.onInit();
     _loadTheme();
 
-    darkTheme.copyWith(inputDecorationTheme: InputDecorationTheme(
-
-    ));
+    darkTheme.copyWith(inputDecorationTheme: InputDecorationTheme());
   }
 
   // Load the saved theme preference (if any)

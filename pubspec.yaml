@@ -17,6 +17,7 @@ dependencies:
   web_socket_channel: ^3.0.1
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -32,6 +33,10 @@ dev_dependencies:
 
   utility:
     path:  micros/utility
+
+  g_map:
+    path: micros/g_map
+
 #  exp_claim:
 #    path: D:/projects/micro_apps/exp_claim
 

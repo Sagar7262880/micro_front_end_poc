@@ -85,6 +85,18 @@ dynamic txtTheme(colors, double fontsize) {
 }
 */
 
+dynamic radioThemes(filColor) {
+  return RadioThemeData(
+    fillColor: WidgetStateProperty.all(filColor),
+    // Color when radio is selected
+    overlayColor: WidgetStateProperty.all(filColor.withOpacity(0.1)),
+    // Color when tapped
+    splashRadius: 20,
+    // Size of the splash effect when tapped
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
+}
+
 dynamic btnTheme(btnColor) {
   return ButtonThemeData(
       buttonColor: btnColor,
@@ -135,8 +147,74 @@ dynamic timeDialog() {
   );
 }
 
-/// ----  Red Theme  ----
+dynamic cardThemes(cardColor, double cardElevation) {
+  return CardTheme(
+    //color: cardColor, // Card background color
+    elevation: cardElevation, // Card elevation (shadow)
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20), // Rounded corners
+    ),
+  );
+}
 
+dynamic bottomTheme(selected, unSelected) {
+  BottomNavigationBarThemeData(
+    selectedItemColor: selected, // Selected item color
+    unselectedItemColor: unSelected, // Unselected item color
+    showUnselectedLabels: true, // Show labels for unselected items
+    elevation: 10, // Add shadow effect
+  );
+}
+
+dynamic cbTheme(borderClr, activeClr, checkClr) {
+  return CheckboxThemeData(
+    // Customize the checkbox's appearance
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4), // Rounded corners
+    ),
+    side: BorderSide(
+        color: borderClr, // Checkbox border color
+        width: 2),
+    checkColor: WidgetStateProperty.all(checkClr),
+    // Checkmark color
+    fillColor: WidgetStateProperty.all(activeClr),
+    // Color when checked
+    splashRadius: 20,
+    // Splash radius size
+    overlayColor:
+        WidgetStateProperty.all(Colors.blue.withOpacity(0.2)), // Ripple effect
+  );
+}
+
+dynamic inputDecoration(filClr, otherClr){
+  InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(10),
+    filled: true,
+    fillColor: filClr,
+    // Dark background for the TextField
+    // hintStyle: TextStyle(color: Colors.white60), // Hint text color (light gray)
+    // labelStyle: TextStyle(color: Colors.white,), // Label text color (white)
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: otherClr, width: 0.0),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: otherClr, width: 0.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      // borderRadius: BorderRadius.all(Radius.circular(4)),
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(width: 0, color: otherClr),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(width: 0, color: otherClr),
+    ),
+  );
+}
+
+/// ----  Red Theme  ----
 ThemeData get redTheme {
   return ThemeData(
     primaryColor: red,
@@ -144,12 +222,16 @@ ThemeData get redTheme {
     //textTheme: const TextTheme(titleMedium: TextStyle(color: red)),
     textTheme: txtTheme(red, 32),
     buttonTheme: btnTheme(red),
-    elevatedButtonTheme: btnElevation(red, white),
+    elevatedButtonTheme: btnElevation(redAccent, white),
     // Text Theme (Updated for Flutter 3.x+)
     iconTheme: const IconThemeData(color: red),
     floatingActionButtonTheme: floatButton(red),
     textButtonTheme: btnText(red),
     outlinedButtonTheme: btnOutline(red),
+    cardTheme: cardThemes(red, 2),
+    radioTheme: radioThemes(red),
+    checkboxTheme: cbTheme(red, redAccent, white),
+    // bottomNavigationBarTheme: bottomTheme(red, grey),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: red, // Icon color for light mode
@@ -187,23 +269,26 @@ ThemeData get redTheme {
 }
 
 /// ----  Blue Theme  ----
-
 ThemeData get blueTheme {
   return ThemeData(
-    primaryColor: blue,
+    primaryColor: indigo,
     appBarTheme: AppBarThemes(),
-    textTheme: txtTheme(blue, 32),
-    buttonTheme: btnTheme(blue),
-    elevatedButtonTheme: btnElevation(blue, white),
-    textButtonTheme: btnText(blue),
-    floatingActionButtonTheme: floatButton(blue),
-    outlinedButtonTheme: btnOutline(blue),
-    iconTheme: const IconThemeData(color: blue),
+    textTheme: txtTheme(indigo, 32),
+    buttonTheme: btnTheme(indigo),
+    elevatedButtonTheme: btnElevation(indigo, white),
+    textButtonTheme: btnText(indigo),
+    floatingActionButtonTheme: floatButton(indigo),
+    outlinedButtonTheme: btnOutline(indigo),
+    iconTheme: const IconThemeData(color: indigo),
+    cardTheme: cardThemes(indigo, 2),
+    radioTheme: radioThemes(indigo),
+    checkboxTheme: cbTheme(indigo, indigoAccent, white),
+    // bottomNavigationBarTheme: bottomTheme(indigo, grey),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
-        foregroundColor: blue, // Icon color for light mode
+        foregroundColor: indigo, // Icon color for light mode
         highlightColor:
-            Colors.blueAccent.withOpacity(0.1), // Highlight color on press
+            Colors.indigoAccent.withOpacity(0.1), // Highlight color on press
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -235,7 +320,6 @@ ThemeData get blueTheme {
 }
 
 /// ----  Orange Theme  ----
-
 ThemeData get orangeTheme {
   return ThemeData(
     primaryColor: orange,
@@ -243,11 +327,15 @@ ThemeData get orangeTheme {
     //textTheme: const TextTheme(titleMedium: TextStyle(color: orange)),
     textTheme: txtTheme(orange, 32),
     buttonTheme: btnTheme(orange),
-    elevatedButtonTheme: btnElevation(orange, white),
+    elevatedButtonTheme: btnElevation(orangeAccent, white),
     floatingActionButtonTheme: floatButton(orange),
     textButtonTheme: btnText(orange),
     outlinedButtonTheme: btnOutline(orange),
     iconTheme: const IconThemeData(color: orange),
+    cardTheme: cardThemes(orange, 2),
+    radioTheme: radioThemes(orange),
+    checkboxTheme: cbTheme(orange, orangeAccent, white),
+    // bottomNavigationBarTheme: bottomTheme(orange, grey),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: Colors.orange, // Icon color for light mode
@@ -284,7 +372,6 @@ ThemeData get orangeTheme {
 }
 
 /// ----  Green Theme  ----
-
 ThemeData get greenTheme {
   return ThemeData(
     primaryColor: green,
@@ -297,6 +384,10 @@ ThemeData get greenTheme {
     outlinedButtonTheme: btnOutline(green),
     iconTheme: const IconThemeData(color: green),
     floatingActionButtonTheme: floatButton(green),
+    cardTheme: cardThemes(green, 2),
+    radioTheme: radioThemes(green),
+    checkboxTheme: cbTheme(green, green, white),
+    // bottomNavigationBarTheme: bottomTheme(green, grey),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: Colors.green, // Icon color for light mode
@@ -333,10 +424,9 @@ ThemeData get greenTheme {
 }
 
 /// ----  Dark Theme  ----
-
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.blueAccent,
+  primaryColor: Colors.white,
   // Primary color for buttons, etc.
   //accentColor: Colors.amber,  // Accent color for highlights
   scaffoldBackgroundColor: Colors.black,
@@ -353,17 +443,18 @@ final ThemeData darkTheme = ThemeData(
   ),*/
 
   buttonTheme: btnTheme(black),
-  cardTheme: CardTheme(
+  cardTheme: cardThemes(Colors.grey[800], 2),
+  /*cardTheme: CardTheme(
     color: Colors.grey[800], // Card color
     shadowColor: Colors.black54, // Shadow color for cards
-  ),
-  iconTheme: IconThemeData(
-    color: Colors.white70, // Icon color
-  ),
+  ),*/
+  iconTheme: IconThemeData(color: Colors.white70),
   floatingActionButtonTheme: floatButton(grey500),
   elevatedButtonTheme: btnElevation(grey500, white),
   textButtonTheme: btnText(white),
   outlinedButtonTheme: btnOutline(white),
+  checkboxTheme: cbTheme(white, white, black),
+  // bottomNavigationBarTheme: bottomTheme(white, grey),
   inputDecorationTheme: InputDecorationTheme(
     contentPadding: const EdgeInsets.all(10),
     filled: true,
@@ -438,10 +529,9 @@ final darkThemes = ThemeData(
         ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFFFFFFF)));
 
 /// ----  Light Theme  ----
-
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  primaryColor: Colors.blueAccent,
+  primaryColor: grey,
   // Primary color for buttons, etc.
   //accentColor: Colors.amber,  // Accent color for highlights
   scaffoldBackgroundColor: Colors.white,
@@ -457,14 +547,14 @@ final ThemeData lightTheme = ThemeData(
     headlineSmall: TextStyle(color: Colors.black),
   ),*/
   buttonTheme: btnTheme(white),
-
-  cardTheme: CardTheme(
+  cardTheme: cardThemes(white, 2),
+  /*cardTheme: CardTheme(
     color: Colors.white,
     // Card color: plain white for a light theme
     shadowColor: Colors.grey.withOpacity(0.5),
     // Shadow color: subtle grey shadow for a soft effect
     elevation: 2, // Optional: elevation for shadow depth
-  ),
+  ),*/
   iconTheme: IconThemeData(
     color: Colors.black54, // Icon color
   ),
@@ -472,6 +562,8 @@ final ThemeData lightTheme = ThemeData(
   elevatedButtonTheme: btnElevation(white80, black),
   textButtonTheme: btnText(black),
   outlinedButtonTheme: btnOutline(black),
+  checkboxTheme: cbTheme(black, black, white),
+  // bottomNavigationBarTheme: bottomTheme(black, grey),
   inputDecorationTheme: InputDecorationTheme(
     contentPadding: const EdgeInsets.all(10),
     filled: true,
@@ -500,7 +592,7 @@ final ThemeData lightTheme = ThemeData(
 );
 
 final lightThemes = ThemeData(
-    primaryColor: white,
+    primaryColor: white80,
     hintColor: white,
     //brightness: Brightness.light,
     dividerColor: Colors.grey,
