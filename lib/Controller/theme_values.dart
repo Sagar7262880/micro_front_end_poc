@@ -220,6 +220,7 @@ ThemeData get redTheme {
     primaryColor: red,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: red)),
+    scaffoldBackgroundColor: scaffoldColr,
     textTheme: txtTheme(red, 32),
     buttonTheme: btnTheme(red),
     elevatedButtonTheme: btnElevation(redAccent, white),
@@ -272,6 +273,7 @@ ThemeData get redTheme {
 ThemeData get blueTheme {
   return ThemeData(
     primaryColor: indigo,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     textTheme: txtTheme(indigo, 32),
     buttonTheme: btnTheme(indigo),
@@ -323,6 +325,7 @@ ThemeData get blueTheme {
 ThemeData get orangeTheme {
   return ThemeData(
     primaryColor: orange,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: orange)),
     textTheme: txtTheme(orange, 32),
@@ -375,6 +378,7 @@ ThemeData get orangeTheme {
 ThemeData get greenTheme {
   return ThemeData(
     primaryColor: green,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: green)),
     textTheme: txtTheme(green, 32),
@@ -534,7 +538,7 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: grey,
   // Primary color for buttons, etc.
   //accentColor: Colors.amber,  // Accent color for highlights
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: scaffoldColr,
   // Background color of the app
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white70, // App bar color
@@ -596,7 +600,7 @@ final lightThemes = ThemeData(
     hintColor: white,
     //brightness: Brightness.light,
     dividerColor: Colors.grey,
-    scaffoldBackgroundColor: white,
+    scaffoldBackgroundColor: scaffoldColr,
     cardTheme: CardTheme(
       elevation: 5,
       shadowColor: Colors.grey.withOpacity(0.2),
