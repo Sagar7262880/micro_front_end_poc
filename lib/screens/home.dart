@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
 
+import '../Constant/constant_color.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -172,13 +174,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomCardView(
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.blue,
-                      child: Icon(Icons.person, color: Colors.white),
+                    leading: CircleAvatar(
+                      child: Icon(Icons.person,
+                          color: Theme.of(context).primaryColor),
                     ),
                     title: const Text("John Doe"),
                     subtitle: const Text("Tap to view profile"),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    trailing: Icon(Icons.arrow_forward_ios,
+                        size: 16, color: Theme.of(context).primaryColor),
                     onTap: () {
                       print("Profile tapped!");
                     },
@@ -186,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 16),
                 const CustomCardView(
-                  leading: Icon(Icons.info, color: Colors.blue),
+                  leading: Icon(Icons.info),
                   title: Text("Information"),
                   subtitle: Text("This card shows an info message."),
                   // backgroundColor: Colors.blue[50],
@@ -194,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 16),
                 const CustomCardView(
-                  leading: Icon(Icons.settings, color: Colors.grey),
+                  leading: Icon(Icons.settings),
                   title: Text("Settings"),
                   subtitle: Text("Manage your app settings."),
                   trailing: Switch(value: true, onChanged: null),
@@ -204,17 +207,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 const CustomExpansionTile(
                   title: Row(
                     children: [
-                      Icon(Icons.folder, color: Colors.blue),
+                      Icon(Icons.folder),
                       SizedBox(width: 8),
                       Text("Section 1",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
                   subtitle: Text("Tap to expand"),
-                  leading: Icon(
-                    Icons.info,
-                    color: Colors.blue,
-                  ),
+                  leading: Icon(Icons.info),
                   // backgroundColor: Colors.grey[200],
                   // expandedBackgroundColor: Colors.grey[300],
                   childrenPadding: EdgeInsets.all(16.0),

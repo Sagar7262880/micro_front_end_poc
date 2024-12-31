@@ -24,6 +24,7 @@ class CustomExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color iconColor = Theme.of(context).iconTheme.color ?? Colors.black;
     return Theme(
       data: Theme.of(context).copyWith(
         dividerColor: Colors.transparent,
@@ -37,12 +38,18 @@ class CustomExpansionTile extends StatelessWidget {
                 BorderSide(color: backgroundColor ?? Colors.transparent)),
         color: backgroundColor,
         child: ExpansionTile(
-          leading: leading,
+          leading: IconTheme(
+            data: IconThemeData(color: iconColor), // Set color of leading icon
+            child: leading!,
+          ),
           title: title,
           // Title is a Widget
           subtitle: subtitle,
           tilePadding: tilePadding,
-
+          trailing: IconTheme(
+            data: IconThemeData(color: iconColor), // Set color of leading icon
+            child: Icon(Icons.keyboard_arrow_down_rounded),
+          ),
           // Subtitle is also a Widget
           children: [
             const Divider(
