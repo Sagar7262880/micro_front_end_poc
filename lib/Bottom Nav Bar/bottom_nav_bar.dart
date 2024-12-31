@@ -11,7 +11,6 @@ import 'package:g_map/g_map.dart';
 
 import '../Constant/constant_color.dart';
 import '../Controller/theme_controller.dart';
-import '../screens/calculator.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -52,10 +51,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ),
     const Applyleave(),
     const MyHomePage(title: "Infogird POC"),
-    const SearchPage(),
-    // const Applyleave(),
-    const GglMaps(),
-    const Backgroundgeoserviceview(),
+    // const SearchPage(),
+    // // const Applyleave(),
+    // const GglMaps(),
+    // const Backgroundgeoserviceview(),
     ProfilePage(),
   ];
 
