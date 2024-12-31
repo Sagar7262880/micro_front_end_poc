@@ -49,7 +49,6 @@ class ThemeController extends GetxController {
 
   // Get the current theme data based on isDarkMode and selected color
   ThemeData get themeData {
-
     print("isDarkMode.value");
     print(isDarkMode.value);
     print(currentColor.value);

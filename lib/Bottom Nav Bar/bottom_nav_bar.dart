@@ -2,14 +2,16 @@
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:micro_front_end_poc/screens/home.dart';
+import 'package:micro_front_end_poc/screens/dashboard.dart';
+
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
+import 'package:micro_front_end_poc/screens/socket_example.dart';
 import 'package:utility/utility.dart';
 
 import '../Constant/constant_color.dart';
 import '../Controller/theme_controller.dart';
+import '../screens/calculator.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -25,8 +27,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
-    HugeIcons
-        .strokeRoundedDashboardSquare01, // Icon for the Apply Leave functionality
+    HugeIcons.strokeRoundedDashboardSquare01,
+    // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedLocation01,
     HugeIcons.strokeRoundedSearchList01,
   ];
@@ -42,8 +44,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   // List of pages for navigation
   final List<Widget> pages = [
-    const MyHomePage(title: "Infogird POC"),
-    const SearchPage(),
+    // const MyHomePage(title: "Infogird POC"),
+    const Dashboard(),
+    //StockMarketPage(),
+    MyHomePage(
+      title: "This is my flutter projects",
+    ),
     const Applyleave(),
     const Backgroundgeoserviceview(),
     ProfilePage(),
@@ -71,7 +77,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         body: pages[_bottomNavIndex], // Display the selected page
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
-
           currentIndex: _bottomNavIndex,
           onTap: (index) {
             setState(() {
@@ -82,29 +87,28 @@ class _BottomNavBarState extends State<BottomNavBar> {
           selectedItemColor: Colors.blue,
           showUnselectedLabels: true,
           mouseCursor: SystemMouseCursors.none,
-
           items: List.generate(5, (index) {
             final bool isSelected = _bottomNavIndex == index;
             return BottomNavigationBarItem(
               icon: isSelected
                   ? Container(
-                width: 60,
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                padding: const EdgeInsets.all(4),
-                child: Icon(
-                  _getIconForIndex(index, true),
-                ),
-              )
+                      width: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding: const EdgeInsets.all(4),
+                      child: Icon(
+                        _getIconForIndex(index, true),
+                      ),
+                    )
                   : Icon(
-                _getIconForIndex(index, false),
-              ),
+                      _getIconForIndex(index, false),
+                    ),
               label: _getLabelForIndex(index),
             );
           }),
-        ),/*AnimatedBottomNavigationBar.builder(
+        ), /*AnimatedBottomNavigationBar.builder(
           itemCount: iconList.length,
           tabBuilder: (int index, bool isActive) {
             final color =
@@ -206,8 +210,9 @@ class FavoritesPage extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
-   ProfilePage({super.key});
-   final ThemeController themeController = Get.find();
+  ProfilePage({super.key});
+
+  final ThemeController themeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -232,11 +237,11 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             Obx(() => Text(
-              themeController.currentColor.value == "dr"
-                  ? 'Dark Mode is ON'
-                  : 'Light Mode is ON',
-              style: const TextStyle(fontSize: 24),
-            )),
+                  themeController.currentColor.value == "dr"
+                      ? 'Dark Mode is ON'
+                      : 'Light Mode is ON',
+                  style: const TextStyle(fontSize: 24),
+                )),
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.all(10),
@@ -261,7 +266,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: red,
                             isSelected:
-                            themeController.currentColor.value == 'r',
+                                themeController.currentColor.value == 'r',
                             onTap: () {
                               themeController.toggleTheme("r");
                             },
@@ -270,7 +275,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: blue,
                             isSelected:
-                            themeController.currentColor.value == 'b',
+                                themeController.currentColor.value == 'b',
                             onTap: () {
                               themeController.toggleTheme("b");
                             },
@@ -279,7 +284,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: orange,
                             isSelected:
-                            themeController.currentColor.value == 'o',
+                                themeController.currentColor.value == 'o',
                             onTap: () {
                               themeController.toggleTheme("o");
                             },
@@ -288,7 +293,7 @@ class ProfilePage extends StatelessWidget {
                           ColorOptionButton(
                             color: green,
                             isSelected:
-                            themeController.currentColor.value == 'g',
+                                themeController.currentColor.value == 'g',
                             onTap: () {
                               themeController.toggleTheme("g");
                             },
@@ -305,34 +310,34 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 10),
             /* Obx(() =>  */ ElevatedButton(
               style: themeController.isDarkMode.value != "d" ||
-                  themeController.isDarkMode.value != "l"
+                      themeController.isDarkMode.value != "l"
                   ? null
                   : ElevatedButton.styleFrom(
-                backgroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.secondary,
-                foregroundColor: themeController.isDarkMode.value == "d"
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSecondary,
-                elevation:
-                themeController.isDarkMode.value == "d" ? 5 : 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+                      backgroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.secondary,
+                      foregroundColor: themeController.isDarkMode.value == "d"
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onSecondary,
+                      elevation:
+                          themeController.isDarkMode.value == "d" ? 5 : 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
               onPressed: () {
                 debugPrint('Button Pressed!');
               },
               child: Text(
                 'Submit'.toUpperCase(),
                 style: themeController.isDarkMode.value != "d" ||
-                    themeController.isDarkMode.value != "l"
+                        themeController.isDarkMode.value != "l"
                     ? null
                     : TextStyle(
-                  color: themeController.isDarkMode.value == "d"
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onSecondary,
-                ),
+                        color: themeController.isDarkMode.value == "d"
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSecondary,
+                      ),
               ),
             ),
             const SizedBox(height: 5),
@@ -346,7 +351,8 @@ class ProfilePage extends StatelessWidget {
                   filled: true,
                   fillColor: themeController.isDarkMode.value == "d"
                       ? white // Dark mode background color for text field
-                      : white, // Light mode background color for text field
+                      : white,
+                  // Light mode background color for text field
                   hintText: 'Enter text',
                   hintStyle: TextStyle(
                     color: themeController.isDarkMode.value == "d"
@@ -388,6 +394,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
 class ColorOptionButton extends StatelessWidget {
   final Color color;
   final bool isSelected;
@@ -413,10 +420,9 @@ class ColorOptionButton extends StatelessWidget {
           child: isSelected
               ? const Icon(Icons.check, size: 30.0, color: white)
               : const Icon(Icons.arrow_drop_down,
-              color: transparent, size: 30.0),
+                  color: transparent, size: 30.0),
         ),
       ),
     );
   }
 }
-
