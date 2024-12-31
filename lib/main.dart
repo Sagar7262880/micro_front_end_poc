@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoutes.home,
             getPages: AppRoutes.routes,
             theme: themeController.themeData, // Reactively set theme
+
             home: BottomNavBar());
       },
     );

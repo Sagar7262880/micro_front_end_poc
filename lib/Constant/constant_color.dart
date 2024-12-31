@@ -20,3 +20,4 @@ const orange = Colors.orange;
 const orangeAccent = Colors.orangeAccent;
 const background = Color(0xFF212121);
 const transparent = Colors.transparent;
+const scaffoldColr = Color(0xFFF5F7FA);

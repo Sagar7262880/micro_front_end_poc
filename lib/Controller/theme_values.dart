@@ -32,26 +32,26 @@ dynamic btnElevation(bgColor, frColor) {
 
 dynamic txtTheme(colors, double fontsize) {
   return TextTheme(
-    displayLarge: TextStyle(fontSize: fontsize),
+    displayLarge: TextStyle(fontSize: fontsize,fontFamily: "Poppins"),
     // Replaces headline1 // 32
-    displayMedium: TextStyle(fontSize: fontsize - 4),
+    displayMedium: TextStyle(fontSize: fontsize - 4,fontFamily: "Poppins"),
     // Replaces headline2
-    displaySmall: TextStyle(fontSize: fontsize - 8),
+    displaySmall: TextStyle(fontSize: fontsize - 8,fontFamily: "Poppins"),
     // Replaces headline3
-    titleLarge: TextStyle(fontSize: fontsize - 12),
+    titleLarge: TextStyle(fontSize: fontsize - 12,fontFamily: "Poppins"),
     // Replaces headline4
-    titleMedium: TextStyle(fontSize: fontsize - 14),
+    titleMedium: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
     // Replaces headline5
-    titleSmall: TextStyle(fontSize: fontsize - 16),
+    titleSmall: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
     // Replaces headline6
-    bodyLarge: TextStyle(fontSize: fontsize - 14),
+    bodyLarge: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
     // Replaces bodyText1
-    bodyMedium: TextStyle(fontSize: fontsize - 16),
+    bodyMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
     // Replaces bodyText2
-    bodySmall: TextStyle(fontSize: fontsize - 18),
-    labelLarge: TextStyle(fontSize: fontsize - 18),
-    labelMedium: TextStyle(fontSize: fontsize - 16),
-    labelSmall: TextStyle(fontSize: fontsize - 14),
+    bodySmall: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
+    labelLarge: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
+    labelMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
+    labelSmall: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
   );
 }
 

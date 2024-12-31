@@ -1,10 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:micro_front_end_poc/screens/home.dart';
+import 'package:micro_front_end_poc/screens/dashboard.dart';
+
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
+import 'package:micro_front_end_poc/screens/socket_example.dart';
 import 'package:utility/utility.dart';
 import 'package:g_map/g_map.dart';
 
@@ -25,7 +26,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<IconData> iconList = [
     HugeIcons.strokeRoundedHome01,
     HugeIcons.strokeRoundedAbacus,
-    HugeIcons.strokeRoundedRoadLocation02,
     HugeIcons.strokeRoundedDashboardSquare01,
     // Icon for the Apply Leave functionality
     HugeIcons.strokeRoundedLocation01,
@@ -43,11 +43,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   // List of pages for navigation
   final List<Widget> pages = [
+    // const MyHomePage(title: "Infogird POC"),
+    const Dashboard(),
+    //StockMarketPage(),
+    MyHomePage(
+      title: "This is my flutter projects",
+    ),
+    const Applyleave(),
     const MyHomePage(title: "Infogird POC"),
-    const SearchPage(),
-    // const Applyleave(),
-    const GglMaps(),
-    const Backgroundgeoserviceview(),
+    // const SearchPage(),
+    // // const Applyleave(),
+    // const GglMaps(),
+    // const Backgroundgeoserviceview(),
     ProfilePage(),
   ];
 
@@ -150,9 +157,7 @@ IconData _getIconForIndex(int index, bool isSelected) {
           ? Icons.event_available
           : Icons.event_available_outlined;
     case 2:
-      return isSelected
-          ? HugeIcons.strokeRoundedRoadLocation02
-          : HugeIcons.strokeRoundedRoadLocation02;
+      return isSelected ? Icons.menu : Icons.menu_outlined;
     case 3:
       return isSelected ? Icons.person : Icons.person_outline;
     case 4:
