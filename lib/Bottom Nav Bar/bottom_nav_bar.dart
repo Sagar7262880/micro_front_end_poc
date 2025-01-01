@@ -8,7 +8,6 @@ import 'package:geo_fencing/fencing/BackgroundGeoServiceView.dart';
 import 'package:micro_front_end_poc/screens/socket_example.dart';
 import 'package:utility/utility.dart';
 import 'package:g_map/g_map.dart';
-
 import '../Constant/constant_color.dart';
 import '../Controller/theme_controller.dart';
 
@@ -32,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HugeIcons.strokeRoundedSearchList01,
   ];
 
-  // List of navigation labels
+  // List of navigation labels3
   final List<String> labels = [
     "Home",
     "Something",
@@ -51,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     ),
     const Applyleave(),
     const MyHomePage(title: "Infogird POC"),
-   // const SearchPage(),
+    // const SearchPage(),
     // // const Applyleave(),
     // const GglMaps(),
     // const Backgroundgeoserviceview(),

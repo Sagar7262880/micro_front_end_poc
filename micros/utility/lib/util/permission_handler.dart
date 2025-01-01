@@ -36,7 +36,6 @@ class PermissionHandler {
     }
     // Request permission if not granted
     status = await permission.request();
-
     if (status.isGranted) {
       return true;
     } else if (status.isDenied) {
@@ -69,6 +68,7 @@ class PermissionHandler {
           message:
               "Some permissions are permanently denied. Please enable them in settings.",
         );
+
         return false;
       }
       await permissions.request();

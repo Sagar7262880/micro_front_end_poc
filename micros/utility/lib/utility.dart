@@ -26,3 +26,7 @@ export 'package:utility/widgets/custom_icon_buttons.dart';
 export 'package:utility/widgets/custom_elevated_button.dart';
 export 'package:utility/widgets/custom_outlined_button.dart';
 export 'package:utility/widgets/custom_switch_button.dart';
+export 'package:utility/util/DialogBuilder.dart';
+export 'package:dio/dio.dart'
+    show Dio, Options, RequestOptions; // Only necessary Dio classes
+export 'package:utility/util/Singleton.dart';

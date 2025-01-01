@@ -1,164 +1,291 @@
 import 'dart:async';
+import 'dart:developer'; // Import the log function
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart' as g;
+import 'package:get/get_core/src/get_main.dart';
+import 'package:utility/shared_pref_service/SharedService.dart';
+import 'package:utility/util/DialogBuilder.dart';
+import 'package:utility/util/Singleton.dart';
 
 class DioService {
   static Dio? _dio;
-  static SharedPreferences? prefs;
   static final DioService _singleton = DioService._internal();
-  static var _token = "";
+
   factory DioService() {
+    log("DioService factory called.");
     return _singleton;
   }
 
   DioService._internal() {
+    log("DioService singleton instance created.");
     initializeDio();
   }
 
-  static Future<String?> getToken() async {
-    if (prefs == null) {
-      prefs = await SharedPreferences.getInstance();
-    }
-    _token = prefs!.getString("accessToken") ?? "F";
-    return _token;
-  }
-
-  static getHeader() async {
-    var token = await getToken();
+  static Map<String, String> getHeader() {
+    log("Fetching headers...");
+    var token = SharedService().getToken();
+    log("Token fetched: ${token.isNotEmpty ? 'Exists' : 'Empty'}");
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      if (token != null) 'Authorization': 'Bearer $token',
+      if (token.isNotEmpty) 'Authorization': 'Bearer $token',
     };
   }
 
   static Future<void> initializeDio() async {
+    log("Initializing Dio instance...");
     _dio = Dio(
       BaseOptions(
-        baseUrl:
-            'https://api.infogird.com/prod/api/', //'https://api.infogird.com/prod/api/',
-        connectTimeout: Duration(seconds: 60),
-        receiveTimeout: Duration(seconds: 90),
-        headers: await getHeader(),
-        // followRedirects: false,
-        // validateStatus: (status) => true,
+        baseUrl: 'https://api.infogird.com/prod/api/',
+        // receiveDataWhenStatusError: true,
+        persistentConnection: true,
+        connectTimeout: const Duration(seconds: 60),
+        receiveTimeout: const Duration(seconds: 90),
+        headers: getHeader(),
       ),
     );
 
+    log("Adding interceptors...");
     _dio!.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          return handler.next(options);
+          log("Request initiated: ${options.method} ${options.path}");
+          if (options.data != null) log("Request data: ${options.data}");
+          handler.next(options);
         },
         onError: (e, handler) async {
-          if (e.response != null) {
-            if (e.response!.statusCode == 401) {
-              if (await refreshToken()) {
-                var requestOptions = e.requestOptions;
-                _dio!.options.headers = await getHeader();
-                final opts = new Options(method: requestOptions.method);
-                final response = await _dio!.request(requestOptions.path,
-                    options: opts,
-                    cancelToken: requestOptions.cancelToken,
-                    onReceiveProgress: requestOptions.onReceiveProgress,
-                    data: requestOptions.data,
-                    queryParameters: requestOptions.queryParameters);
-                return handler.resolve(response);
-              } else {
-                return handler.next(e);
-              }
-            } else if (e.response!.statusCode == 403) {
-              e.response!.data = {"errors": "Access Denied"};
-              e.response!.statusCode = 403;
-              return handler.resolve(e.response!);
+          log("Error occurred: ${e.message}");
+          if (e.response != null && e.response!.statusCode == 401) {
+            log("Unauthorized error (401). Attempting token refresh...");
+            if (await refreshToken()) {
+              log("Token refreshed successfully. Retrying request...");
+              var requestOptions = e.requestOptions;
+              _dio!.options.headers = getHeader();
+              final opts = Options(method: requestOptions.method);
+              final response = await _dio!.request(
+                requestOptions.path,
+                options: opts,
+                cancelToken: requestOptions.cancelToken,
+                onReceiveProgress: requestOptions.onReceiveProgress,
+                data: requestOptions.data,
+                queryParameters: requestOptions.queryParameters,
+              );
+              return handler.resolve(response);
+            } else {
+              log("Token refresh failed.");
+              return handler.next(e);
             }
-            return handler.next(e);
+          } else if (e.response != null && e.response!.statusCode == 403) {
+            log("Access Denied (403).");
+            e.response!.data = {"errors": "Access Denied"};
+            e.response!.statusCode = 403;
+            return handler.resolve(e.response!);
           }
           return handler.next(e);
         },
         onResponse: (response, handler) {
+          var url = response.requestOptions.path;
+          String responseData = response.data != null
+              ? response.data.toString()
+              : 'No response data';
+          log("Response received for URL: $url\nStatus code: ${response.statusCode} Response data: ${responseData.length > 100000 ? "Large data, enable to print log!" : responseData}");
           handler.next(response);
         },
       ),
     );
+    log("Dio instance initialized successfully.");
   }
 
-  Future<Response> get(String url, {Map<String, dynamic>? params}) async {
-    return await _dio!.get(url, queryParameters: params);
+  Future<Response> get(String url,
+      {Map<String, dynamic>? params, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        res = await _dio!.get(url, queryParameters: params);
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in GET request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
+    }
   }
 
-  Future<Response> getApi(context, String url,
-      {Map<String, dynamic>? params}) async {
-    //this.context = context;
-    return await _dio!.get(url, queryParameters: params);
+  Future<Response> post(String url,
+      {dynamic data, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        res = await _dio!.post(url, data: data);
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in POST request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
+    }
   }
 
-  Future<Response> post(String url, data) async {
-    return await _dio!.post(url, data: data);
+  Future<Response> delete(String url,
+      {dynamic data, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        res = await _dio!.delete(url, data: data);
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in DELETE request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
+    }
   }
 
-  Future<Response> delete(String url, {dynamic data}) async {
-    return await _dio!.delete(url, data: data);
-  }
-
-  Future<Response> patch(String url, data) async {
-    return await _dio!.patch(url, data: data);
+  Future<Response> patch(String url,
+      {dynamic data, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        res = await _dio!.patch(url, data: data);
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in PATCH request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
+    }
   }
 
   Future<Response> postMultipart(String url, dynamic data,
-      {bool isContentTypeJson = false}) async {
-    if (!isContentTypeJson) {
-      _dio!.options.headers["Content-Type"] = "multipart/form-data";
+      {bool isContentTypeJson = false, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (!isContentTypeJson) {
+          _dio!.options.headers["Content-Type"] = "multipart/form-data";
+        }
+        res = await _dio!.post(url, data: data);
+        _dio!.options.headers = getHeader();
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in POST Multipart request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
     }
-
-    //_dio!.options.headers["Content-Type"] = "multipart/form-data";
-    var res = await _dio!.post(url, data: data);
-    _dio!.options.headers = await getHeader();
-    return res;
   }
 
-  Future<Response> patchMultipart(String url, dynamic data,
-      {bool isContentTypeJson = false}) async {
-    if (!isContentTypeJson) {
-      _dio!.options.headers["Content-Type"] = "multipart/form-data";
-    }
-    //_dio!.options.headers["Content-Type"] = "multipart/form-data";
-    var res = await _dio!.patch(url, data: data);
-    _dio!.options.headers = await getHeader();
-    return res;
-  }
-
-  static refreshToken() async {
-    if (prefs == null) {
-      prefs = await SharedPreferences.getInstance();
-    }
-    Response response;
+  static Future<bool> refreshToken() async {
+    log("Refreshing token...");
     var dio = Dio();
     dio.options.headers = {
       'Content-Type': 'application/json',
     };
-    var refreshtoken = prefs!.getString('refreshToken');
-    Map<String, dynamic> body = {'token': refreshtoken, 'is_mobile': true};
+    var refreshToken = SharedService().getToken();
+    Map<String, dynamic> body = {'token': refreshToken, 'is_mobile': true};
     try {
-      response = await dio.post("", data: body);
-      if (response.statusCode == 200) {
+      var response = await dio.post("", data: body);
+      log("Token refresh response: ${response.statusCode}");
+      if (response.statusCode == 200 && response.data["status"] == "true") {
         var data = response.data;
-        if (data["status"].toString() == "true") {
-          prefs!.setString('accessToken', data["accessToken"].toString());
-          if (data.toString().contains("refreshToken")) {
-            prefs!.setString('refreshToken', data["refreshToken"].toString());
-            return true;
-          }
-        } else {
-          return false;
+        log("New access token: ${data["accessToken"]}");
+        SharedService().setString('accessToken', data["accessToken"]);
+        if (data.containsKey("refreshToken")) {
+          log("New refresh token: ${data["refreshToken"]}");
+          SharedService().setString('refreshToken', data["refreshToken"]);
         }
-      } else {
-        return false;
+        return true;
+      } else if (response.statusCode == 401) {
+        showSessionOutDialog();
       }
-    } catch (e) {
-      print(e.toString());
+    } catch (e, stackTrace) {
+      log("Error during token refresh: $e", stackTrace: stackTrace);
     }
+    return false;
   }
 
-// Add other methods like put, delete, etc. as needed
+  static showSessionOutDialog() {
+    DialogBuilder.hideOpenDialog();
+    Get.defaultDialog(
+      title: 'Session Expired',
+      contentPadding: const EdgeInsets.all(20),
+      barrierDismissible: false,
+      // User must tap the button
+      backgroundColor: Colors.white,
+      titleStyle: const TextStyle(
+          color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18),
+      content: const Column(
+        children: [
+          Text(
+            'Your session has expired. Please log in again to continue.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black, fontSize: 16),
+          ),
+          SizedBox(height: 20),
+        ],
+      ),
+      confirm: ElevatedButton(
+        onPressed: () {
+          Get.back(); // Close the dialog
+          // Get.to(Apply)
+          // Get.offAllNamed('/login'); // Navigate to the login screen
+        },
+        child: const Text(
+          'OK',
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
+    );
+  }
+
+  void showNoInternetConnectionDialog() {
+    Singleton.showImageDialog("No connection",
+        "Please check your internet connection", "assets/checkinternet.png");
+  }
 }
