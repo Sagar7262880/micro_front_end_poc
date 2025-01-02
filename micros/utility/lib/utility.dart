@@ -30,3 +30,5 @@ export 'package:utility/util/DialogBuilder.dart';
 export 'package:dio/dio.dart'
     show Dio, Options, RequestOptions; // Only necessary Dio classes
 export 'package:utility/util/Singleton.dart';
+export 'package:utility/database_service/DBService.dart';
+export 'package:utility/database_service/DBBox.dart';
