@@ -32,3 +32,4 @@ export 'package:dio/dio.dart'
 export 'package:utility/util/Singleton.dart';
 export 'package:utility/database_service/DBService.dart';
 export 'package:utility/database_service/DBBox.dart';
+export 'package:utility/web_socket_service/WebSocketService.dart';

@@ -23,10 +23,10 @@ class _MyHomePageState extends State<MyHomePage> {
   var dio = DioService();
   var sf = SharedService();
   var no = 1;
+  var ws = WebSocketService();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // sf.setString("accessToken",
     //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOiI1ZmUxY2M0MDM2NTQyMzIwMzU5MTFlOWYiLCJpZCI6IjY2ZjkzYjVmY2UzNDhmMjIwMmE2YjZlNyIsInVzZXJuYW1lIjoiSUlQTCBBRE1JTiBBRE1JTiAtIDIwMDAwMDAxIiwicm9sZSI6IjVmYzQ4ZjdjMTM3MzZlMTcxOGYzZDg2NiIsInJvbGVOYW1lIjoiU1VQRVIgQURNSU4iLCJmdWxsQWNjZXNzIjp0cnVlLCJkb21haW4iOiJkZW1vIiwiY29tcGFueSI6IjVmMTFmMWI1N2ZmNzc5MmNiZDAyZjRkNyIsImRlcGFydG1lbnQiOiI1ZmJmNTM0ZmQ2NjVjNTA2YjE0MTNmYTgiLCJsb2NhdGlvbiI6IjVmMWZjYThkYWEyNmFkMzQ4M2YwYTJlMiIsImRlc2lnbmF0aW9uIjoiNWZiZjUzM2RjY2FkZjMwNmIyYTBkNTY4IiwiZW1wbG95ZWVUeXBlIjoiNWZiZjUzNDljY2FkZjMwNmIyYTBkNWZmIiwiZW1wbG95ZWVDYXRlZ29yeSI6IjVmYzRhNGQ1MTNhM2JiMTc0NjJhOGM3MyIsImNvc3RDZW50ZXIiOiIiLCJzM0J1Y2tldCI6ImRlbW8tbmV3LWFlZjdlYmQzLWJhZjgtNGNhNi04YzRiLTZjMjNmNGYxZWNiOSIsImlwIjoiNjEuMi4yMjYuMTQyIiwiYWNjZXNzX21haW5fdHlwZSI6eyJfaWQiOiI1ZmJmNTQ1MWIzNDQ4MDA2ZDQ1ZGY1M2UiLCJuYW1lIjoiRU5URVJQUklTRVMifSwiYWNjZXNzX3N1Yl90eXBlIjp7Im1hc3Rlcl9mbGFnIjo5OTksIm5hbWUiOiJBbGwifSwiYWNjZXNzX21haW5fdHlwZV9kYXRhIjpbIjVmYmY1NDUxYjM0NDgwMDZkNDVkZjUzZSJdLCJhY2Nlc3Nfc3ViX3R5cGVfZGF0YSI6W10sImVtcGxveW1lbnRfdHlwZSI6W10sImRvbWFpbkFjY2Vzc1R5cGUiOiJFTVBMT1lNRU5UIFRZUEUiLCJpc19tYWluX2RvbWFpbiI6dHJ1ZSwibG9naW5fYXR0ZW5kYW5jZV9wb2xpY3kiOnsiZ3JvdXAiOnsiX2lkIjoiNjA0YjQ5YWViMGNlOTA3ZjQ5MGEzZWIxIiwibmFtZSI6IkxPR0lOIEFORCBBVFRFTkRBTkNFIn0sImlzX2VuYWJsZSI6dHJ1ZSwiX2lkIjoiNjA0OWFlYmYwYmE2MWY0OWYzMDliZjJiIiwibW9iaWxlX2xvZ2luIjp0cnVlLCJ3ZWJfbG9naW4iOnRydWUsIm1vYmlsZV9hdHRlbmRhbmNlIjp0cnVlLCJ3ZWJfYXR0ZW5kYW5jZSI6dHJ1ZSwibW9iaWxlX3Zpc2l0b3IiOnRydWUsIndlYl92aXNpdG9yIjp0cnVlLCJzaG9ydF9jb2RlIjoiTE5BIiwiY3JlYXRlZEF0IjoiMjAyMS0wMy0xMVQwNTo0NjozOS41OThaIiwidXBkYXRlZEF0IjoiMjAyNC0xMS0yNlQxMjoyODowNS4zNjdaIiwiX192IjowLCJtb2JpbGVfYXR0ZW5kYW5jZV9hcHByb3ZhbCI6dHJ1ZSwibW9iaWxlX2xvY2F0aW9uX3RyYWNraW5nIjp0cnVlLCJtb2JpbGVfbG9jYXRpb25fdHJhY2tpbmdfdGltZSI6bnVsbCwicXJfY29kZV9hdHRlbmRhbmNlX2FwcGx5Ijp0cnVlfSwibWFpbkRvbWFpbiI6ImRlbW8iLCJhY2Nlc3NEb21haW4iOiJkZW1vIiwiaXNNb2JpbGVSZXF1ZXN0IjpmYWxzZSwic3ViRG9tYWluRnVsbEFjY2VzcyI6ZmFsc2UsInNob3dSZWd1bGFyU2FsYXJ5U3ViRG9tYWluIjpmYWxzZSwiaWF0IjoxNzM1NzI4MjgxLCJleHAiOjE3MzU3MzU0ODEsImlzcyI6IkluZm9yZ2lyZCBJbmZvcm1hdHJpY3MifQ.DVUOPlA8mXTEhOOjX9z6_udy37KnDqIAF68O6LIRGoQ");
@@ -91,6 +91,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 label: "get",
+              ),
+            ),
+            Center(
+              child: CustomElevatedButton(
+                onPressed: () async {
+                  ws.connect(
+                    onConnect: () => print("connect................."),
+                    onDisconnect: () => print("Disconnected............"),
+                  );
+                },
+                label: "connect",
+              ),
+            ),
+            Center(
+              child: CustomElevatedButton(
+                onPressed: () async {
+                  ws.disconnect();
+                },
+                label: "disconnect",
               ),
             )
           ],
