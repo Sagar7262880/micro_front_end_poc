@@ -100,6 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     onConnect: () => print("connect................."),
                     onDisconnect: () => print("Disconnected............"),
                   );
+                  // ws.emit("", data)
+                  ws.on("lkimlkmfxvs", (_) => print(_.toString()));
                 },
                 label: "connect",
               ),

@@ -48,27 +48,31 @@ class WebSocketService {
       _socket!.onConnect((_) {
         log("WebSocketService: Connected to server.");
         _isConnected = true;
-        if (onConnect != null)
+        if (onConnect != null) {
           onConnect(); // Execute passed callback if provided
+        }
       });
 
       _socket!.onDisconnect((_) {
         log("WebSocketService: Disconnected from server.");
         _isConnected = false;
-        if (onDisconnect != null)
+        if (onDisconnect != null) {
           onDisconnect(); // Execute passed callback if provided
+        }
       });
 
       _socket!.onError((data) {
         log("WebSocketService: Error: $data");
-        if (onError != null)
+        if (onError != null) {
           onError(data); // Execute passed callback if provided
+        }
       });
 
       _socket!.onReconnect((_) {
         log("WebSocketService: Reconnected to server.");
-        if (onReconnect != null)
+        if (onReconnect != null) {
           onReconnect(); // Execute passed callback if provided
+        }
       });
 
       _socket!.onReconnectAttempt((_) {

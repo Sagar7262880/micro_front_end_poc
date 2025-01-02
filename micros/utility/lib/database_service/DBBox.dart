@@ -1,1 +1,1 @@
-enum Box { TEST }
+enum Box { TEST, ACCOUNT }

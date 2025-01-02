@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:utility/database_service/DBBox.dart' as box;
 
 /// Enum for Box names
-// enum Box { TEST }
+
 
 class DBService {
   static final DBService _instance = DBService._internal();
@@ -18,7 +18,7 @@ class DBService {
 
   /// Converts `Box` enum to string for Hive box names
   String _boxName(box.Box box) => box.name;
-
+// DBSetvice();
   /// Initialize Hive
   Future<void> initialize() async {
     log("DBService: Initializing Hive...");
