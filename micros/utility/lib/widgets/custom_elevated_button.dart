@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:utility/utility.dart';
 
 class CustomElevatedButton extends StatefulWidget {
   final VoidCallback onPressed;
