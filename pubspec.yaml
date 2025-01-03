@@ -14,7 +14,7 @@ dependencies:
   haptic_feedback: ^0.5.1+1
   fl_chart: ^0.69.2
   carousel_slider: ^5.0.0
-  web_socket_channel: ^3.0.1
+  socket_io_client: ^3.0.2
 
 
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import '../Controller/theme_controller.dart';
+import 'common_container.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -13,6 +14,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
   Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
     return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
   }
@@ -62,13 +64,17 @@ class _DashboardState extends State<Dashboard> {
         child: Column(children: [
           // Good Morning Widget
 
-          commonContainer(
+          CommonContainerWidget(
             child: Row(
               children: [
-                Image.asset(
-                  "assets/placeholder.jpg",
-                  width: 50,
-                  height: 50,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(
+                    "assets/coffee-break.gif",
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover, // Ensures the GIF covers the container
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -115,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
           ),
 
           // Pia Chart Widget
-          commonContainer(
+          CommonContainerWidget(
             paddingTop: 5,
             width: double.infinity,
             child: Column(
@@ -224,7 +230,7 @@ class _DashboardState extends State<Dashboard> {
           ),
 
           // My Leave Summary
-          commonContainer(
+          CommonContainerWidget(
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +314,7 @@ class _DashboardState extends State<Dashboard> {
 
           // Event List
 
-          commonContainer(
+          CommonContainerWidget(
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +388,7 @@ class _DashboardState extends State<Dashboard> {
 
           // Birthday and anniversary
 
-          commonContainer(
+          CommonContainerWidget(
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -484,7 +490,7 @@ class _DashboardState extends State<Dashboard> {
 
           // Today's Birthday
 
-          commonContainer(
+          CommonContainerWidget(
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -589,21 +595,16 @@ class _DashboardState extends State<Dashboard> {
                               const Spacer(),
 
                               // Icon
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(0.2),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.cake_outlined,
-                                    size: 40,
-                                  ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  "assets/birthday.gif",
+                                  width: 70,
+                                  height: 70,
+                                  fit: BoxFit.cover, // Ensures the GIF covers the container
                                 ),
                               ),
+
                             ],
                           ),
                         ),
@@ -648,7 +649,7 @@ class _DashboardState extends State<Dashboard> {
 
   Widget checkWidget({required bool isCheckIn, required String checkTime}) {
     return Expanded(
-      child: commonContainer(
+      child: CommonContainerWidget(
         height: 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -726,48 +727,48 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget commonContainer({
-    Color? backgroundColor,
-    Widget? child,
-    BoxDecoration? decoration,
-    double paddingTop = 0,
-    double paddingLeft = 0,
-    double paddingRight = 0,
-    double paddingBottom = 0,
-    double childPaddingTop = 20,
-    double childPaddingLeft = 20,
-    double childPaddingRight = 20,
-    double childPaddingBottom = 20,
-    double? height,
-    double? width
-  }) {
-    // Determine the background color based on the theme controller value
-    backgroundColor ??= themeController.currentColor.value == "dr"
-        ? Colors.grey[900]
-        : Colors.white;
-
-    return Padding(
-      padding: EdgeInsets.only(
-        top: paddingTop,
-        bottom: paddingBottom,
-        left: paddingLeft,
-        right: paddingRight,
-      ),
-      child: Container(
-        color: backgroundColor,
-        decoration: decoration,
-        height: height,
-        width: width,
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: childPaddingTop,
-            bottom: childPaddingBottom,
-            left: childPaddingLeft,
-            right: childPaddingRight,
-          ),
-          child: child,
-        ),
-      ),
-    );
-  }
+  // Widget CommonContainerWidget({
+  //   Color? backgroundColor,
+  //   Widget? child,
+  //   BoxDecoration? decoration,
+  //   double paddingTop = 0,
+  //   double paddingLeft = 0,
+  //   double paddingRight = 0,
+  //   double paddingBottom = 0,
+  //   double childPaddingTop = 20,
+  //   double childPaddingLeft = 20,
+  //   double childPaddingRight = 20,
+  //   double childPaddingBottom = 20,
+  //   double? height,
+  //   double? width
+  // }) {
+  //   // Determine the background color based on the theme controller value
+  //   backgroundColor ??= themeController.currentColor.value == "dr"
+  //       ? Colors.grey[900]
+  //       : Colors.white;
+  //
+  //   return Padding(
+  //     padding: EdgeInsets.only(
+  //       top: paddingTop,
+  //       bottom: paddingBottom,
+  //       left: paddingLeft,
+  //       right: paddingRight,
+  //     ),
+  //     child: Container(
+  //       color: backgroundColor,
+  //       decoration: decoration,
+  //       height: height,
+  //       width: width,
+  //       child: Padding(
+  //         padding: EdgeInsets.only(
+  //           top: childPaddingTop,
+  //           bottom: childPaddingBottom,
+  //           left: childPaddingLeft,
+  //           right: childPaddingRight,
+  //         ),
+  //         child: child,
+  //       ),
+  //     ),
+  //   );
+  // }
 }

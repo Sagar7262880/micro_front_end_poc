@@ -6,6 +6,7 @@ import 'package:out_duty/Apply/ApplyOutDuty.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 // import 'package:leave/apply/view/ApplyLeave.dart';
 import '../screens/home.dart';
+import '../setting/profile.dart';
 
 class AppRoutes {
   //=========================Initial Route=========================

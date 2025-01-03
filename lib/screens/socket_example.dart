@@ -1,69 +1,136 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-    required this.title,
-  });
-
-  final String title;
+class SocketExample extends StatefulWidget {
+  const SocketExample({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SocketExample> createState() => _SocketExampleState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  final _channel = WebSocketChannel.connect(
-    Uri.parse('wss://echo.websocket.events'),
-  );
+class _SocketExampleState extends State<SocketExample> {
+
+  late IO.Socket socket;
+
+  @override
+  void initState() {
+
+  }
+
+  // void connectToWs() async {
+  //   try {
+  //    // spData = await SharedPreferences.getInstance();
+  //     socket = IO.io("https://api.infogird.com/", <String, dynamic>{
+  //       'autoConnect': true,
+  //       'transports': ['websocket'],
+  //       'path': '/prod/api/web-socket'
+  //     });
+  //
+  //    // final domain = spData.getString("domainName") ?? "";
+  //
+  //     socket.onConnectError(
+  //           (data) => print("===== on connect error ${data}"),
+  //     );
+  //  //   final deviceId = await getDeviceId();
+  //     socket.onConnect((_) {
+  //       print(" WEB SOCKET CONNECTED");
+  //       socket.emit('join', {'host': "demo", 'roomName': userId});
+  //     });
+  //     socket.onDisconnect((r) => print("CONNECTION DISCONNECTED"));
+  //     socket.onclose(
+  //             (reson) => print("=========== web socket connection closed $reson"));
+  //     socket.on('event', (data) => print(data));
+  //     socket.on('KIOSK_USER_PUNCH', (data) => autoLogin(data));
+  //     socket.onError(
+  //           (data) {
+  //         print("====== on error ${data}");
+  //       },
+  //     );
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
+  //
+  // void autoLogin(data) async {
+  //   DialogBuilder(context).showLoadingIndicator(true);
+  //   print("============data: " + data.toString());
+  //  // final spData = await SharedPreferences.getInstance();
+  //   if (data["status"]) {
+  //     debugPrint('employee code is ${data["data"]["emp_code"]}');
+  //     print(data["data"]);
+  //     if (data["data"].toString().contains("userType")) {
+  //       spData.setString('userType', data["data"]["userType"].toString());
+  //     } else {
+  //       spData.setString('userType', "EMPLOYEE");
+  //     }
+  //     spData.setBool('login', true);
+  //     spData.setString('accessToken', data["accessToken"] ?? "");
+  //     spData.setString('refreshToken', data["refreshToken"] ?? '');
+  //     spData.setString('userId', data["data"]["user"] ?? '');
+  //     spData.setString("assetsPath", data["data"]["assets"] ?? '');
+  //     spData.setString("domainimg", domainImgUrl);
+  //     spData.setString("profilePath", data["data"]["profilePicture"] ?? "");
+  //     spData.setString("ismockshow", "0");
+  //     spData.setString('emp_code', data["data"]["emp_code"] ?? '');
+  //     spData.setString('usernames', data["data"]["name"] ?? '');
+  //
+  //     await DioService().initializeDio();
+  //
+  //     socket.disconnect();
+  //     socket.close();
+  //
+  //     DialogBuilder(context).hideOpenDialog();
+  //     Get.off(() => Dashboard());
+  //     // Navigator.pushReplacement(
+  //     //     context, MaterialPageRoute(builder: (context) => const Dashboard()));
+  //   } else {
+  //     DialogBuilder(context).hideOpenDialog();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text('Stock Market Real-Time Updates')),
       body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Form(
-              child: TextFormField(
-                controller: _controller,
-                decoration: const InputDecoration(labelText: 'Send a message'),
-              ),
-            ),
-            const SizedBox(height: 24),
-            StreamBuilder(
-              stream: _channel.stream,
-              builder: (context, snapshot) {
-                return Text(snapshot.hasData ? '${snapshot.data}' : '');
-              },
-            )
-          ],
-        ),
+        padding: const EdgeInsets.all(16.0),
+        // child: Column(
+        //   children: [
+        //     // Use StreamBuilder to listen for updates
+        //     StreamBuilder<Map<String, dynamic>>(
+        //       stream: _socketService.dataStream,
+        //       builder: (context, snapshot) {
+        //         if (snapshot.connectionState == ConnectionState.waiting) {
+        //           return Center(child: CircularProgressIndicator());
+        //         }
+        //
+        //         if (snapshot.hasError) {
+        //           return Center(child: Text('Error: ${snapshot.error}'));
+        //         }
+        //
+        //         if (!snapshot.hasData) {
+        //           return Center(child: Text('Waiting for stock updates...'));
+        //         }
+        //
+        //         // Access the stock data (e.g., price and symbol)
+        //         final stockData = snapshot.data!;
+        //         final stockSymbol = stockData['symbol'] ?? 'Unknown';
+        //         final stockPrice = stockData['price'] ?? 0.0;
+        //
+        //         return Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Text('Stock Symbol: $stockSymbol', style: TextStyle(fontSize: 24)),
+        //             Text('Current Price: \$${stockPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 24)),
+        //           ],
+        //         );
+        //       },
+        //     ),
+        //   ],
+        // ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _sendMessage,
-        tooltip: 'Send message',
-        child: const Icon(Icons.send),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-
-  void _sendMessage() {
-    if (_controller.text.isNotEmpty) {
-      _channel.sink.add(_controller.text);
-    }
-  }
-
-  @override
-  void dispose() {
-    _channel.sink.close();
-    _controller.dispose();
-    super.dispose();
   }
 }
