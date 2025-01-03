@@ -16,13 +16,14 @@ class WebSocketService {
 
   /// Initialize and connect to the Socket.IO server
 
-  void connect({
-    Function()? onConnect,
-    Function()? onDisconnect,
-    Function(dynamic)? onError,
-    Function()? onReconnect,
-    Function()? onReconnectAttempt,
-  }) {
+  void connect(
+      {Function()? onConnect,
+      Function()? onDisconnect,
+      Function(dynamic)? onError,
+      Function()? onReconnect,
+      Function()? onReconnectAttempt,
+      String? path,
+      bool isAutoConnect = true}) {
     if (_isConnected) {
       log("WebSocketService: Already connected to the server.");
       return;
@@ -37,12 +38,18 @@ class WebSocketService {
       // });
       _socket = IO.io(
         _url,
-        IO.OptionBuilder()
-            .setTransports(['websocket']) // Use WebSocket transport
-            .setPath(_path) // Set the custom path for the socket
-            .enableAutoConnect() // Automatically connect
-            .setReconnectionDelay(5000) // Set reconnection delay
-            .build(),
+        isAutoConnect
+            ? IO.OptionBuilder()
+                .setTransports(['websocket']) // Use WebSocket transport
+                .setPath(path ?? _path) // Set the custom path for the socket
+                .enableAutoConnect() // Automatically connect
+                .setReconnectionDelay(5000)
+                .build()
+            : IO.OptionBuilder()
+                .setTransports(['websocket']) // Use WebSocket transport
+                .setPath(path ?? _path) // Set the custom path for the socket
+                .setReconnectionDelay(5000) // Set reconnection delay
+                .build(),
       );
 
       _socket!.onConnect((_) {

@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // GetUtils.
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -112,6 +113,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ws.disconnect();
                 },
                 label: "disconnect",
+              ),
+            ),
+            Center(
+              child: CustomElevatedButton(
+                onPressed: () async {},
+                label: "view pdf",
               ),
             )
           ],
