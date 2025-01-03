@@ -34,3 +34,4 @@ export 'package:utility/database_service/DBService.dart';
 export 'package:utility/database_service/DBBox.dart';
 export 'package:utility/web_socket_service/WebSocketService.dart';
 export 'package:utility/widgets/PdfViewer.dart';
+export 'package:utility/util/path_provider.dart';

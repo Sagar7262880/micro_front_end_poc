@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:utility/utility.dart';
@@ -117,7 +119,27 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Center(
               child: CustomElevatedButton(
-                onPressed: () async {},
+                onPressed: () async {
+                  // var path = await PathProvider.getPath(PathType.temporary);
+                  // var file = await ImagePicker.pickImage(isFromFile: true);
+
+                  // print(file.path);
+                  const url = "https://gbihr.org/images/docs/test.pdf";
+                  // var res = await dio.download(
+                  //   url,
+                  //   file.path ?? "",
+                  // );
+                  // print("Response: " + res.toString());
+
+                  // Get.to(PdfViewer(file.path));
+                  var path = await PathProvider.getExternalFolder(
+                      folder: Folder.InfogirdApp);
+                  print("Path===> " + path.toString());
+
+                  // path = path + "/demo.txt";
+                  // var f = File(path);
+                  // f.writeAsString("hello");
+                },
                 label: "view pdf",
               ),
             )

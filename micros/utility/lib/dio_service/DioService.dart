@@ -159,7 +159,7 @@ class DioService {
         if (isShowLoading) DialogBuilder.hideOpenDialog();
       } catch (e) {
         if (isShowLoading) DialogBuilder.hideOpenDialog();
-        log("Error in POST request: $e");
+        log("Error in DOWNLOAD request: $e");
         rethrow;
       }
       return res;
