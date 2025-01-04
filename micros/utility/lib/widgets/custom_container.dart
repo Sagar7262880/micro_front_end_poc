@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Controller/theme_controller.dart';
+import '../theme/theme_controller.dart';
 
-class CommonContainerWidget extends StatelessWidget {
+
+class CustomContainerWidget extends StatelessWidget {
   final Widget? child;
   final BoxDecoration? decoration;
   final double paddingTop;
@@ -21,7 +22,7 @@ class CommonContainerWidget extends StatelessWidget {
 
   final Color? backgroundColor;
 
-  CommonContainerWidget({
+  CustomContainerWidget({
     super.key,
     this.backgroundColor,
     this.child,

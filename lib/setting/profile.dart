@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:utility/utility.dart';
-import '../Constant/constant_color.dart';
-import '../Controller/theme_controller.dart';
+
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});

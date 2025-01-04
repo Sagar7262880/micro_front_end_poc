@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:utility/utility.dart';
 
 import 'Bottom Nav Bar/bottom_nav_bar.dart';
-import 'Controller/theme_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

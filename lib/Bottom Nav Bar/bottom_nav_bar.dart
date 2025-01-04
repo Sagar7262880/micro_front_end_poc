@@ -4,7 +4,6 @@ import 'package:micro_front_end_poc/screens/dashboard.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:micro_front_end_poc/screens/socket_example.dart';
 import 'package:utility/utility.dart';
-import '../Controller/theme_controller.dart';
 import '../screens/home.dart';
 import '../setting/profile.dart';
 

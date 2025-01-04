@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:micro_front_end_poc/Controller/theme_values.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:utility/theme/theme_values.dart';
 
-import '../Constant/constant_color.dart';
+import '../constant/constant_color.dart';
+
 
 class ThemeController extends GetxController {
   var isDarkMode = 'l'.obs; // 'l' = Light mode, 'd' = Dark mode
