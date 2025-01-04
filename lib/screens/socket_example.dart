@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+
 import 'package:utility/utility.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+class SocketExample extends StatefulWidget {
+  const SocketExample({
     super.key,
     required this.title,
   });
@@ -13,14 +13,12 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SocketExample> createState() => _SocketExample();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SocketExample extends State<SocketExample> {
   final TextEditingController _controller = TextEditingController();
-  final _channel = WebSocketChannel.connect(
-    Uri.parse('wss://echo.websocket.events'),
-  );
+
   var db = DBService();
   var dio = DioService();
   var sf = SharedService();
@@ -156,7 +154,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      _channel.sink.add(_controller.text);
     }
   }
 
@@ -172,7 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _channel.sink.close();
     _controller.dispose();
     super.dispose();
   }

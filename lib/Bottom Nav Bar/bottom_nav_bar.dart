@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:micro_front_end_poc/screens/dashboard.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
-import 'package:micro_front_end_poc/screens/socket_example.dart';
 import 'package:utility/utility.dart';
 import '../screens/home.dart';
+import '../screens/socket_example.dart';
 import '../setting/profile.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -22,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     // const MyHomePage(title: "Infogird POC"),
     const Dashboard(),
     //StockMarketPage(),
-    SocketExample(),
+    SocketExample( title: '',),
     const Applyleave(),
     const MyHomePage(title: "Infogird POC"),
    // const SearchPage(),
