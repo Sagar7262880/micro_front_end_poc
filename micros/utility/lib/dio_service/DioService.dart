@@ -145,6 +145,34 @@ class DioService {
     }
   }
 
+  Future<Response> download(String url, String path,
+      {dynamic data, bool isShowLoading = true}) async {
+    if (await Singleton.isOnline()) {
+      Response? res;
+      try {
+        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        res = await _dio!.download(
+          url,
+          path,
+          data: data,
+        );
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+      } catch (e) {
+        if (isShowLoading) DialogBuilder.hideOpenDialog();
+        log("Error in DOWNLOAD request: $e");
+        rethrow;
+      }
+      return res;
+    } else {
+      showNoInternetConnectionDialog();
+      return Response(
+        data: {},
+        statusCode: 408,
+        requestOptions: RequestOptions(path: url),
+      );
+    }
+  }
+
   Future<Response> delete(String url,
       {dynamic data, bool isShowLoading = true}) async {
     if (await Singleton.isOnline()) {

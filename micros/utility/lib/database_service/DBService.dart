@@ -1,13 +1,12 @@
-import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:developer';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:utility/database_service/DBBox.dart' as box;
 
 /// Enum for Box names
 
-
 class DBService {
   static final DBService _instance = DBService._internal();
+
   DBService._internal() {
     initialize();
   }
@@ -18,6 +17,7 @@ class DBService {
 
   /// Converts `Box` enum to string for Hive box names
   String _boxName(box.Box box) => box.name;
+
 // DBSetvice();
   /// Initialize Hive
   Future<void> initialize() async {

@@ -1,8 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Singleton {
   static isOnline() async {
@@ -26,11 +24,7 @@ class Singleton {
     String strImagePath, {
     VoidCallback? onClickOK,
   }) {
-    if (onClickOK == null) {
-      onClickOK =
-          () => Get.back(); // Close the dialog if no callback is provided
-    }
-
+    onClickOK ??= () => Get.back();
     Get.defaultDialog(
       title: '',
       contentPadding: EdgeInsets.zero,
