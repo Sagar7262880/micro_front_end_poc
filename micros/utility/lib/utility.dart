@@ -2,7 +2,7 @@ library utility;
 
 export 'package:get/get.dart';
 export 'package:utility/shared_pref_service/SharedService.dart';
-export 'package:utility/widgets/txt_field.dart';
+export 'package:utility/widgets/custom_txt_field.dart';
 export 'package:lottie/lottie.dart';
 export 'package:utility/widgets/success_bottom_sheet.dart';
 export 'package:utility/widgets/error_bottom_sheet.dart';
@@ -28,7 +28,12 @@ export 'package:utility/widgets/custom_outlined_button.dart';
 export 'package:utility/widgets/custom_switch_button.dart';
 export 'package:utility/util/DialogBuilder.dart';
 export 'package:dio/dio.dart'
-    show Dio, Options, RequestOptions; // Only necessary Dio classes
+    show
+        Dio,
+        Options,
+        RequestOptions,
+        DioMixin,
+        BaseOptions; // Only necessary Dio classes
 export 'package:utility/util/Singleton.dart';
 export 'package:utility/database_service/DBService.dart';
 export 'package:utility/database_service/DBBox.dart';

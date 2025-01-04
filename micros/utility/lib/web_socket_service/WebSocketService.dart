@@ -44,11 +44,13 @@ class WebSocketService {
                 .setPath(path ?? _path) // Set the custom path for the socket
                 .enableAutoConnect() // Automatically connect
                 .setReconnectionDelay(5000)
+                .setReconnectionAttempts(4) // Set reconnection delay
                 .build()
             : IO.OptionBuilder()
                 .setTransports(['websocket']) // Use WebSocket transport
                 .setPath(path ?? _path) // Set the custom path for the socket
-                .setReconnectionDelay(5000) // Set reconnection delay
+                .setReconnectionDelay(5000)
+                .setReconnectionAttempts(4) // Set reconnection delay
                 .build(),
       );
 

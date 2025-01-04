@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:utility/util/permission_handler.dart';
 
 enum PathType {
@@ -103,41 +104,37 @@ class PathProvider {
 
     try {
       if (Platform.isAndroid) {
-        //if (await Permission.storage.request().isGranted) {
-        directory = await getExternalStorageDirectory();
-        String newPath = "";
-        List<String> paths = directory!.path.split("/");
+        // if (await Permission.storage.request().isGranted) {
+        if (await PermissionHandler.requestStoragePermission()) {
+          directory = await getExternalStorageDirectory();
+          if (directory != null) {
+            String newPath = "${directory.path}/ESSApp";
+            directory = Directory(newPath);
 
-        // Construct the path to save the file
-        for (int x = 1; x < paths.length; x++) {
-          String folder = paths[x];
-          if (folder != "Android") {
-            newPath += "/" + folder;
+            print("Attempting to create directory at: ${directory.path}");
+            if (!await directory.exists()) {
+              await directory.create(recursive: true);
+              print("Directory created at: ${directory.path}");
+            } else {
+              print("Directory already exists at: ${directory.path}");
+            }
           } else {
-            break;
+            print("Could not find the external storage directory");
           }
-        }
-        newPath = newPath + "/ESSApp"; // Custom folder for your app
-        directory = Directory(newPath);
-        print("================" + directory.path);
-        /*  } else {
+        } else {
           print("Storage Permission Denied");
+          Permission.storage.request();
           return false;
-        } */
+        }
       } else {
         // iOS handling: Use the temporary directory
         directory = await getTemporaryDirectory();
+        print("Using temporary directory: ${directory.path}");
       }
-
-      // Create the directory if it doesn't exist
-      if (!await directory.exists()) {
-        await directory.create(recursive: true);
-      }
-
-      // Proceed with the download if the directory exists
     } catch (e) {
       print("Error saving file: $e");
     }
+
     return false;
   }
 }

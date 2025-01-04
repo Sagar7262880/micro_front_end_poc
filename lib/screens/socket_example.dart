@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // var file = await ImagePicker.pickImage(isFromFile: true);
 
                   // print(file.path);
-                  const url = "https://gbihr.org/images/docs/test.pdf";
+                  // const url = "https://gbihr.org/images/docs/test.pdf";
                   // var res = await dio.download(
                   //   url,
                   //   file.path ?? "",
