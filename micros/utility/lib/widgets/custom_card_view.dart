@@ -24,6 +24,7 @@ class CustomCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color iconColor = Theme.of(context).iconTheme.color ?? Colors.black;
     return GestureDetector(
       onTap: onTap,
       child: Material(
@@ -36,10 +37,16 @@ class CustomCardView extends StatelessWidget {
             borderRadius: borderRadius,
           ),
           child: ListTile(
-            leading: leading,
+            leading: IconTheme(
+              data: IconThemeData(color: iconColor), // Set color of leading icon
+              child: leading!,
+            ),
             title: title,
             subtitle: subtitle,
-            trailing: trailing,
+            trailing: IconTheme(
+              data: IconThemeData(color: iconColor), // Set color of leading icon
+              child: trailing!,
+            ),
             onTap: onTap,
           ),
         ),

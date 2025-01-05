@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Constant/constant_color.dart';
+import '../constant/constant_color.dart';
 
 dynamic AppBarThemes() {
   return AppBarTheme(
@@ -32,26 +32,26 @@ dynamic btnElevation(bgColor, frColor) {
 
 dynamic txtTheme(colors, double fontsize) {
   return TextTheme(
-    displayLarge: TextStyle(fontSize: fontsize),
+    displayLarge: TextStyle(fontSize: fontsize,fontFamily: "Poppins"),
     // Replaces headline1 // 32
-    displayMedium: TextStyle(fontSize: fontsize - 4),
+    displayMedium: TextStyle(fontSize: fontsize - 4,fontFamily: "Poppins"),
     // Replaces headline2
-    displaySmall: TextStyle(fontSize: fontsize - 8),
+    displaySmall: TextStyle(fontSize: fontsize - 8,fontFamily: "Poppins"),
     // Replaces headline3
-    titleLarge: TextStyle(fontSize: fontsize - 12),
+    titleLarge: TextStyle(fontSize: fontsize - 12,fontFamily: "Poppins"),
     // Replaces headline4
-    titleMedium: TextStyle(fontSize: fontsize - 14),
+    titleMedium: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
     // Replaces headline5
-    titleSmall: TextStyle(fontSize: fontsize - 16),
+    titleSmall: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
     // Replaces headline6
-    bodyLarge: TextStyle(fontSize: fontsize - 14),
+    bodyLarge: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
     // Replaces bodyText1
-    bodyMedium: TextStyle(fontSize: fontsize - 16),
+    bodyMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
     // Replaces bodyText2
-    bodySmall: TextStyle(fontSize: fontsize - 18),
-    labelLarge: TextStyle(fontSize: fontsize - 18),
-    labelMedium: TextStyle(fontSize: fontsize - 16),
-    labelSmall: TextStyle(fontSize: fontsize - 14),
+    bodySmall: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
+    labelLarge: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
+    labelMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
+    labelSmall: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
   );
 }
 
@@ -220,6 +220,7 @@ ThemeData get redTheme {
     primaryColor: red,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: red)),
+    scaffoldBackgroundColor: scaffoldColr,
     textTheme: txtTheme(red, 32),
     buttonTheme: btnTheme(red),
     elevatedButtonTheme: btnElevation(redAccent, white),
@@ -229,6 +230,7 @@ ThemeData get redTheme {
     textButtonTheme: btnText(red),
     outlinedButtonTheme: btnOutline(red),
     cardTheme: cardThemes(red, 2),
+
     radioTheme: radioThemes(red),
     checkboxTheme: cbTheme(red, redAccent, white),
     // bottomNavigationBarTheme: bottomTheme(red, grey),
@@ -272,6 +274,7 @@ ThemeData get redTheme {
 ThemeData get blueTheme {
   return ThemeData(
     primaryColor: indigo,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     textTheme: txtTheme(indigo, 32),
     buttonTheme: btnTheme(indigo),
@@ -323,6 +326,7 @@ ThemeData get blueTheme {
 ThemeData get orangeTheme {
   return ThemeData(
     primaryColor: orange,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: orange)),
     textTheme: txtTheme(orange, 32),
@@ -375,6 +379,7 @@ ThemeData get orangeTheme {
 ThemeData get greenTheme {
   return ThemeData(
     primaryColor: green,
+    scaffoldBackgroundColor: scaffoldColr,
     appBarTheme: AppBarThemes(),
     //textTheme: const TextTheme(titleMedium: TextStyle(color: green)),
     textTheme: txtTheme(green, 32),
@@ -534,7 +539,7 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: grey,
   // Primary color for buttons, etc.
   //accentColor: Colors.amber,  // Accent color for highlights
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: scaffoldColr,
   // Background color of the app
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white70, // App bar color
@@ -596,7 +601,7 @@ final lightThemes = ThemeData(
     hintColor: white,
     //brightness: Brightness.light,
     dividerColor: Colors.grey,
-    scaffoldBackgroundColor: white,
+    scaffoldBackgroundColor: scaffoldColr,
     cardTheme: CardTheme(
       elevation: 5,
       shadowColor: Colors.grey.withOpacity(0.2),

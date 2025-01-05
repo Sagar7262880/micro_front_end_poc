@@ -1,0 +1,1 @@
+enum Box { TEST, ACCOUNT }
