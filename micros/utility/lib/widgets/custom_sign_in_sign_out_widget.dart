@@ -49,11 +49,14 @@ class CustomSignInSignOutWidget extends StatelessWidget {
                         .labelLarge,
                   ),
                   Text(
+
                     checkTime,
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 18,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!.copyWith(
+                      color: Theme.of(context).primaryColor
+                    )
+                    ,
                   ),
                 ],
               ),
