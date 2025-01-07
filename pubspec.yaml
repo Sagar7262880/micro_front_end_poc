@@ -5,10 +5,15 @@ environment:
   sdk: '>=3.4.0 <4.0.0'
 
 
+
+
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  shimmer: ^3.0.0
+  skeletonizer: ^1.4.2
+
 
 
 

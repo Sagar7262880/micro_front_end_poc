@@ -1,10 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:utility/utility.dart';
-
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -14,44 +11,92 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  Future<bool> loadData() async {
+    await Future.delayed(Duration(seconds: 5));
+    return true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    shareData();
+  }
+
+  bool isDataLoaded = false;
+
+  shareData() async {
+    final bool data = await loadData();
+    setState(() {
+      isDataLoaded = data;
+      print(isDataLoaded);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: CircleAvatar(
-            backgroundImage: AssetImage("assets/placeholder.jpg"),
-          ),
-        ),
-        title: Text(
-          "Dashboard",
-          style: Theme.of(context).textTheme.headlineSmall,
+        title: Row(
+          children: [
+            const CustomCircularImage(
+              imagePath: "assets/placeholder.jpg",
+              size: 45,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                "Dashboard",
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.qr_code_scanner_outlined,
-              size: 25,
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    // Your onPressed logic
+                  },
+                  borderRadius: BorderRadius.circular(20), // Optional: For circular ripple
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 2), // Adjust padding as needed
+                    child: Icon(
+                      Icons.qr_code_scanner_outlined,
+                      size: 25,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    // Your onPressed logic
+                  },
+                  borderRadius: BorderRadius.circular(50),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 2), // Adjust padding as needed
+                    child: Icon(
+                      Icons.notifications_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () {},
           ),
-          IconButton(
-            icon: Icon(
-              Icons.notifications_outlined,
-              size: 30,
-            ),
-            onPressed: () {},
-          ),
+
+
+
         ],
       ),
+
       body: SingleChildScrollView(
         child: Column(children: [
-          // Good Morning Widget
-
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             child: Row(
               children: [
                 const CustomCircularImage(
@@ -89,25 +134,29 @@ class _DashboardState extends State<Dashboard> {
           ),
 
           // Check in Check Out Widget
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 2),
             child: Row(
               children: [
                 CustomSignInSignOutWidget(
                   checkTime: "09:00 AM",
                   isCheckIn: true,
+                  enableShimmer: !isDataLoaded,
                 ),
                 SizedBox(
                   width: 2,
                 ),
                 CustomSignInSignOutWidget(
-                    checkTime: "06:00 PM", isCheckIn: false),
+                    enableShimmer: !isDataLoaded,
+                    checkTime: "06:00 PM",
+                    isCheckIn: false),
               ],
             ),
           ),
 
           // Pia Chart Widget
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             paddingTop: 5,
             width: double.infinity,
             child: Column(
@@ -140,6 +189,7 @@ class _DashboardState extends State<Dashboard> {
 
           // My Leave Summary
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,8 +221,8 @@ class _DashboardState extends State<Dashboard> {
           ),
 
           // Event List
-
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,8 +290,8 @@ class _DashboardState extends State<Dashboard> {
           ),
 
           // Birthday and anniversary
-
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +322,8 @@ class _DashboardState extends State<Dashboard> {
                               children: [
                                 CustomCircularImage(
                                   imagePath: 'assets/placeholder.jpg',
-                                  size: 70.0, // You can adjust the size as needed
+                                  size:
+                                      70.0, // You can adjust the size as needed
                                 ),
                                 Positioned(
                                   bottom: -10,
@@ -336,6 +387,7 @@ class _DashboardState extends State<Dashboard> {
           // Today's Birthday
 
           CustomContainerWidget(
+            enableShimmer: !isDataLoaded,
             paddingTop: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,7 +404,8 @@ class _DashboardState extends State<Dashboard> {
                 // Carousel Slider
                 CustomCarouselSlider(
                   itemCount: 5,
-                  itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+                  itemBuilder:
+                      (BuildContext context, int index, int pageViewIndex) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Container(
@@ -370,7 +423,8 @@ class _DashboardState extends State<Dashboard> {
                               // Profile Picture
                               Container(
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white, width: 2),
+                                  border:
+                                      Border.all(color: Colors.white, width: 2),
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: const CustomCircularImage(
@@ -420,5 +474,4 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
 }
