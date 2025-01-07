@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:micro_front_end_poc/attendance/view/attendance_list.dart';
 import 'package:micro_front_end_poc/screens/dashboard.dart';
 import 'package:leave/apply/view/ApplyLeave.dart';
 import 'package:utility/utility.dart';
@@ -22,10 +22,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
     // const MyHomePage(title: "Infogird POC"),
     const Dashboard(),
     //StockMarketPage(),
-    SocketExample( title: '',),
-    const Applyleave(),
+    SocketExample(
+      title: '',
+    ),
+    //const Applyleave(),
+    const AttendanceList(),
     const MyHomePage(title: "Infogird POC"),
-   // const SearchPage(),
+    // const SearchPage(),
     // // const Applyleave(),
     // const GglMaps(),
     // const Backgroundgeoserviceview(),
@@ -34,7 +37,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         if (_bottomNavIndex == 0) {
@@ -126,7 +128,3 @@ String _getLabelForIndex(int index) {
       return "";
   }
 }
-
-
-
-
