@@ -4,16 +4,19 @@ import 'custom_container.dart';
 class CustomSignInSignOutWidget extends StatelessWidget {
   final bool isCheckIn;
   final String checkTime;
-
+  final bool enableShimmer;
   const CustomSignInSignOutWidget({super.key,
     required this.isCheckIn,
     required this.checkTime,
+    this.enableShimmer= false
+
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: CustomContainerWidget(
+        enableShimmer: enableShimmer,
         height: 100,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

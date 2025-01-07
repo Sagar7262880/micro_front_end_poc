@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/theme_controller.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 
 class CustomContainerWidget extends StatelessWidget {
@@ -16,6 +17,7 @@ class CustomContainerWidget extends StatelessWidget {
   final double childPaddingBottom;
   final double? height;
   final double? width;
+  final bool enableShimmer;
 
   // Getting the ThemeController using GetX
   final ThemeController themeController = Get.find<ThemeController>();
@@ -37,6 +39,7 @@ class CustomContainerWidget extends StatelessWidget {
     this.childPaddingBottom = 20,
     this.height,
     this.width,
+    this.enableShimmer= false
   });
 
   @override
@@ -47,28 +50,31 @@ class CustomContainerWidget extends StatelessWidget {
             ? Colors.grey[900]!
             : Colors.white);
 
-    return Padding(
-      padding: EdgeInsets.only(
-        top: paddingTop,
-        bottom: paddingBottom,
-        left: paddingLeft,
-        right: paddingRight,
-      ),
-      child: Container(
-        decoration: decoration ??
-            BoxDecoration(
-              color: resolvedBackgroundColor,
+    return Skeletonizer(
+      enabled: enableShimmer,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: paddingTop,
+          bottom: paddingBottom,
+          left: paddingLeft,
+          right: paddingRight,
+        ),
+        child: Container(
+          decoration: decoration ??
+              BoxDecoration(
+                color: resolvedBackgroundColor,
+              ),
+          height: height,
+          width: width,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: childPaddingTop,
+              bottom: childPaddingBottom,
+              left: childPaddingLeft,
+              right: childPaddingRight,
             ),
-        height: height,
-        width: width,
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: childPaddingTop,
-            bottom: childPaddingBottom,
-            left: childPaddingLeft,
-            right: childPaddingRight,
+            child: child,
           ),
-          child: child,
         ),
       ),
     );
