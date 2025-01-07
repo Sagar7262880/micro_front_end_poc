@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:utility/widgets/style/custom_decoration.dart';
 
 import '../constant/constant_string.dart';
 
@@ -84,15 +83,17 @@ class _StatefulDropdownState extends State<SimpleDropdown> {
               suggestionsBoxVerticalOffset: 4,
               direction: widget.axisDirection,
               textFieldConfiguration: TextFieldConfiguration(
-                controller: _controller,
-                focusNode: _focusNode,
-                enableSuggestions: true,
-                decoration: InputDecoration(// isEnabled: widget.isEnabled,
-                  // prefixIcon: Ic,
-                  labelText: widget.labelText,
-                  // hintText: widget.hintText ?? "",
-                  suffixIcon: suffixIcon, hintText: '')
-                /*style: const TextStyle(color: Colors.black, fontSize: 16),
+                  controller: _controller,
+                  focusNode: _focusNode,
+                  enableSuggestions: true,
+                  decoration: InputDecoration(
+                      // isEnabled: widget.isEnabled,
+                      // prefixIcon: Ic,
+                      labelText: widget.labelText,
+                      // hintText: widget.hintText ?? "",
+                      suffixIcon: suffixIcon,
+                      hintText: '')
+                  /*style: const TextStyle(color: Colors.black, fontSize: 16),
                 decoration: customInputDecoration(
                   // isEnabled: widget.isEnabled,
                   // prefixIcon: Ic,
@@ -100,7 +101,7 @@ class _StatefulDropdownState extends State<SimpleDropdown> {
                   // hintText: widget.hintText ?? "",
                   suffixIcon: suffixIcon, hintText: '',
                 ),*/
-              ),
+                  ),
               suggestionsCallback: (pattern) {
                 if (widget.isSearchable) {
                   return widget.items
@@ -150,7 +151,7 @@ class _StatefulDropdownState extends State<SimpleDropdown> {
               hideSuggestionsOnKeyboardHide: false,
             ),
           ),
-          _focusNode.hasFocus
+          _focusNode.hasFocus && widget.isSearchable
               ? const SizedBox(
                   height: 200,
                 )

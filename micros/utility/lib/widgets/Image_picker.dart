@@ -1,11 +1,12 @@
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart' as imgpicker;
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 class ImagePicker {
@@ -43,7 +44,6 @@ class ImagePicker {
       children: [
         Container(
           width: MediaQuery.of(context).size.width,
-          // height: MediaQuery.of(context).size.height / 4.5,
           padding: const EdgeInsets.all(30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,7 +57,8 @@ class ImagePicker {
                   onImagePicked(image);
                 }),
               if (!isOnlyCamera)
-                _buildOption(context, Icons.image_outlined, "Gallery", () async {
+                _buildOption(context, Icons.image_outlined, "Gallery",
+                    () async {
                   var image = await _pickImage(imgpicker.ImageSource.gallery,
                       isMultipleFile, isImgCropeble);
                   Navigator.pop(context);
@@ -105,17 +106,20 @@ class ImagePicker {
     if (isMultipleFile && source != imgpicker.ImageSource.camera) {
       var images = await picker.pickMultiImage();
       if (images != null) {
-        selectedImage = await Future.wait(
-            images.map((img) => _compressFile(File(img.path))));
+        selectedImage = await Future.wait(images.map((img) async {
+          return _compressFile(File(img.path),
+              originalFileName: path.basename(img.path));
+        }));
       }
     } else {
       var pickedFile = await picker.pickImage(source: source);
       if (pickedFile != null) {
-        selectedImage = File(pickedFile.path);
+        File imageFile = File(pickedFile.path);
         if (isImgCropeble) {
-          selectedImage = await _cropImage(File(pickedFile.path));
+          imageFile = (await _cropImage(imageFile)) ?? imageFile;
         }
-        selectedImage = await _compressFile(selectedImage);
+        selectedImage = await _compressFile(imageFile,
+            originalFileName: path.basename(pickedFile.path));
       }
     }
 
@@ -139,9 +143,10 @@ class ImagePicker {
     return croppedImage != null ? File(croppedImage.path) : null;
   }
 
-  static Future<File> _compressFile(File file) async {
+  static Future<File> _compressFile(File file,
+      {required String originalFileName}) async {
     final tempDir = await getApplicationDocumentsDirectory();
-    final compressedImagePath = '${tempDir.path}/compressed_image.png';
+    final compressedImagePath = path.join(tempDir.path, originalFileName);
 
     var result = await FlutterImageCompress.compressWithFile(
       file.path,

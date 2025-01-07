@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:utility/shared_pref_service/SharedService.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -55,11 +52,12 @@ class _CustomTabBarState extends State<CustomTabBar>
     final Color indicatorColor = theme.indicatorColor;
     final Color labelColor = theme.textTheme.titleLarge?.color ?? Colors.black;
     final Color unselectedLabelColor = theme.unselectedWidgetColor;
+
     return Scaffold(
-      backgroundColor: sp.getString("currentColor") == "dr" ||
-              sp.getString("currentColor") == null
-          ? Colors.black87
-          : Get.theme.primaryColor,
+      // backgroundColor: sp.getString("currentColor") == "dr" ||
+      //         sp.getString("currentColor") == null
+      //     ? Colors.black87
+      //     : Get.theme.primaryColor,
       body: Column(
         children: [
           TabBar(
@@ -79,7 +77,7 @@ class _CustomTabBarState extends State<CustomTabBar>
               fontWeight: FontWeight.w700,
             ),
             indicatorWeight: widget.indicatorWeight,
-            padding: EdgeInsets.all(0),
+            padding: EdgeInsets.all(4),
           ),
           Expanded(
             child: TabBarView(

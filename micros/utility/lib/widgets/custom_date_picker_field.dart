@@ -55,7 +55,6 @@ class _DatePickerFieldState extends State<DatePickerField> {
     if (pickedDate != null) {
       setState(() {
         // widget.controller.text = pickedDate.toLocal().toString();
-
         widget.controller.text = "${pickedDate.toLocal()}".split(' ')[0];
       });
     }

@@ -1,6 +1,6 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:utility/constant/constant_string.dart';
 import 'package:utility/utility.dart';
 
@@ -77,13 +77,11 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                   controller: widget.controller,
                   focusNode: _focusNode,
                   onChanged: widget.onChanged,
-                  decoration: InputDecoration(labelText: widget.labelText,
+                  decoration: InputDecoration(
+                    labelText: widget.labelText,
                     hintText: widget.labelText,
-                    suffixIcon: Icon(
-                      Icons.arrow_drop_down,
-                      color: Get.theme.primaryColor,
-                      size: 30
-                    ),
+                    suffixIcon: Icon(Icons.arrow_drop_down,
+                        color: Get.theme.primaryColor, size: 30),
                   )
                   /*style: const TextStyle(color: Colors.black, fontSize: 16),
                   decoration: customInputDecoration(
@@ -94,7 +92,8 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
                       color: Get.theme.primaryColor,
                       size: 30,
                     ),
-                  )*/),
+                  )*/
+                  ),
 
               validator: widget.validator ??
                   (widget.isValidate
@@ -133,7 +132,7 @@ class _DynamicDropDownState extends State<DynamicDropDown> {
               // hideKeyboardOnDrag: true,
             ),
           ),
-          _focusNode.hasFocus
+          _focusNode.hasFocus && widget.isSearchable
               ? const SizedBox(
                   height: 200,
                 )

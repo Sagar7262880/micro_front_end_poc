@@ -98,11 +98,14 @@ class DioService {
   }
 
   Future<Response> get(String url,
-      {Map<String, dynamic>? params, bool isShowLoading = true}) async {
+      {Map<String, dynamic>? params,
+      bool isShowLoading = true,
+      bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         res = await _dio!.get(url, queryParameters: params);
         if (isShowLoading) DialogBuilder.hideOpenDialog();
       } catch (e) {
@@ -122,11 +125,12 @@ class DioService {
   }
 
   Future<Response> post(String url,
-      {dynamic data, bool isShowLoading = true}) async {
+      {dynamic data, bool isShowLoading = true, bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         res = await _dio!.post(url, data: data);
         if (isShowLoading) DialogBuilder.hideOpenDialog();
       } catch (e) {
@@ -146,11 +150,12 @@ class DioService {
   }
 
   Future<Response> download(String url, String path,
-      {dynamic data, bool isShowLoading = true}) async {
+      {dynamic data, bool isShowLoading = true, bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         res = await _dio!.download(
           url,
           path,
@@ -174,11 +179,12 @@ class DioService {
   }
 
   Future<Response> delete(String url,
-      {dynamic data, bool isShowLoading = true}) async {
+      {dynamic data, bool isShowLoading = true, bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         res = await _dio!.delete(url, data: data);
         if (isShowLoading) DialogBuilder.hideOpenDialog();
       } catch (e) {
@@ -198,11 +204,12 @@ class DioService {
   }
 
   Future<Response> patch(String url,
-      {dynamic data, bool isShowLoading = true}) async {
+      {dynamic data, bool isShowLoading = true, bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         res = await _dio!.patch(url, data: data);
         if (isShowLoading) DialogBuilder.hideOpenDialog();
       } catch (e) {
@@ -222,11 +229,14 @@ class DioService {
   }
 
   Future<Response> postMultipart(String url, dynamic data,
-      {bool isContentTypeJson = false, bool isShowLoading = true}) async {
+      {bool isContentTypeJson = false,
+      bool isShowLoading = true,
+      bool onWillPop = true}) async {
     if (await Singleton.isOnline()) {
       Response? res;
       try {
-        if (isShowLoading) DialogBuilder.showLoadingIndicator(true);
+        if (isShowLoading)
+          DialogBuilder.showLoadingIndicator(onWillPop: onWillPop);
         if (!isContentTypeJson) {
           _dio!.options.headers["Content-Type"] = "multipart/form-data";
         }
