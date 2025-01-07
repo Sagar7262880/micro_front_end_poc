@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../constant/constant_color.dart';
 import '../theme/theme_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -23,7 +24,6 @@ class CustomContainerWidget extends StatelessWidget {
   final ThemeController themeController = Get.find<ThemeController>();
 
   final Color? backgroundColor;
-
   CustomContainerWidget({
     super.key,
     this.backgroundColor,
@@ -44,11 +44,12 @@ class CustomContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // Determine the background color dynamically
     final Color resolvedBackgroundColor = backgroundColor ??
         (themeController.currentColor.value == "dr"
-            ? Colors.grey[900]!
-            : Colors.white);
+            ? neutralBlack
+            : neutralWhite);
 
     return Skeletonizer(
       enabled: enableShimmer,

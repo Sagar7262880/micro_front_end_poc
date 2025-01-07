@@ -32,26 +32,18 @@ dynamic btnElevation(bgColor, frColor) {
 
 dynamic txtTheme(colors, double fontsize) {
   return TextTheme(
-    displayLarge: TextStyle(fontSize: fontsize,fontFamily: "Poppins"),
-    // Replaces headline1 // 32
-    displayMedium: TextStyle(fontSize: fontsize - 4,fontFamily: "Poppins"),
-    // Replaces headline2
-    displaySmall: TextStyle(fontSize: fontsize - 8,fontFamily: "Poppins"),
-    // Replaces headline3
-    titleLarge: TextStyle(fontSize: fontsize - 12,fontFamily: "Poppins"),
-    // Replaces headline4
-    titleMedium: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
-    // Replaces headline5
-    titleSmall: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
-    // Replaces headline6
-    bodyLarge: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
-    // Replaces bodyText1
-    bodyMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
-    // Replaces bodyText2
-    bodySmall: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
-    labelLarge: TextStyle(fontSize: fontsize - 18,fontFamily: "Poppins"),
-    labelMedium: TextStyle(fontSize: fontsize - 16,fontFamily: "Poppins"),
-    labelSmall: TextStyle(fontSize: fontsize - 14,fontFamily: "Poppins"),
+    displayLarge: TextStyle(fontSize: 32, fontFamily: "Poppins-Regular"), // Title 1
+    displayMedium: TextStyle(fontSize: 28, fontFamily: "Poppins-Regular"), // Title 2
+    displaySmall: TextStyle(fontSize: 24, fontFamily: "Poppins-Regular"), // Title 3
+    titleLarge: TextStyle(fontSize: 20, fontFamily: "Poppins-SemiBold"), // SemiBold 20px
+    titleMedium: TextStyle(fontSize: 18, fontFamily: "Poppins-SemiBold"), // SemiBold 18px
+    titleSmall: TextStyle(fontSize: 16, fontFamily: "Poppins-SemiBold"), // SemiBold 16px
+    bodyLarge: TextStyle(fontSize: 16, fontFamily: "Poppins-Medium"), // Medium 16px
+    bodyMedium: TextStyle(fontSize: 16, fontFamily: "Poppins-Regular"), // Regular 16px
+    bodySmall: TextStyle(fontSize: 14, fontFamily: "Poppins-Medium"), // Medium 14px
+    labelLarge: TextStyle(fontSize: 12, fontFamily: "Poppins-SemiBold"), // SemiBold 12px
+    labelMedium: TextStyle(fontSize: 12, fontFamily: "Poppins-Medium"), // Medium 12px
+    labelSmall: TextStyle(fontSize: 10, fontFamily: "Poppins-Regular"), // Caption
   );
 }
 

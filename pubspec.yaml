@@ -83,8 +83,19 @@ flutter:
     - assets/
     - assets/success.json
   fonts:
-    - family: Poppins
+    - family: Poppins-Regular
       fonts:
         - asset: assets/Poppins-Regular.ttf
+    - family: Poppins-Medium
+      fonts:
+        - asset: assets/Poppins-Medium.ttf
+    - family: Poppins-Bold
+      fonts:
+        - asset: assets/Poppins-Bold.ttf
+    - family: Poppins-SemiBold
+      fonts:
+        - asset: assets/Poppins-SemiBold.ttf
+
+
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 

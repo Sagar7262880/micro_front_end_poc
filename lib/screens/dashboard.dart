@@ -11,6 +11,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
   Future<bool> loadData() async {
     await Future.delayed(Duration(seconds: 5));
     return true;
@@ -35,63 +36,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            const CustomCircularImage(
-              imagePath: "assets/placeholder.jpg",
-              size: 45,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Text(
-                "Dashboard",
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            ),
-          ],
-        ),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // Your onPressed logic
-                  },
-                  borderRadius: BorderRadius.circular(20), // Optional: For circular ripple
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 2), // Adjust padding as needed
-                    child: Icon(
-                      Icons.qr_code_scanner_outlined,
-                      size: 25,
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    // Your onPressed logic
-                  },
-                  borderRadius: BorderRadius.circular(50),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 2), // Adjust padding as needed
-                    child: Icon(
-                      Icons.notifications_outlined,
-                      size: 30,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-
-
-        ],
-      ),
+      appBar:  CustomAppBar(title: "Dashboard"),
 
       body: SingleChildScrollView(
         child: Column(children: [
@@ -101,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 const CustomCircularImage(
                   imagePath: 'assets/coffee-break.gif',
-                  size: 70.0, // You can adjust the size as needed
+                  size: 44.0, // You can adjust the size as needed
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -111,21 +56,21 @@ class _DashboardState extends State<Dashboard> {
                       Row(
                         children: [
                           Text(
-                            "Good Morning,",
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 24),
-                          ),
+                              "Good Morning,",
+                              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                  color: Theme.of(context).primaryColor,
+                              )),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               "Abhijit",
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
+                              style: Theme.of(context).textTheme.bodyMedium)
                           )
                         ],
                       ),
-                      Text("13 Firday, 2023")
+                      Text("13 Firday, 2023",style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: textGray
+                      ))
                     ],
                   ),
                 )
@@ -157,32 +102,42 @@ class _DashboardState extends State<Dashboard> {
           // Pia Chart Widget
           CustomContainerWidget(
             enableShimmer: !isDataLoaded,
-            paddingTop: 5,
+            paddingTop: 8,
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Dashboard",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                const CustomPieChartWidget(
-                  pieData: [30, 20, 25, 15, 10], // Data for the pie chart
-                  indicators: [
-                    'Weekly Off',
-                    'Present',
-                    'Absent',
-                    'Leave',
-                    'Holiday'
-                  ], // Corresponding labels
-                  colors: [
-                    Colors.purple,
-                    Colors.green,
-                    Colors.red,
-                    Colors.blue,
-                    Colors.orange,
-                  ], // Colors for each section
-                ),
+            CustomPieChartWidget(
+              pieData: [30, 20, 25, 15, 10], // Data for the pie chart
+              // pieData: [0, 0, 0, 0, 10], // Uncomment if needed for testing
+              indicators: [
+                'Weekly Off',
+                'Present',
+                'Absent',
+                'Leave',
+                'Holiday'
+              ], // Corresponding labels
+              colors: !isDataLoaded
+                  ? [
+                Colors.grey[300]!, // Default shimmer colors
+                Colors.grey[350]!,
+                Colors.grey[400]!,
+                Colors.grey[300]!,
+                Colors.grey[350]!,
+              ]
+                  : [
+                Colors.purple,
+                Colors.green,
+                Colors.red,
+                Colors.blue,
+                Colors.orange,
+              ], // Colors for each section when data is loaded
+            ),
+
               ],
             ),
           ),
@@ -196,7 +151,7 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 Text(
                   "My Leave Summary",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 SizedBox(
                   height: 130,
@@ -229,7 +184,7 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 Text(
                   "Event List",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 ListView.builder(
                   shrinkWrap: true,
@@ -298,9 +253,8 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 Text(
                   "Birthday & Anniversary",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium,
+
                 ),
                 const SizedBox(
                   height: 15,
@@ -395,9 +349,8 @@ class _DashboardState extends State<Dashboard> {
                 // Title
                 Text(
                   "Today's Birthday",
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium
+
                 ),
                 const SizedBox(height: 10),
 

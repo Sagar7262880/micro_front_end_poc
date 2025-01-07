@@ -50,3 +50,4 @@ export 'package:utility/theme/theme_controller.dart';
 export 'package:utility/theme/theme_values.dart';
 export 'package:utility/constant/constant_color.dart';
 export 'package:utility/constant/constant_string.dart';
+export 'package:utility/widgets/custom_appbar.dart';
